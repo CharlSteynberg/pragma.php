@@ -1,0 +1,45 @@
+
+   ({'text/css':
+   [
+   // icon class properties
+   // -----------------------------------------------------------------------------------
+      {'[class^="icon-"], [class*=" icon-"]':
+      {
+         font-family:glyphs;
+         font-weight: normal;
+         font-style: normal;
+         text-decoration: inherit;
+         padding:0.3em;
+         -webkit-font-smoothing: antialiased;
+      }},
+
+      {'[class^="icon-"]:before, [class*=" icon-"]:before':
+      { speak: none; }},
+   // -----------------------------------------------------------------------------------
+
+   // ico class properties
+   // -----------------------------------------------------------------------------------
+      {'[class^="ico-"], [class*=" ico-"]':
+      {
+         font-family:glyphs;
+         font-weight: normal;
+         font-style: normal;
+         text-decoration: inherit;
+         padding:0.3em;
+         -webkit-font-smoothing: antialiased;
+      }},
+
+      {'[class^="ico-"]:before, [class*=" ico-"]:before':
+      { speak: none; }},
+   // -----------------------------------------------------------------------------------
+
+
+   // build larger css data from json (works faster)
+   // -----------------------------------------------------------------------------------
+      with
+      ({
+         basis:'/cfg/glyphs.json',
+         yield:{('.icon-'+key+':before'):{ content:('"\\'+value+'"')}}
+      }),
+   // -----------------------------------------------------------------------------------
+   ]})

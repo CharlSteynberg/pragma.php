@@ -1,0 +1,101 @@
+
+   ({'text/css':
+   [
+   // size em
+   // -----------------------------------------------------
+      with
+      ({
+         basis: for(bs=0; bs<21;  bs++);
+         adapt: {fs:(bs + 1.5 * 0.5 + 'em')};
+         yield:
+         [
+            {('.size-'+bs):{font-size:(fs); line-height:1}},
+
+            {('.size-all-'+bs):{width:(fs); height:(fs);}},
+            {('.size-hrz-'+bs):{width:(fs)}},
+            {('.size-vrt-'+bs):{height:(fs)}},
+
+            {('.mrgn-all-'+bs):{margin:(fs)}},
+            {('.mrgn-hrz-'+bs):{margin-left:(fs), margin-right:(fs)}},
+            {('.mrgn-vrt-'+bs):{margin-top:(fs), margin-bottom:(fs)}},
+            {('.mrgn-top-'+bs):{margin-top:(fs)}},
+            {('.mrgn-btm-'+bs):{margin-bottom:(fs)}},
+            {('.mrgn-lft-'+bs):{margin-left:(fs)}},
+            {('.mrgn-rgt-'+bs):{margin-right:(fs)}},
+
+            {('.padn-all-'+bs):{padding:(fs)}},
+            {('.padn-hrz-'+bs):{padding-left:(fs), padding-right:(fs)}},
+            {('.padn-vrt-'+bs):{padding-top:(fs), padding-bottom:(fs)}},
+            {('.padn-top-'+bs):{padding-top:(fs)}},
+            {('.padn-btm-'+bs):{padding-bottom:(fs)}},
+            {('.padn-lft-'+bs):{padding-left:(fs)}},
+            {('.padn-rgt-'+bs):{padding-right:(fs)}},
+         ]
+      }),
+   // -----------------------------------------------------
+
+
+   // span %
+   // -----------------------------------------------------
+      with
+      ({
+         basis: for(spn=1;  spn<21;  spn++);
+         adapt: {num:(spn), prc:(spn * 5 + '%')};
+         yield:
+         [
+            {('.span-all-'+num):{width:(prc), height:(prc)}},
+            {('.span-hrz-'+num):{width:(prc)}},
+            {('.span-vrt-'+num):{height:(prc)}},
+         ]
+      }),
+   // -----------------------------------------------------
+
+
+   // alignment
+   // -----------------------------------------------------
+      {'.text-cntr':{text-align:center}},
+      {'.text-midl':{vertical-align:middle}},
+      {'.text-left':{text-align:left}},
+      {'.text-rigt':{text-align:right}},
+   // -----------------------------------------------------
+
+
+   // in-line
+   // -----------------------------------------------------
+      {'.float':
+      {
+         float:left;
+      }},
+   // -----------------------------------------------------
+
+
+   // own-line
+   // -----------------------------------------------------
+      {'.block':
+      {
+         display:block;
+      }},
+   // -----------------------------------------------------
+
+
+   // scrolling
+   // -----------------------------------------------------
+      {'.scrl':
+      {
+         overflow:auto;
+      }},
+
+      {'::-webkit-scrollbar':{width: 10px}},
+
+      {'::-webkit-scrollbar-track':
+      {
+         background:'hsla(0,0%,20%,0.95)';
+      }},
+
+      {'::-webkit-scrollbar-thumb':
+      {
+         border-radius: 5px;
+         background:'hsla(0,0%,60%,0.95)';
+      }},
+   // -----------------------------------------------------
+   ]})

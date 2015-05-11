@@ -1,0 +1,114 @@
+
+   ({'text/html':
+   [
+   // head :: settings area
+   // -----------------------------------------------------------------------------------
+      {head:
+      [
+      // essentials :: mobile first, favicon, title
+      // --------------------------------------------------------------------------------
+         {meta:'', charset:'utf-8'},
+         {meta:'', http-equiv:'X-UA-Compatible', content:'IE=edge'},
+         {meta:'', name:'viewport', content:'width=device-width, initial-scale=1'},
+         {meta:'', name:'viewport', content:'width=device-width, initial-scale=1'},
+
+         {link:'', rel:'icon', href:'favicon.ico', type:'image/x-icon'},
+
+         {title:'pragma.php'},
+      // --------------------------------------------------------------------------------
+
+
+      // style :: auto load gui boot styles from pub/css/boot dir
+      // --------------------------------------------------------------------------------
+         with
+         ({
+            basis:'/css/boot/';
+            yield:{style:('#css-' + key - '.jsam'), src:('/css/boot/' + key)};
+         }),
+      // --------------------------------------------------------------------------------
+
+
+      // script :: auto load gui boot scripts from pub/lib/boot dir
+      // --------------------------------------------------------------------------------
+         with
+         ({
+            basis:'/lib/boot/';
+            fetch:{key:file};
+            yield:{script:('/lib/boot/' + file)};
+         }),
+      // --------------------------------------------------------------------------------
+
+
+      // preServe :: add boot apps head parts
+      // --------------------------------------------------------------------------------
+         with
+         ({
+            basis:'cfg/server/_init.json';
+            fetch:{key:nme, value:list};
+            where:(nme == 'preServe');
+            yield:with
+            ({
+               basis:(list);
+               fetch:{value:app};
+               yield:with
+               ({
+                  basis:('cfg/'+app+'/boot.jsam');
+                  where:(key == 'head');
+                  yield:(value);
+               })
+            })
+         })
+      // --------------------------------------------------------------------------------
+      ]},
+   // -----------------------------------------------------------------------------------
+
+
+
+   // stage :: visible area
+   // -----------------------------------------------------------------------------------
+      {body:'#stage', src:
+      [
+      // preServe :: add boot apps body parts
+      // --------------------------------------------------------------------------------
+         with
+         ({
+            basis:'cfg/server/_init.json';
+            fetch:{key:nme, value:list};
+            where:(nme == 'preServe');
+            yield:with
+            ({
+               basis:(list);
+               fetch:{value:app};
+               yield:with
+               ({
+                  basis:('cfg/'+app+'/boot.jsam');
+                  where:(key == 'body');
+                  yield:(value);
+               })
+            })
+         }),
+      // --------------------------------------------------------------------------------
+
+
+      // noscript :: notice-fail if javascript is disabled
+      // --------------------------------------------------------------------------------
+         {noscript:
+         [
+            {div:'.page', src:
+            [
+               {notice:'fail', src:
+               `  <b>JavaScript is required.</b><br>
+                  Please enable Javascript and hit refresh.
+               `}
+            ]}
+         ]},
+      // --------------------------------------------------------------------------------
+
+
+      // page :: requested document in page
+      // --------------------------------------------------------------------------------
+         {div:'.page', src:(reqPth)},
+      // --------------------------------------------------------------------------------
+      ]}
+   // -----------------------------------------------------------------------------------
+   ]});

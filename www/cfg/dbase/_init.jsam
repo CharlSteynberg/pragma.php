@@ -1,0 +1,33 @@
+
+   ({
+      sources:
+      {
+         testDB:
+         {
+            host:'localhost',
+            user:'root',
+            pass:'v0rt3x',
+            base:'mema_tools',
+         },
+
+         liveDB:
+         {
+            host:'sql14.cpt1.host-h.net',
+            user:'memaTlsUsr',
+            pass:'0rB1tr@n',
+            base:'mema_tools',
+         },
+
+         fakeDB:
+         {
+            host:'localhost',
+            user:'root',
+            pass:'v0rt3x',
+            base:'fakeDB',
+         },
+
+         auto: ($mode+'DB'),
+      },
+
+      noLimit:500,
+   })

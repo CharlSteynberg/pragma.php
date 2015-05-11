@@ -1,0 +1,73 @@
+
+   ({
+      head:
+      [
+         switch
+         ([{
+            where: ($mode == 'test');
+            yield:
+            [
+               {script:'sys/client/devHelp.js'},
+               {style:'', 'text/css':
+               {
+                  '#devHud':
+                  {
+                     position:fixed;
+                     z-index:99999;
+                     top:0px;
+                     left:0px;
+                     width:70%;
+                     height:100%;
+                     background:'hsla(0,0%,10%,0.95)';
+                     box-shadow:'0em 0em 3em rgba(0,0,0,0.8)';
+                     border-right:'1px solid #333';
+                     color:#AAA;
+                     display:none;
+                  }
+               }}
+            ]
+         }])
+      ];
+
+      body:
+      [
+         switch
+         ([{
+            where: ($mode == 'test');
+            yield:
+            [
+               {div:'#devHud', status:'off', src:
+               [
+                  {table:'.span-all-20', src:
+                  [
+                     {tr:'.span-all-20', src:
+                     [
+                        {td:'.span-hrz-1', src:''},
+
+                        {td:'', src:
+                        [
+                           {div:'.span-all-20 .scrl', src:
+                           [
+                              with
+                              ({
+                                 basis:'/cfg/glyphs.json',
+                                 yield:
+                                 [
+                                    {div:'.size-hrz-12 .size-vrt-6 .mrgn-all-0 .float .text-cntr', src:
+                                    [
+                                       {icon:(key), class:'block size-2', src:''},
+                                       {span:'.size-0', src:(key)},
+                                    ]}
+                                 ];
+                              })
+                           ]}
+                        ]},
+
+                        {td:'.span-hrz-1', src:''},
+                     ]}
+                  ]}
+               ]}
+            ];
+         }])
+      ]
+   })

@@ -1,0 +1,19 @@
+
+   ({'text/css':with
+   ({
+      basis:for(fnt=10, rsl=320; fnt<29; fnt++, rsl+=160),
+      yield:
+      {
+         ('@media all and (orientation: landscape) and (min-width: '+rsl+'px)'):
+         {
+            body:
+            {font-size:(fnt+'px')}
+         },
+
+         ('@media all and (orientation: portrait) and (min-height: '+rsl+'px)'):
+         {
+            body:
+            {font-size:(fnt+'px')}
+         }
+      }
+   })})

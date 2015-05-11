@@ -1,0 +1,7 @@
+
+   {
+      "denyExtn":["php", "js"],
+      "altrExtn":{"html":"jsam", "htm":"jsam", "php":"jsam"},
+      "noGuiFor":["robots.jsam", "favicon.ico"],
+      "preServe":["trap", "ctex", "client"]
+   }

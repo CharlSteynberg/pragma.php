@@ -1,0 +1,129 @@
+
+   ({'text/css':
+   {
+      html:
+      { height:100%; },
+
+      body:
+      {
+         margin:0;
+         font-family:'Arial, Helvitica, Sans';
+         font-size:10px;
+         background:'url(/img/tex/floor.jpg)';
+         color:#777;
+      },
+
+      h1:
+      {
+         font-family:'novec';
+         font-size:2.4em;
+         font-weight: normal;
+         font-style: normal;
+         margin:0;
+         margin-bottom:0.5em;
+         color:#BBB;
+      },
+
+      h2:
+      {
+         font-family:'gotham';
+         font-size:1.8em;
+         font-weight: normal;
+         font-style: normal;
+         margin:0;
+         margin-bottom:0.5em;
+      },
+
+      h3:
+      {
+         font-family:'gotham';
+         font-size:1.5em;
+         font-weight: normal;
+         font-style: normal;
+         margin:0;
+         margin-bottom:0.2em;
+      },
+
+      h4:
+      {
+         font-family:'gotham';
+         font-weight: normal;
+         font-style: normal;
+         font-size:1.1em;
+         margin:0;
+         margin-bottom:0.2em;
+      },
+
+      h5:
+      {
+         font-family:'android';
+         font-size:1em;
+         font-weight:normal;
+         margin:0;
+         margin-bottom:0.2em;
+      },
+
+      p:
+      {
+         font-family:'android';
+         font-size:1em;
+         font-weight:normal;
+      },
+
+      span:
+      {
+         font-family:'android';
+         font-size:1em;
+         font-weight:normal;
+      },
+
+      pre:
+      {
+         font-family:'monos';
+         font-size:0.7em;
+         font-weight:normal;
+      },
+
+      hr:
+      {
+         border: 0;
+         height: 1px;
+         border-bottom:'1px solid #ddd';
+         width:50%;
+         margin-bottom:1em;
+      },
+
+      table:
+      {
+         border-style:none;
+         border-width:0px;
+      },
+
+      input:
+      {
+         font-family:'android';
+         font-size:1.2em;
+         line-height:1.2em;
+         padding:0.3em;
+         background:#fff;
+         border:'0.1em solid #aaa';
+         border-radius:0.2em;
+         width:100%;
+         min-width:50px;
+         margin:0.5em;
+      },
+
+      button:
+      {
+         font-family:'android';
+         font-size:1.2em;
+         line-height:1.2em;
+         padding:0.3em;
+         width:50%;
+         max-width:200px;
+         min-width:50px;
+         margin:0.5em;
+         margin-right:'-1.2em';
+         box-shadow:'0px 0px 0.2em rgba(0,0,0,0.2)';
+      },
+   }})

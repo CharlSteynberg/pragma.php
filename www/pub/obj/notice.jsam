@@ -1,0 +1,24 @@
+
+   ({'text/html':
+   [
+      {table:'.span-all-20', src:
+      [
+         {tr:
+         [
+            {td:'.size-1 .size-all-0 .padn-all-0', src:
+            [
+               {icon:('ntc-'+ntcType)}
+            ]},
+
+            {td:'.text-left .text-midl', src:(ntcMesg)},
+
+            {td:'.size-all-2 .crop', src:
+            [
+               {div:'.ntce-x', onclick:'this.parentNode.parentNode.parentNode.parentNode.parentNode.style.display = \'none\'', src:
+               [
+                  {icon:'remove_2'}
+               ]}
+            ]},
+         ]}
+      ]}
+   ]})

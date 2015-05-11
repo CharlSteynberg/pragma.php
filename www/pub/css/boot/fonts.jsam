@@ -1,0 +1,12 @@
+
+   ({'text/css':with
+   ({
+      basis:'/fnt/',
+      yield:{'@font-face':
+      {
+         font-family: (key - '.woff');
+         src: ('url(/fnt/'+ key +')');
+         font-weight: normal;
+         font-style: normal;
+      }}
+   })})

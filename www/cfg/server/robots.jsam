@@ -1,0 +1,25 @@
+
+   ({'text/plain+bot':
+   [
+      {User-agent:'*'},
+
+      with
+      ({
+         basis:
+         [
+            'Contacts',
+            'Forum',
+            'Guestbook',
+            'Comments',
+            'Journal',
+            'Friends',
+            'Family',
+            'Colleagues',
+            'Accounts',
+            'Attendees'
+         ],
+
+         yield:{Disallow:('/'+value+'.php')}
+      })
+
+   ]})
