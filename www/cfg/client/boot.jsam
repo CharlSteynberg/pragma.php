@@ -16,14 +16,38 @@
                      z-index:99999;
                      top:0px;
                      left:0px;
-                     width:70%;
+                     width:60%;
                      height:100%;
-                     background:'hsla(0,0%,10%,0.95)';
+                     background:'hsla(0,0%,10%,0.96)';
                      box-shadow:'0em 0em 3em rgba(0,0,0,0.8)';
-                     border-right:'1px solid #333';
                      color:#AAA;
                      display:none;
-                  }
+                  },
+
+                  '.hudSep':
+                  {
+                     border-right:'3px solid #333';
+                  },
+
+                  '#devC2JTxt':
+                  {
+                     background:transparent;
+                     border:'2px solid #555';
+                     font-family:'monos';
+                     font-size:9px;
+                     color:#aaa;
+                  },
+
+                  '.devHudBtn':
+                  {
+                     border:'2px solid #555';
+                     cursor:pointer;
+                     border-radius:0.3em;
+                     padding:0.5em;
+                     margin:0.5em;
+                     text-align:center;
+                     max-width:3em;
+                  },
                }}
             ]
          }])
@@ -36,35 +60,45 @@
             where: ($mode == 'test');
             yield:
             [
-               {div:'#devHud', status:'off', src:
+               {div:'#devHud .hudSep', status:'off', src:
                [
-                  {table:'.span-all-20', src:
+                  {div:'#devHudMnu .flow .span-vrt-24 .span-hrz-3 .text-cnt .hudSep', src:
                   [
-                     {tr:'.span-all-20', src:
+                     {div:'#devMnuIco .devHudBtn', onclick:'devHud.togl(\'devIcoBox\')', src:'ico'},
+                     {div:'#devMnuC2J .devHudBtn', onclick:'devHud.togl(\'devC2JBox\')', src:'c2j'},
+                  ]},
+
+                  {div:'#devHudStg .flow .span-vrt-24 .span-hrz-20 .scrl', src:
+                  [
+                     {div:'#devIcoBox .span-all-24 .hide', src:
                      [
-                        {td:'.span-hrz-1', src:''},
-
-                        {td:'', src:
-                        [
-                           {div:'.span-all-20 .scrl', src:
+                        with
+                        ({
+                           basis:'/cfg/icons.json',
+                           yield:
                            [
-                              with
-                              ({
-                                 basis:'/cfg/glyphs.json',
-                                 yield:
-                                 [
-                                    {div:'.size-hrz-12 .size-vrt-6 .mrgn-all-0 .float .text-cntr', src:
-                                    [
-                                       {icon:(key), class:'block size-2', src:''},
-                                       {span:'.size-0', src:(key)},
-                                    ]}
-                                 ];
-                              })
-                           ]}
-                        ]},
+                              {div:'.size-hrz-12 .size-vrt-6 .mrgn-all-0 .flow .text-cnt', src:
+                              [
+                                 {icon:(key+' .size-2')},
+                                 {text:'.size-1 .wrap', src:(key)},
+                              ]}
+                           ];
+                        })
+                     ]},
 
-                        {td:'.span-hrz-1', src:''},
-                     ]}
+                     {div:'#devC2JBox .span-all-24 .hide', src:
+                     [
+                        {p:'.size-1 .mrgn-lft-2', src:
+                        `
+                           1 Copy the CSS code you want converted and paste it here.<br>
+                           2 Hit "convert"<br>
+                           3 Copy the converted text.
+                        `},
+
+                        {textarea:'#devC2JTxt .block .span-vrt-8 .span-hrz-22 .mrgn-lft-2'},
+
+                        {div:'.devHudBtn .pull-rgt .mrgn-rgt-2', onclick:'devHud.css2jsn(\'devC2JTxt\')', src:'c2j'},
+                     ]},
                   ]}
                ]}
             ];

@@ -1,0 +1,21 @@
+
+   ({'text/html':
+   [
+      {h4:(this.$title || this.title)},
+
+      switch
+      ([
+         {
+            where:(this.type == 'text');
+            yield:{p:(this.src)}
+         },
+         {
+            where:(this.type == 'code');
+            yield:{pre:(this.src)}
+         },
+         {
+            where:(this.type == null);
+            yield:{div:(this.src)}
+         },
+      ])
+   ]})

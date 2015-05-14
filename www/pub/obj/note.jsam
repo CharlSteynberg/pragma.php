@@ -1,0 +1,24 @@
+
+   ({'text/html':
+   [
+      {grid:'.span-all-24', src:
+      [
+         {row:
+         [
+            {col:'.size-2 .size-all-1 .padn-lft-1 .text-mdl', src:
+            [
+               {icon:('ntc-'+this.type)}
+            ]},
+
+            {col:'.text-left .padn-top-2 .padn-btm-2 .padn-lft-1 .padn-rgt-2 .text-midl', src:(this.src)},
+
+            {col:'.size-all-2 .crop', src:
+            [
+               {div:'.ntce-x', onclick:'this.parentNode.parentNode.parentNode.parentNode.parentNode.style.display = \'none\'', src:
+               [
+                  {icon:'close-4 .size-2'}
+               ]}
+            ]},
+         ]}
+      ]}
+   ]})

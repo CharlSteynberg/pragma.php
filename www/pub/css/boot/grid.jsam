@@ -1,0 +1,163 @@
+
+   ({'text/css':
+   [
+   // base em size
+   // -----------------------------------------------------------------
+      with
+      ({
+         basis:for(fnt=10, rsl=320; fnt<29; fnt++, rsl+=160),
+         yield:
+         {
+            ('@media all and (orientation: landscape) and (min-width: '+rsl+'px)'):
+            {
+               body:
+               {font-size:(fnt+'px')}
+            },
+
+            ('@media all and (orientation: portrait) and (min-height: '+rsl+'px)'):
+            {
+               body:
+               {font-size:(fnt+'px')}
+            }
+         }
+      }),
+   // -----------------------------------------------------------------
+
+
+   // spacing
+   // -----------------------------------------------------------------
+      with
+      ({
+         basis: for(bs=0; bs<25;  bs++);
+         adapt: {fs:(bs * 0.7 + 'em !important')};
+         yield:
+         [
+         // size
+         // -----------------------------------------------------------
+            {('.size-'+bs):{font-size:(fs); line-height:1}},
+
+            {('.size-all-'+bs):{width:(fs); height:(fs);}},
+            {('.size-hrz-'+bs):{width:(fs)}},
+            {('.size-vrt-'+bs):{height:(fs)}},
+         // -----------------------------------------------------------
+
+         // margin
+         // -----------------------------------------------------------
+            {('.mrgn-all-'+bs):{margin:(fs)}},
+            {('.mrgn-hrz-'+bs):{margin-left:(fs), margin-right:(fs)}},
+            {('.mrgn-vrt-'+bs):{margin-top:(fs), margin-bottom:(fs)}},
+            {('.mrgn-top-'+bs):{margin-top:(fs)}},
+            {('.mrgn-btm-'+bs):{margin-bottom:(fs)}},
+            {('.mrgn-lft-'+bs):{margin-left:(fs)}},
+            {('.mrgn-rgt-'+bs):{margin-right:(fs)}},
+         // -----------------------------------------------------------
+
+         // padding
+         // -----------------------------------------------------------
+            {('.padn-all-'+bs):{padding:(fs)}},
+            {('.padn-hrz-'+bs):{padding-left:(fs), padding-right:(fs)}},
+            {('.padn-vrt-'+bs):{padding-top:(fs), padding-bottom:(fs)}},
+            {('.padn-top-'+bs):{padding-top:(fs)}},
+            {('.padn-btm-'+bs):{padding-bottom:(fs)}},
+            {('.padn-lft-'+bs):{padding-left:(fs)}},
+            {('.padn-rgt-'+bs):{padding-right:(fs)}},
+         // -----------------------------------------------------------
+         ]
+      }),
+   // -----------------------------------------------------------------
+
+
+   // span %
+   // -----------------------------------------------------------------
+      with
+      ({
+         basis: for(spn=0;  spn<25;  spn++);
+         adapt: {num:(spn), prc:(spn * 4.1666666666667 + '% !important')};
+         yield:
+         [
+            {('.span-all-'+num):{width:(prc), height:(prc)}},
+            {('.span-hrz-'+num):{width:(prc)}},
+            {('.span-vrt-'+num):{height:(prc)}},
+         ]
+      }),
+   // -----------------------------------------------------------------
+
+
+   // grid :: table, row, col
+   // -----------------------------------------------------------------
+      {tbody:
+      {
+         border-spacing:0px;
+         padding:0px;
+      }},
+
+      {'.grid':
+      {
+         border-spacing:0px;
+         border-collapse:collapse;
+      }},
+
+      {'.row':
+      {
+         padding:0px;
+      }},
+
+      {'.col':
+      {
+         text-align:left;
+         vertical-align:top;
+         padding:0px;
+      }},
+   // -----------------------------------------------------------------
+
+
+   // alignment
+   // -----------------------------------------------------------------
+      {'.text-cnt':{text-align:'center !important'}},
+      {'.text-mdl':{vertical-align:'middle !important'}},
+      {'.text-top':{vertical-align:'top !important'}},
+      {'.text-btm':{vertical-align:'bottom !important'}},
+      {'.text-lft':{text-align:'left !important'}},
+      {'.text-rgt':{text-align:'right !important'}},
+
+      {'.pull-cnt':{margin:auto}},
+      {'.pull-lft':{float:left}},
+      {'.pull-rgt':{float:right}},
+   // -----------------------------------------------------------------
+
+
+   // own-line
+   // -----------------------------------------------------------------
+      {'.wrap':{display:'block'}},
+   // -----------------------------------------------------------------
+
+
+   // hidden
+   // -----------------------------------------------------------------
+      {'.hide':{display:none}},
+   // -----------------------------------------------------------------
+
+
+   // visible
+   // -----------------------------------------------------------------
+      {'.show':{display:initial}},
+   // -----------------------------------------------------------------
+
+
+   // in-line
+   // -----------------------------------------------------------------
+      {'.flow':{float:left}},
+   // -----------------------------------------------------------------
+
+
+   // crop: no overflow
+   // -----------------------------------------------------
+      {'.crop':{overflow:hidden}},
+   // -----------------------------------------------------
+
+
+   // click: interactive
+   // -----------------------------------------------------
+      {'.click':{cursor:pointer}},
+   // -----------------------------------------------------
+   ]})

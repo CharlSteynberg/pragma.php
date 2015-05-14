@@ -66,13 +66,13 @@
             $ref = str_replace(':before', '', $ref);
             $ref = str_replace(':after', '', $ref);
 
-            $vrs->_cssRef->$ref = $atr;
+            $vrs->{'$CSS'}->$ref = $atr;
          }
 
          if (typeOf($atr) === str)
          {
             $ref = trim($atr, '.');
-            $atr = map::get($vrs->_cssRef, $ref);
+            $atr = map::get($vrs->{'$CSS'}, $ref);
 
             if (!$atr)
             { throw new Exception('css class "'.$ref.'" is undefined'); }
@@ -167,8 +167,8 @@
 
       $nlc = (($cfg->minified === false) ? "\n" : '');
 
-      if (!isset($vrs->_cssRef))
-      { $vrs->_cssRef = new obj(); }
+      if (!isset($vrs->{'$CSS'}))
+      { $vrs->{'$CSS'} = new obj(); }
 
       return _build_text_css($dfn, 1, $cfg, $vrs);
    });

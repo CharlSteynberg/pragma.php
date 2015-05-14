@@ -3,5 +3,5 @@
       "/"                     :  "pub/doc/client/home.jsam",
       "/robots.txt"           :  "cfg/server/robots.jsam",
       "/favicon.ico"          :  "pub/img/ico/favicon.ico",
-      "/doc/client/boot.jsam" :  "pub/doc/client/home.jsam"
+      "/doc/client/basis.jsam":  "pub/doc/client/home.jsam"
    }

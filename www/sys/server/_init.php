@@ -28,7 +28,7 @@
       $cfg = server::get('conf');
       $rts = $cfg->routes;
       $vrs = $req->vrs;
-      $gui = 'pub/doc/client/boot.jsam';
+      $gui = 'pub/doc/client/basis.jsam';
       $msg = 'pub/doc/server/message.jsam';
    // -----------------------------------------------------------------------------------
 

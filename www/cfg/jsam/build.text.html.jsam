@@ -24,11 +24,22 @@
    // custom nodes
    // ----------------------------------------------------------------------------
       cstNodes : {
-                     ico   :  {tag:'i',   pre:'icon-'},
-                     icon  :  {tag:'i',   pre:'icon-'},
-                     image :  {tag:'img', pre:null},
-                     notice:  {tag:'div', pre:'notice-', atr:[{ntcType:type}, {ntcMesg:src}], src:'pub/obj/notice.jsam'},
-                     // page  :  {tag:'div', pre:'page',    atr:['type', 'title', 'icon'], src:'pub/obj/page.jsam'},
+                     ico   :  {tag:'i',   tpe:1},
+                     icon  :  {tag:'i',   tpe:1},
+                     text  :  {tag:'span'},
+                     box   :  {tag:'div'},
+
+                     grid  :  {tag:'table'},
+                     row   :  {tag:'tr'},
+                     col   :  {tag:'td'},
+
+                     note  :  {tag:'div', tpe:1},
+                     page  :  {tag:'div'},
+                     sect  :  {tag:'div'},
+                     block :  {tag:'div', tpe:1},
+                     butn  :  {tag:'div', tpe:1},
+                     drop  :  {tag:'div', tpe:1},
+                     item  :  {tag:'div', tpe:1},
                      // gauge :  {tag:'div', pre:'gauge',   atr:['type', 'title']},
                  },
    // ----------------------------------------------------------------------------
@@ -37,9 +48,6 @@
    // auto-assign attributes according to the given node name
    // ----------------------------------------------------------------------------
       autoAttr : {
-                     table  :  {cellpadding:0, cellspacing:0},
-                     img    :  {alt:'image'},
-                     td     :  {align:'left', valign:'top'},
                  },
    // ----------------------------------------------------------------------------
 
@@ -47,7 +55,6 @@
    // custom attributes
    // ----------------------------------------------------------------------------
       cstAttrs : {
-                     size  :  {width:0, height:1, style:{width:0, height:1}},
                  },
    // ----------------------------------------------------------------------------
 

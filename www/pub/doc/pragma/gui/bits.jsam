@@ -1,0 +1,99 @@
+
+   ({'text/html':
+   [
+   // Styled Elements
+   // -----------------------------------------------------------------------------------
+      {page:'', $title:'Styled Elements', leafTtl:'pragma gui', leafSub:'documentation', src:
+      [
+      // Notes
+      // --------------------------------------------------------------------------------
+         {sect:'', $title:'Notes', src:
+         [
+         // info
+         // -----------------------------------------------------------------------------
+            {block:'text', $title:'Info', src:
+            `
+               Notes are used to inform users about events.<br>
+               They are color-coded and have accociated icons to better represent
+               the type of note.
+               <br><br>
+               The colors and icons are done automatically as configured.
+            `},
+         // -----------------------------------------------------------------------------
+
+
+         // code
+         // -----------------------------------------------------------------------------
+            {block:'code', $title:'Coding', src:
+            `
+               {note:"good", src:"Well Done!"}
+
+               // {note:"info", src:"For your peace of mind."},
+               // {note:"need", src:"Remember to email the boss."},
+               // {note:"warn", src:"Drinking and coding is a bad idea!"},
+               // {note:"risk", src:"Aww dang, now look what you did."},
+            `},
+         // -----------------------------------------------------------------------------
+
+
+         // examples
+         // -----------------------------------------------------------------------------
+            {block:'', $title:'Examples', src:
+            [
+               {note:"good", src:"Well Done!"},
+               {note:"info", src:"For your peace of mind."},
+               {note:"need", src:"Remember to email the boss."},
+               {note:"warn", src:"Drinking and coding is a bad idea!"},
+               {note:"risk", src:"Aww dang, now look what you did."},
+            ]},
+         // -----------------------------------------------------------------------------
+         ]},
+      // --------------------------------------------------------------------------------
+
+
+
+      // Buttons
+      // --------------------------------------------------------------------------------
+         {sect:'', $title:'Buttons', src:
+         [
+         // info
+         // -----------------------------------------------------------------------------
+            {block:'text', $title:'Info', src:
+            `
+               Buttons are styled to be functional and attractive.<br>
+            `},
+         // -----------------------------------------------------------------------------
+
+
+         // code
+         // -----------------------------------------------------------------------------
+            {block:'code', $title:'Coding', src:
+            `
+               {butn:"", src:"submit"},
+               {butn:"good", src:"agree"},
+
+               // {butn:"info", src:"continue"},
+               // {butn:"need", src:"enquire"},
+               // {butn:"warn", src:"careful"},
+               // {butn:"risk", src:"danger"},
+            `},
+         // -----------------------------------------------------------------------------
+
+
+         // examples
+         // -----------------------------------------------------------------------------
+            {block:'', $title:'Examples', src:
+            [
+               {butn:"", src:"submit"},
+               {butn:"good", src:"agree"},
+               {butn:"info", src:"continue"},
+               {butn:"need", src:"enquire"},
+               {butn:"warn", src:"careful"},
+               {butn:"risk", src:"danger"},
+            ]},
+         // -----------------------------------------------------------------------------
+         ]},
+      // --------------------------------------------------------------------------------
+      ]}
+   // -----------------------------------------------------------------------------------
+   ]})

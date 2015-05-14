@@ -1,19 +1,22 @@
 
    ({'text/html':
    [
-   // major heading
+   // page
    // -----------------------------------------------------------------------------------
-      {h1:'.press-hard', src:'Home Page'},
-   // -----------------------------------------------------------------------------------
-
-   // section heading
-   // -----------------------------------------------------------------------------------
-      {h3:'Welcome!'},
-      {hr:'', align:left},
-      {p:'Enjoy your visit.'},
-
-      {icon:'dino .size-6'},
-
-      {hr:'', align:left},
+      {page:'', title:'Welcome Home', src:
+      [
+         {h3:'Baby Cakes!!'},
+      //    {p:'Enjoy your visit.'},
+      //
+      //    {icon:'warning'},
+      //
+          {note:'good', src:'Well Done !!!'},
+      //    {notice:'info', src:'Well Done !!!'},
+      //    {notice:'warn', src:'Well Done !!!'},
+      //    {notice:'fail', src:'Well Done !!!'},
+      //    {notice:'prpl', src:'Well Done !!!'},
+      //
+      //    {hr:'', align:left},
+      ]},
    // -----------------------------------------------------------------------------------
    ]});

@@ -1,0 +1,29 @@
+
+   ({'text/html':
+   [
+      {h2:(this.$title || this.title)},
+
+      {hr:'', align:left},
+
+      {div:'.span-hrz-24', src:
+      [
+         {grid:'.span-hrz-24 .mrgn-vrt-2', src:
+         [
+            {row:
+            [
+               {col:'padn-rgt-1', src:
+               [
+                  {icon:'arrow-down-16 .size-1 .color-fg-light .click', onclick:'bits.sect.tglExp(this)'}
+               ]},
+
+               {col:
+               [
+                  {div:'.sectBlock', src:(this.src)},
+                  {span:'.elipsis .span-hrz-24 .color-fg-light .size-2 .wrap .hide', src:'...'},
+               ]},
+            ]}
+         ]}
+      ]},
+
+      {hr:'', align:left},
+   ]})
