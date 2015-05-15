@@ -24,13 +24,14 @@
             $msg = ((str::typeOf($msg) === pth) ? '"'.trim($msg, '/').'"' : $msg);
 
             $vrs = new obj(['titl'=>'Server Message', 'code'=>$sts, 'desc'=>$dsc, 'mesg'=>$msg]);
-            $pth =
+            $pth = 'pub/doc/server/message.jsam';
 
          // set server address
          // -----------------------------------------------------------------------------------
             $ptc = strtolower(explode('/',$_SERVER['SERVER_PROTOCOL'])[0]);
             $hst = strtolower($_SERVER['HTTP_HOST']);
             $adr = (trim($pth, 'pub/'));
+
             set::{'server.addr'}($ptc.'://'.$hst.'/'.$adr);
          // -----------------------------------------------------------------------------------
 

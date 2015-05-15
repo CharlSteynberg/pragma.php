@@ -41,15 +41,16 @@
       $inf = (object)pathinfo(CWD.'/'.$pth);
       $inf->dirname = trim(str_replace(CWD, '', $inf->dirname), '/');
 
-      $rsl->type = 'file';
+      $rsl->type = 'path';
       $rsl->root = $pts[0];
       $rsl->home = $inf->dirname;
       $rsl->base = $inf->basename;
       $rsl->name = $inf->filename;
-      $rsl->extn = $inf->extension;
+      $rsl->extn = (isset($inf->extension) ? $inf->extension : null);
 
       if ($rsl->stat === 200)
       {
+         $rsl->type = 'file';
          $flh = fopen(CWD.'/'.$pth, "r");
          $str = fread($flh, 512);
          $flh = fclose($flh); clearstatcache();

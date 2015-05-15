@@ -2,25 +2,42 @@
 
 // set request
 // --------------------------------------------------------------------------------------
-   set::{'client.request'}
-   ([
-      "dom"=>strtolower($_SERVER['SERVER_NAME']),
-      "act"=>strtolower($_SERVER['REQUEST_METHOD']),
-      "uri"=>$_SERVER['REQUEST_URI'],
-      "pth"=>rtrim(explode('?', explode('#', $_SERVER['REQUEST_URI'])[0])[0], '/'),
-      "vrs"=>call(function()
+   call
+   (
+      function()
       {
-         $vrs = new obj();
+         $pth = rtrim($_SERVER['REQUEST_URI'], '/');
+         $pth = explode('?', $pth)[0];
 
-         foreach ($_REQUEST as $key => $val)
+         if (strpos($pth, '.') !== false)
          {
-            if (strlen($val) > 0)
-            { $vrs->$key = parse(frisk::input($val)); }
+            $pts = explode('.', $_SERVER['REQUEST_URI']);
+            $pth = $pts[0];
+            $pts = explode('/', $pts[1]);
+            $pth .= '.'.$pts[0];
          }
 
-         return $vrs;
-      })
-   ]);
+         set::{'client.request'}
+         ([
+            "dom"=>strtolower($_SERVER['SERVER_NAME']),
+            "act"=>strtolower($_SERVER['REQUEST_METHOD']),
+            "uri"=>$_SERVER['REQUEST_URI'],
+            "pth"=>$pth,
+            "vrs"=>call(function()
+            {
+               $vrs = new obj();
+
+               foreach ($_REQUEST as $key => $val)
+               {
+                  if (strlen($val) > 0)
+                  { $vrs->$key = parse(frisk::input($val)); }
+               }
+
+               return $vrs;
+            })
+         ]);
+      }
+   );
 // --------------------------------------------------------------------------------------
 
 ?>
