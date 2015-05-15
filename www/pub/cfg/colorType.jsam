@@ -1,0 +1,8 @@
+
+   ([
+      {tpe:risk, h:0,   s:60, ico:'notification-2'},
+      {tpe:warn, h:35,  s:80, ico:'warning-2'},
+      {tpe:good, h:130, s:40, ico:'checkmark-circle-2'},
+      {tpe:info, h:205, s:50, ico:'info-2'},
+      {tpe:need, h:255, s:30, ico:'question-3'},
+   ])

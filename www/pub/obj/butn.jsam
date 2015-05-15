@@ -1,0 +1,33 @@
+
+   ({'text/html':
+   [
+      {grid:'.mrgn-hrz-05', src:
+      [
+         {row:
+         [
+            switch
+            ([
+               {
+                  where:(this.ico != null);
+                  yield:{col:[{icon:(this.ico)}]};
+               },
+               {
+                  where:(this.icon != null);
+                  yield:{col:[{icon:(this.icon)}]};
+               },
+            ]),
+
+            switch
+            ([
+               {
+                  where:(this.src != null);
+                  yield:{col:(this.ico ? '.padn-lft-05'), src:[{span:(this.src)}]};
+               },
+               {
+                  where:(this.text != null);
+                  yield:{col:(this.ico ? '.padn-lft-05'), src:[{span:(this.text)}]};
+               },
+            ]),
+         ]}
+      ]}
+   ]})
