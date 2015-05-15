@@ -64,8 +64,8 @@
                [
                   {div:'#devHudMnu .flow .span-vrt-24 .span-hrz-3 .text-cnt .hudSep', src:
                   [
-                     {div:'#devMnuIco .devHudBtn', onclick:'devHud.togl(\'devIcoBox\')', src:'ico'},
-                     {div:'#devMnuC2J .devHudBtn', onclick:'devHud.togl(\'devC2JBox\')', src:'c2j'},
+                     {div:'#devMnuIco .devHudBtn', onclick:'devHud.togl(\'devIcoBox\')', src:[{icon:'skull-3 .size-fnt-2'}]},
+                     {div:'#devMnuC2J .devHudBtn', onclick:'devHud.togl(\'devC2JBox\')', src:[{icon:'file-css .size-fnt-2'}]},
                   ]},
 
                   {div:'#devHudStg .flow .span-vrt-24 .span-hrz-20 .scrl', src:
@@ -79,8 +79,8 @@
                            [
                               {div:'.size-hrz-12 .size-vrt-6 .mrgn-all-0 .flow .text-cnt', src:
                               [
-                                 {icon:(key+' .size-2')},
-                                 {text:'.size-1 .wrap', src:(key)},
+                                 {icon:(key+' .size-fnt-2')},
+                                 {text:'.size-fnt-1 .wrap', src:(key)},
                               ]}
                            ];
                         })
@@ -88,7 +88,7 @@
 
                      {div:'#devC2JBox .span-all-24 .hide', src:
                      [
-                        {p:'.size-1 .mrgn-lft-2', src:
+                        {p:'.size-fnt-1 .mrgn-lft-2', src:
                         `
                            1 Copy the CSS code you want converted and paste it here.<br>
                            2 Hit "convert"<br>
@@ -97,7 +97,7 @@
 
                         {textarea:'#devC2JTxt .block .span-vrt-8 .span-hrz-22 .mrgn-lft-2'},
 
-                        {div:'.devHudBtn .pull-rgt .mrgn-rgt-2', onclick:'devHud.css2jsn(\'devC2JTxt\')', src:'c2j'},
+                        {div:'.devHudBtn .pull-rgt .mrgn-rgt-2', onclick:'devHud.css2jsn(\'devC2JTxt\')', src:[{icon:'loop-2'}]},
                      ]},
                   ]}
                ]}

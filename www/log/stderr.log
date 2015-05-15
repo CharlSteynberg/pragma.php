@@ -1,0 +1,2 @@
+2015-05-15 04:22:46 WARNING   strpos() expects parameter 1 to be string, object given   /sys/jsam/build/text/html.php   (355)
+2015-05-15 03:06:40 SYNTAX   unexpected "object start" {arr.oe.os}   pub/doc/pragma/gui/bits.jsam   (47:10)

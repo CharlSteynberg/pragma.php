@@ -115,7 +115,7 @@
       {'.sect-link':
       {
          color:#BCBCBC;
-         font-size:1.2em;
+         font-size:1em;
       }},
    // -----------------------------------------------------
 
@@ -231,7 +231,7 @@
          background-color:'hsla(0,0%,80%,1)';
          background-image:'linear-gradient(0deg, hsla(0,0%,80%,1), hsla(0,0%,95%,1))';
          box-shadow:'0em 0em 0.2em rgba(0,0,0,0.17)';
-         margin:0.5em;
+         margin:0.3em;
          cursor:pointer;
       }},
 

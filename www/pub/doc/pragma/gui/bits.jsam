@@ -5,6 +5,43 @@
    // -----------------------------------------------------------------------------------
       {page:'', $title:'Styled Elements', leafTtl:'pragma gui', leafSub:'documentation', src:
       [
+      // // Fields
+      // // --------------------------------------------------------------------------------
+      //    {sect:'', $title:'Fields', src:
+      //    [
+      //    // info
+      //    // -----------------------------------------------------------------------------
+      //       {block:'text', $title:'Info', src:
+      //       `
+      //          Fields are used to capture data from the user.<br>
+      //          These fields have different types and are also styled accordingly.
+      //       `},
+      //    // -----------------------------------------------------------------------------
+      //
+      //    // code
+      //    // -----------------------------------------------------------------------------
+      //       {block:'text', $title:'Code', src:
+      //       `
+      //          // TODO
+      //       `},
+      //    // -----------------------------------------------------------------------------
+      //
+      //    // examples
+      //    // -----------------------------------------------------------------------------
+      //       {block:'', $title:'Examples', src:
+      //       [
+      //          // {field:"name", form:"profile", icon:"phone-4", info:"phone number" expr:"[0-9]"},
+      //          // {field:"mail", form:"profile", icon:"phone-4", info:"phone number" expr:"[0-9]"},
+      //          // {field:"pass", form:"profile", icon:"key-5", info:"password" expr:"[a-zA-Z0-9]"},
+      //          // {field:"drop", form:"profile", icon:"office", info:"city" src:""},
+      //          // {field:"date", form:"profile", icon:"office", info:"city" src:""},
+      //       ]},
+      //    // -----------------------------------------------------------------------------
+      //    ]}
+      // // --------------------------------------------------------------------------------
+
+
+
       // Notes
       // --------------------------------------------------------------------------------
          {sect:'', $title:'Notes', src:
@@ -24,7 +61,7 @@
 
          // code
          // -----------------------------------------------------------------------------
-            {block:'code', $title:'Coding', src:
+            {block:'code', $title:'Code', src:
             `
                {note:"good", src:"Well Done!"}
 
@@ -43,7 +80,7 @@
                {note:"good", src:"Well Done!"},
                {note:"info", src:"For your peace of mind."},
                {note:"need", src:"Remember to email the boss."},
-               {note:"warn", src:"Drinking and coding is a bad idea!"},
+               {note:"warn", src:"Drinking and Code is a bad idea!"},
                {note:"risk", src:"Aww dang, now look what you did."},
             ]},
          // -----------------------------------------------------------------------------
@@ -67,9 +104,9 @@
 
          // code
          // -----------------------------------------------------------------------------
-            {block:'code', $title:'Coding', src:
+            {block:'code', $title:'Code', src:
             `
-               {butn:"", src:"submit"},
+               {butn:"", ico:"info-2", src:"submit"},
                {butn:"good", src:"agree"},
 
                // {butn:"info", src:"continue"},
