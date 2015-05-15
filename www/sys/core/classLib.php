@@ -101,7 +101,7 @@
             if ($s[0] === '-')
             {
                $l = (count($c) -1);
-               $s = ($l - parse($s[1]));
+               $s = ($l - parse::text($s[1]));
             }
 
             if (($t === obj) && isset($c->$s)){ $c = $c->$s; }

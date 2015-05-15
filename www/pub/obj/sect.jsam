@@ -1,29 +1,32 @@
 
    ({'text/html':
    [
-      {h2:(this.$title || this.title)},
-
-      {hr:'', align:left},
-
-      {div:'.span-hrz-24', src:
+      {grid:'.span-hrz-24 .mrgn-vrt-2', src:
       [
-         {grid:'.span-hrz-24 .mrgn-vrt-2', src:
+         {row:
          [
-            {row:
+            {col:'size-hrz-1 .padn-rgt-05', style:'padding-top:0.3em', src:
             [
-               {col:'padn-rgt-1', src:
-               [
-                  {icon:'arrow-down-16 .size-1 .color-fg-light .click', onclick:'bits.sect.tglExp(this)'}
-               ]},
+               {a:('#'+this.$title || this.title+' .icon-link .sect-link'), href:($addr+'/#'+(this.$title || this.title))}
+            ]},
 
-               {col:
-               [
-                  {div:'.sectBlock', src:(this.src)},
-                  {span:'.elipsis .span-hrz-24 .color-fg-light .size-2 .wrap .hide', src:'...'},
-               ]},
-            ]}
+            {col:[{h2:(this.$title || this.title)}]},
+         ]},
+
+         {row:
+         [
+            {col:'.text-cnt .padn-rgt-05', src:
+            [
+               {icon:'arrow-down-16 .size-fnt-1 .color-fg-light .click', onclick:'bits.sect.tglExp(this)'}
+            ]},
+
+            {col:'.span-hrz-24', src:
+            [
+               {line:'.span-hrz-12'},
+               {div:'.sectBlock .padn-top-1 .padn-rgt-05', src:(this.src)},
+               {span:'.elipsis .color-fg-light .size-fnt-2 .hide', src:'...'},
+               {line:'.span-hrz-12'},
+            ]},
          ]}
-      ]},
-
-      {hr:'', align:left},
+      ]}
    ]})

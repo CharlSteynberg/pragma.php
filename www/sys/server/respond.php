@@ -24,7 +24,17 @@
             $msg = ((str::typeOf($msg) === pth) ? '"'.trim($msg, '/').'"' : $msg);
 
             $vrs = new obj(['titl'=>'Server Message', 'code'=>$sts, 'desc'=>$dsc, 'mesg'=>$msg]);
-            $rsp = jsam::build('pub/doc/server/message.jsam', $vrs);
+            $pth =
+
+         // set server address
+         // -----------------------------------------------------------------------------------
+            $ptc = strtolower(explode('/',$_SERVER['SERVER_PROTOCOL'])[0]);
+            $hst = strtolower($_SERVER['HTTP_HOST']);
+            $adr = (trim($pth, 'pub/'));
+            set::{'server.addr'}($ptc.'://'.$hst.'/'.$adr);
+         // -----------------------------------------------------------------------------------
+
+            $rsp = jsam::build($pth, $vrs);
          }
          else
          {

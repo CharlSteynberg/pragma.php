@@ -5,7 +5,7 @@
       [
          {row:
          [
-            {col:'.size-2 .size-all-1 .padn-lft-1 .text-mdl', src:
+            {col:'.size-fnt-2 .size-all-1 .padn-lft-1 .text-mdl', src:
             [
                {icon:('ntc-'+this.type)}
             ]},
@@ -16,7 +16,7 @@
             [
                {div:'.ntce-x', onclick:'this.parentNode.parentNode.parentNode.parentNode.parentNode.style.display = \'none\'', src:
                [
-                  {icon:'close-4 .size-2'}
+                  {icon:'close-4 .size-fnt-2'}
                ]}
             ]},
          ]}

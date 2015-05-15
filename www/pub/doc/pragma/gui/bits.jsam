@@ -84,7 +84,7 @@
          // -----------------------------------------------------------------------------
             {block:'', $title:'Examples', src:
             [
-               {butn:"", src:"submit"},
+               {butn:"", ico:"info-2", src:"submit"},
                {butn:"good", src:"agree"},
                {butn:"info", src:"continue"},
                {butn:"need", src:"enquire"},

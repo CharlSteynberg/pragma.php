@@ -7,7 +7,7 @@
       "dom"=>strtolower($_SERVER['SERVER_NAME']),
       "act"=>strtolower($_SERVER['REQUEST_METHOD']),
       "uri"=>$_SERVER['REQUEST_URI'],
-      "pth"=>explode('?', $_SERVER['REQUEST_URI'])[0],
+      "pth"=>rtrim(explode('?', explode('#', $_SERVER['REQUEST_URI'])[0])[0], '/'),
       "vrs"=>call(function()
       {
          $vrs = new obj();

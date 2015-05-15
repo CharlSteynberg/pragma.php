@@ -17,6 +17,7 @@
          $vrs->{'true'} = true;
          $vrs->{'false'} = false;
          $vrs->{'$mode'} = coreMode;
+         $vrs->{'$addr'} = server::get('addr');
       }
    // -----------------------------------------------------------------------------------
 
@@ -199,7 +200,7 @@
                   // assign sequence as result & extract first item as result
                   // --------------------------------------------------------------------
                      $seq = $rsl;
-                     $rsl = array_shift($seq);
+                     $rsl = trim(array_shift($seq));
                   // --------------------------------------------------------------------
 
                   // process single item
@@ -216,12 +217,41 @@
                      // -----------------------------------------------------------------
                         foreach ($seq as $idx => $itm)
                         {
+                           $itm = trim($itm);
                            $odx = ($idx -1); if (!isset($seq[$odx])) { continue; }
                            $opr = ((strpos($dlm, $seq[$odx][0]) !== false) ? $seq[$odx] : null);
 
                            if ($opr !== null)
                            {
-                              $rsl = Jsam::calc([$rsl, $opr, $itm], $vrs);
+                              $lft = $rsl;
+                              $rgt = $itm;
+
+                              $lcs = str::in($lft)->get('<>');
+                              $rcs = str::in($rgt)->get('<>');
+
+                              if (($lcs == '""') || ($lcs == "''") || ($lcs == "``"))
+                              { $lft = $qsb.substr($lft, 1, -1).$qse; }
+
+                              if (($rcs == '""') || ($rcs == "''") || ($rcs == "``"))
+                              { $rgt = $qsb.substr($rgt, 1, -1).$qse; }
+
+                              if ($lcs === '()')
+                              {
+                                 $lft = jsam::parse($lft, $vrs);
+
+                                 if (typeOf($lft) === str)
+                                 { $lft = $qsb.$lft.$qse; }
+                              }
+
+                              if ($rcs === '()')
+                              {
+                                 $rgt = jsam::parse($rgt, $vrs);
+
+                                 if (typeOf($rgt) === str)
+                                 { $rgt = $qsb.$rgt.$qse; }
+                              }
+
+                              $rsl = Jsam::calc([$lft, $opr, $rgt], $vrs);
 
                               if (typeOf($rsl) === str)
                               { $rsl = $qsb.$rsl.$qse; }
