@@ -7,7 +7,7 @@
          [
             {col:'.size-fnt-2 .size-all-1 .padn-lft-1 .text-mdl', src:
             [
-               {icon:('ntc-'+this.type)}
+               {icon:('tpe-'+this.type+' .text-press')}
             ]},
 
             {col:'.text-left .padn-top-2 .padn-btm-2 .padn-lft-1 .padn-rgt-2 .text-midl', src:(this.src)},

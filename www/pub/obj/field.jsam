@@ -1,5 +1,21 @@
 
    ({'text/html':
    [
-      {grid:''}
+      {row:('.size-fnt-'+ (this.size : 1)), src:
+      [
+         {col:'.field-icon .text-cnt .text-mdl', src:
+         [
+            {icon:'skull-3'}
+         ]},
+
+         {col:'.text-cnt .text-mdl', src:
+         [
+            {input:'.field-text .size-fnt-1'}
+         ]},
+
+         {col:'.field-info .text-cnt .text-mdl', src:
+         [
+            {icon:'info-2'}
+         ]},
+      ]}
    ]})

@@ -5,40 +5,40 @@
    // -----------------------------------------------------------------------------------
       {page:'', $title:'Styled Elements', leafTtl:'pragma gui', leafSub:'documentation', src:
       [
-      // // Fields
-      // // --------------------------------------------------------------------------------
-      //    {sect:'', $title:'Fields', src:
-      //    [
-      //    // info
-      //    // -----------------------------------------------------------------------------
-      //       {block:'text', $title:'Info', src:
-      //       `
-      //          Fields are used to capture data from the user.<br>
-      //          These fields have different types and are also styled accordingly.
-      //       `},
-      //    // -----------------------------------------------------------------------------
-      //
-      //    // code
-      //    // -----------------------------------------------------------------------------
-      //       {block:'text', $title:'Code', src:
-      //       `
-      //          // TODO
-      //       `},
-      //    // -----------------------------------------------------------------------------
-      //
-      //    // examples
-      //    // -----------------------------------------------------------------------------
-      //       {block:'', $title:'Examples', src:
-      //       [
-      //          // {field:"name", form:"profile", icon:"phone-4", info:"phone number" expr:"[0-9]"},
-      //          // {field:"mail", form:"profile", icon:"phone-4", info:"phone number" expr:"[0-9]"},
-      //          // {field:"pass", form:"profile", icon:"key-5", info:"password" expr:"[a-zA-Z0-9]"},
-      //          // {field:"drop", form:"profile", icon:"office", info:"city" src:""},
-      //          // {field:"date", form:"profile", icon:"office", info:"city" src:""},
-      //       ]},
-      //    // -----------------------------------------------------------------------------
-      //    ]}
-      // // --------------------------------------------------------------------------------
+      // Fields
+      // --------------------------------------------------------------------------------
+         {sect:'', $title:'Fields', src:
+         [
+         // info
+         // -----------------------------------------------------------------------------
+            {block:'text', $title:'Info', src:
+            `
+               Fields are used to capture data from the user.<br>
+               These fields have different types and are also styled accordingly.
+            `},
+         // -----------------------------------------------------------------------------
+
+         // code
+         // -----------------------------------------------------------------------------
+            {block:'text', $title:'Code', src:
+            `
+               // TODO
+            `},
+         // -----------------------------------------------------------------------------
+
+         // examples
+         // -----------------------------------------------------------------------------
+            {block:'', $title:'Examples', src:
+            [
+               {field:"dial .span-hrz-12", hold:"phone number", size:1; info:"Please type your phone number here."},
+               // {field:"mail", form:"profile", icon:"phone-4", info:"phone number" expr:"[0-9]"},
+               // {field:"pass", form:"profile", icon:"key-5", info:"password" expr:"[a-zA-Z0-9]"},
+               // {field:"menu", form:"profile", icon:"office", info:"city" src:""},
+               // {field:"date", form:"profile", icon:"office", info:"city" src:""},
+            ]},
+         // -----------------------------------------------------------------------------
+         ]},
+      // --------------------------------------------------------------------------------
 
 
 
@@ -80,7 +80,7 @@
                {note:"good", src:"Well Done!"},
                {note:"info", src:"For your peace of mind."},
                {note:"need", src:"Remember to email the boss."},
-               {note:"warn", src:"Drinking and Code is a bad idea!"},
+               {note:"warn", src:"Drinking and coding is a bad idea!"},
                {note:"risk", src:"Aww dang, now look what you did."},
             ]},
          // -----------------------------------------------------------------------------
@@ -106,10 +106,10 @@
          // -----------------------------------------------------------------------------
             {block:'code', $title:'Code', src:
             `
-               {butn:"", ico:"info-2", src:"submit"},
-               {butn:"good", src:"agree"},
+               {butn:"", icon:"feed-4", src:"submit"},
+               {butn:"info", icon:"auto", src:"continue"},
+               {butn:"good .span-hrz-5", icon:"skull", size:2, src:"agree"},
 
-               // {butn:"info", src:"continue"},
                // {butn:"need", src:"enquire"},
                // {butn:"warn", src:"careful"},
                // {butn:"risk", src:"danger"},
@@ -121,9 +121,9 @@
          // -----------------------------------------------------------------------------
             {block:'', $title:'Examples', src:
             [
-               {butn:"", ico:"info-2", src:"submit"},
-               {butn:"good", src:"agree"},
-               {butn:"info", src:"continue"},
+               {butn:"", icon:"feed-4", src:"submit", size:1},
+               {butn:"info", icon:"auto", src:"continue"},
+               {butn:"good .span-hrz-5", icon:"skull", size:2, src:"agree"},
                {butn:"need", src:"enquire"},
                {butn:"warn", src:"careful"},
                {butn:"risk", src:"danger"},

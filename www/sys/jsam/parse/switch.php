@@ -32,6 +32,14 @@
 
             if ($clc === true)
             {
+               if (isset($opt->adapt))
+               {
+                  $avn = jsam::parse($opt->adapt, $vrs, true);
+
+                  foreach ($avn as $an => $av)
+                  { $vrs->$an = $av; }
+               }
+
                $rsl = jsam::parse($opt->yield, $vrs);
                break;
             }

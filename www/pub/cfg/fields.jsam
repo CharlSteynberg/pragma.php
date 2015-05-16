@@ -1,0 +1,108 @@
+
+   ([
+      {tpe:'text':
+      {
+         node:{input:'text'};
+         icon:'type';
+         hold:'type here';
+         expr:null;
+         info:'Type your text here.';
+         exec:null;
+      }},
+
+      {tpe:'name':
+      {
+         node:{input:'text'};
+         icon:'user-8';
+         hold:'first name';
+         expr:'[a-zA-Z0-9-]';
+         info:'Type your first name here.';
+         exec:'auto';
+      }},
+
+      {tpe:'dial':
+      {
+         node:{input:'text'};
+         icon:'mobile-3';
+         hold:'phone number';
+         expr:'[\\+]\\d{2}[\\(]\\d{2}[\\)]\\d{4}[\\-]\\d{4}';
+         info:'Type your mobile number here.';
+         exec:
+         {
+            onBlur:'alert("check mobile number")';
+         };
+      }}
+
+      {tpe:'mail':
+      {
+         node:{input:'email'};
+         icon:'envelop-3';
+         hold:'email address';
+         expr:'auto';
+         info:'Type your email address here.';
+         exec:
+         {
+            onBlur:'alert("check email address")';
+         };
+      }},
+
+      {tpe:'date':
+      {
+         node:{input:'date'};
+         icon:'calendar';
+         hold:'choose a date';
+         expr:null;
+         info:'Select a date from the calendar.';
+         exec:null;
+      }},
+
+      {tpe:'pass':
+      {
+         node:{input:'text'};
+         icon:'key-5';
+         hold:'password';
+         expr:'(?=^.{8,}$)((?=.*\\d)|(?=.*\\W+))(?![.\\n])(?=.*[A-Z])(?=.*[a-z]).*$';
+         info:'Type your password here';
+         exec:'auto';
+      }},
+
+      {tpe:'area':
+      {
+         node:{textarea:1};
+         icon:'file-2';
+         hold:'type here';
+         expr:null;
+         info:'Type your message here.';
+         exec:null;
+      }},
+
+      {tpe:'menu':
+      {
+         node:{input:'hidden'};
+         icon:'menu-5';
+         hold:'choose...';
+         expr:null;
+         info:{icon:'arrow-down-16'};
+         exec:null;
+      }},
+
+      {tpe:'cmbo':
+      {
+         node:{input:'text'};
+         icon:'menu-5';
+         hold:'type or choose...';
+         expr:null;
+         info:{icon:'arrow-down-16'};
+         exec:null;
+      }},
+
+      {tpe:'find':
+      {
+         node:{input:'text'};
+         icon:'binoculars';
+         hold:'search...';
+         expr:null;
+         info:{icon:'search'};
+         exec:null;
+      }},
+   ])

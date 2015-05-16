@@ -1,19 +1,20 @@
 
    ({'text/html':
    [
-      {grid:'.mrgn-hrz-05', src:
+      {grid:'.span-hrz-24', src:
       [
-         {row:
+         {row:('.size-fnt-' + (this.size : 1)), src:
          [
             switch
             ([
                {
-                  where:(this.ico != null);
-                  yield:{col:[{icon:(this.ico)}]};
-               },
-               {
                   where:(this.icon != null);
-                  yield:{col:[{icon:(this.icon)}]};
+                  adapt:{icn:((this.icon == 'auto') ? ('tpe-'+this.type) : this.icon)};
+                  yield:
+                  [
+                     {col:'.text-cnt .text-mdl .size-hrz-1 .padn-hrz-05', src:[{icon:(icn)}]},
+                     {col:[{sepr:''}]},
+                  ];
                },
             ]),
 
@@ -21,11 +22,7 @@
             ([
                {
                   where:(this.src != null);
-                  yield:{col:(this.ico ? '.padn-lft-05'), src:[{span:(this.src)}]};
-               },
-               {
-                  where:(this.text != null);
-                  yield:{col:(this.ico ? '.padn-lft-05'), src:[{span:(this.text)}]};
+                  yield:{col:'.text-cnt .padn-all-05', src:(this.src)};
                },
             ]),
          ]}

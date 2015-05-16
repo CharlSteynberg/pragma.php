@@ -5,9 +5,9 @@
       [
          {row:
          [
-            {col:'size-hrz-1 .padn-top-05 .padn-rgt-05', src:
+            {col:'.size-hrz-1 .padn-top-05 .padn-rgt-1', src:
             [
-               {a:('#'+this.$title || this.title+' .icon-link-3 .sect-link'), href:($addr+'/#'+(this.$title || this.title))}
+               {a:('#'+(this.$title || this.title)+' .icon-link-3 .sect-link'), href:($addr+'/#'+(this.$title || this.title))}
             ]},
 
             {col:[{h2:(this.$title || this.title)}]},
@@ -15,7 +15,7 @@
 
          {row:
          [
-            {col:'.text-cnt .padn-rgt-05', src:
+            {col:'.text-cnt .padn-rgt-1', src:
             [
                {icon:'arrow-down-16 .size-fnt-1 .color-fg-light .click', onclick:'bits.sect.tglExp(this)'}
             ]},
@@ -23,7 +23,7 @@
             {col:'.span-hrz-24', src:
             [
                {line:'.span-hrz-12'},
-               {div:'.sectBlock .padn-top-1 .padn-rgt-05', src:(this.src)},
+               {div:'.sectBlock .padn-top-1 .padn-rgt-1', src:(this.src)},
                {span:'.elipsis .color-fg-light .size-fnt-2 .hide', src:'...'},
                {line:'.span-hrz-12'},
             ]},

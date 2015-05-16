@@ -1,6 +1,34 @@
 
    ({'text/css':
    [
+   // grid :: table, row, col
+   // -----------------------------------------------------------------
+      {tbody:
+      {
+         border-spacing:0px;
+         padding:0px;
+      }},
+
+      {'.grid':
+      {
+         border-spacing:0px;
+         // border-collapse:collapse;
+      }},
+
+      {'.row':
+      {
+         padding:0px;
+      }},
+
+      {'.col':
+      {
+         text-align:left;
+         vertical-align:top;
+         padding:0px;
+      }},
+   // -----------------------------------------------------------------
+
+
    // pages
    // -----------------------------------------------------
       {'.page-base':
@@ -133,13 +161,25 @@
       }},
    // -----------------------------------------------------
 
+   // separators
+   // -----------------------------------------------------
+      {'.sepr':
+      {
+         display:inline-block;
+         width:0px;
+         height:100%;
+         border-left:'1px solid rgba(0,0,0,0.15)';
+         border-right:'1px solid rgba(255,255,255,0.2)';
+         margin:0;
+      }},
+   // -----------------------------------------------------
+
 
 
    // section blocks
    // -----------------------------------------------------
       {'.block':
       {
-         width:94%;
          padding:0.7em;
          background:#F5F5F5;
          color:#888;
@@ -148,7 +188,7 @@
          margin-bottom:1.2em;
       }},
 
-      {'.code':
+      {'.block-code':
       {
          font-family:'monos !important';
          font-size:'0.92em !important';
@@ -165,7 +205,7 @@
       {
          display:block;
          border-radius:0.4em;
-         box-shadow:'0px 0px 1em rgba(0,0,0,0.13)';
+         box-shadow:'0em 0.1em 0.6em rgba(0,0,0,0.13)';
          margin:1em;
       }},
 
@@ -176,30 +216,36 @@
          [
             {('.note-'+tpe):
             {
-               border:('1px solid hsla('+h+', '+s+'%, 75%, 1)');
+               border:('0.1em solid hsla('+h+', 33%, 75%, 1)');
+               border-top:('0.1em solid hsla('+h+', 40%, 77%, 1)');
+               border-bottom:('0.1em solid hsla('+h+', 28%, 72%, 1)');
                background:('hsla('+h+', '+s+'%, 90%, 1)');
+               background-image:('linear-gradient(0deg, hsla('+h+','+s+'%,89%,1), hsla('+h+','+s+'%,86%,1))');
                color:('hsla('+h+', '+s+'%, 30%, 1)');
             }},
 
-            {('.icon-ntc-'+tpe+':before'):('icon-'+ico)}
+            {('.icon-tpe-'+tpe+':before'):('icon-'+ico)}
          ]
       }),
 
       {'.ntce-x':
       {
          position:relative;
-         width:2em;
-         height:1.3em;
+         box-sizing:border-box;
+         -moz-box-sizing:border-box;
+         -webkit-box-sizing:border-box;
+         width:2.2em;
+         height:2em;
+         overflow:hidden;
+         background:'hsla(0, 0%, 30%, 0.08)';
+         font-size:0.9em;
+         color:'hsla(0, 0%, 0%, 0.3)';
+         margin-top:-0.5em;
+         margin-right:-0.3em;
+         padding-top:0.13em;
+         padding-left:0.25em;
          border:'1px solid hsla(0, 0%, 0%, 0.1)';
          border-radius:0.4em;
-         margin-top:-0.4em;
-         margin-right:-0.5em;
-         padding:0.1em;
-         padding-top:0.3em;
-         padding-left:0.4em;
-         background:'hsla(0, 0%, 30%, 0.08)';
-         color:'hsla(0, 0%, 0%, 0.3)';
-         font-size:1em;
          cursor:pointer;
       }},
 
@@ -214,23 +260,77 @@
 
 
 
+   // forms
+   // -----------------------------------------------------
+   // -----------------------------------------------------
+
+
+
+   // fields
+   // -----------------------------------------------------
+      {'.field':
+      {
+         //width:100%;
+         background-color:'hsla(0,0%,90%,1)';
+         border-spacing:0px;
+         border-radius:0.4em;
+         border:'0.1em solid #CCC';
+         box-shadow:'0em 0em 0.3em rgba(0,0,0,0.1)';
+      }},
+
+      {'.field-icon':
+      {
+         width:1.5em;
+         padding:0.3em;
+         padding-top:0.36em;
+         padding-bottom:0.19em;
+         border-right:'0.1em solid #CCC';
+      }},
+
+      {'.field-text':
+      {
+         display:inline-block;
+         box-sizing:border-box;
+         -moz-box-sizing:border-box;
+         -webkit-box-sizing:border-box;
+         height:2em;
+         background:#FFF;
+         padding:0.3em;
+         border:none;
+         border-radius:0;
+         margin:0;
+      }},
+
+      {'.field-info':
+      {
+         width:1.5em;
+         padding:0.3em;
+         padding-top:0.36em;
+         padding-bottom:0.29em;
+         border-left:'0.1em solid #CCC';
+      }},
+   // -----------------------------------------------------
+
+
+
    // buttons :: default
    // -----------------------------------------------------
       {'.butn':
       {
          display:inline-block;
+         overflow:hidden;
          font-family:'buntu';
          font-size:1.1em;
          line-height:1em;
          color:#444;
-         padding:0.4em;
-         border:'0.1em solid #BBB';
-         border-top:'0.1em solid #CCC';
-         border-bottom:'0.1em solid #AAA';
+         //padding:0.4em;
+         border:'0.1em solid #CCC';
+         border-top:'0.1em solid #D8D8D8';
+         border-bottom:'0.1em solid #C6C6C6';
          border-radius:0.3em;
          background-color:'hsla(0,0%,80%,1)';
          background-image:'linear-gradient(0deg, hsla(0,0%,80%,1), hsla(0,0%,95%,1))';
-         box-shadow:'0em 0em 0.2em rgba(0,0,0,0.17)';
+         box-shadow:'0em 0em 0.2em rgba(0,0,0,0.1)';
          margin:0.3em;
          cursor:pointer;
       }},

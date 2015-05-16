@@ -6,6 +6,10 @@
       {'[class^="icon-"], [class*=" icon-"], [class^="ico-"], [class*=" ico-"]':
       {
          speak:none;
+         display:inline-block;
+         width:1em;
+         height:1em;
+         margin-top:0.14em;
          font-family:icons;
          font-weight: normal;
          font-style: normal;

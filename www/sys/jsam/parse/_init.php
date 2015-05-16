@@ -307,6 +307,8 @@
 
                         if (isset($ctd->{$flc}) || ($flc[1] === ')'))
                         { $val = Jsam::parse($val,$vrs); }
+                        else
+                        { $val = parse::text($val); }
 
                         $rsl->$obk = $val;
                      }

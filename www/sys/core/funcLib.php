@@ -31,6 +31,17 @@
       if ($t === bln) { return (($d === true) ? 1 : 0); }
       if ($t === arr) { return count($d); }
 
+      if ($t === flt)
+      {
+         $d = to::str($d);
+         $p = explode('.', $d);
+
+         if (count($p) < 2)
+         { return strlen($d); }
+
+         return strlen($p[1]);
+      }
+
       if ($t === obj)
       {
          $n = count($d);

@@ -31,13 +31,14 @@
                      page  :  {tag:'div'},
                      sect  :  {tag:'div'},
                      line  :  {tag:'div'},
+                     sepr  :  {tag:'div'},
                      block :  {tag:'div',    tpe:1},
 
                      note  :  {tag:'div',    tpe:1},
                      text  :  {tag:'span'},
                      icon  :  {tag:'i',      tpe:1},
 
-                     field :  {tag:'div',    tpe:1},
+                     field :  {tag:'table',  tpe:1},
                      butn  :  {tag:'div',    tpe:1},
 
                      drop  :  {tag:'div',    tpe:1},

@@ -6,7 +6,8 @@
    (
       function()
       {
-         $pth = rtrim($_SERVER['REQUEST_URI'], '/');
+         $pth = $_SERVER['REQUEST_URI'];
+         $pth = (($pth !== '/') ? rtrim($pth, '/') : $pth);
          $pth = explode('?', $pth)[0];
 
          if (strpos($pth, '.') !== false)
