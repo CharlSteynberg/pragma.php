@@ -99,39 +99,45 @@
       {'.text-top':{vertical-align:'top !important'}},
       {'.text-btm':{vertical-align:'bottom !important'}},
 
-      {'.pull-cnt':{margin:auto}},
-      {'.pull-lft':{float:left}},
-      {'.pull-rgt':{float:right}},
+      {'.pull-cnt':{margin:'auto !important'}},
+      {'.pull-lft':{float:'left !important'}},
+      {'.pull-rgt':{float:'right !important'}},
    // -----------------------------------------------------------------
 
 
    // own-line
    // -----------------------------------------------------------------
-      {'.wrap':{display:'block'}},
+      {'.wrap':{display:'block !important'}},
+   // -----------------------------------------------------------------
+
+
+   // absolute
+   // -----------------------------------------------------------------
+      {'.drift':{position:'absolute !important'}},
    // -----------------------------------------------------------------
 
 
    // hidden
    // -----------------------------------------------------------------
-      {'.hide':{display:none}},
+      {'.hide':{display:'none !important'}},
    // -----------------------------------------------------------------
 
 
    // visible
    // -----------------------------------------------------------------
-      {'.show':{display:initial}},
+      {'.show':{display:'initial !important'}},
    // -----------------------------------------------------------------
 
 
    // in-line
    // -----------------------------------------------------------------
-      {'.flow':{float:left}},
+      {'.flow':{display:'inline-block !important'; float:'left !important'}},
    // -----------------------------------------------------------------
 
 
    // crop: no overflow
    // -----------------------------------------------------
-      {'.crop':{overflow:hidden}},
+      {'.crop':{overflow:'hidden !important'}},
    // -----------------------------------------------------
 
 

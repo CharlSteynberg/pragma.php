@@ -28,6 +28,8 @@
                      row   :  {tag:'tr'},
                      col   :  {tag:'td'},
 
+                     box   :  {tag:'div'},
+
                      page  :  {tag:'div'},
                      sect  :  {tag:'div'},
                      line  :  {tag:'div'},
@@ -39,6 +41,7 @@
                      icon  :  {tag:'i',      tpe:1},
 
                      field :  {tag:'table',  tpe:1},
+                     bubl  :  {tag:'div',    tpe:1},
                      butn  :  {tag:'div',    tpe:1},
 
                      drop  :  {tag:'div',    tpe:1},

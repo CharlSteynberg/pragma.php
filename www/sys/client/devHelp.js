@@ -35,8 +35,14 @@
             if (!stg.show)
             { stg.set({show:oid}); }
 
-            get(stg.show).style.display = 'none';
-            get(oid).style.display = 'initial';
+            var oic = get(stg.show).className;
+            var nic = get(oid).className;
+
+            oic = oic.split('show').join('hide');
+            nic = oic.split('hide').join('show');
+
+            get(stg.show).className = oic;
+            get(oid).className = nic;
          },
       // --------------------------------------------------------------------------------
 

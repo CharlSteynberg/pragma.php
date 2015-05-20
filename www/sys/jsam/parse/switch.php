@@ -14,6 +14,9 @@
       // --------------------------------------------------------------------------------
          $dfn = jsam::parse($dfn, $vrs);
 
+         if (is::obj($dfn))
+         { $dfn = [$dfn]; }
+
          if (!is::arr($dfn))
          { throw new Exception('switch: array expected'); }
 
@@ -26,11 +29,9 @@
       // --------------------------------------------------------------------------------
          foreach ($dfn as $opt)
          {
-            $whr = jsam::{'parse.sepExpSeq'}($opt->where, $vrs)[0];
+            $whr = jsam::parse($opt->where, $vrs);
 
-            $clc = jsam::calc($whr,$vrs);
-
-            if ($clc === true)
+            if ($whr === true)
             {
                if (isset($opt->adapt))
                {

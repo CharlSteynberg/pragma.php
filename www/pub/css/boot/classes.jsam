@@ -8,8 +8,8 @@
          box-sizing:border-box;
          -moz-box-sizing:border-box;
          -webkit-box-sizing:border-box;
-         background:#BADA55;
-         border:'1px solid #A00';
+         background:'#BADA55 !important';
+         border:'1px solid #A00 !important';
       }},
    // -----------------------------------------------------
 
@@ -39,5 +39,13 @@
       {
          text-shadow: '0px -1px 1px rgba(0,0,0,0.25), 0px 1px 1px rgba(255,255,255,1)';
       }},
+   // -----------------------------------------------------
+
+
+   // rotate
+   // -----------------------------------------------------
+      {'.spin-90':{transform:'rotate(90deg) !important'}},
+      {'.spin-180':{transform:'rotate(180deg)'}},
+      {'.spin-270':{transform:'rotate(270deg)'}},
    // -----------------------------------------------------
    ]})

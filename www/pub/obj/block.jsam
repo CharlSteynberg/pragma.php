@@ -6,15 +6,15 @@
       switch
       ([
          {
-            where:(this.type == 'text');
+            where:(this.cast == 'text');
             yield:{p:(this.src)}
          },
          {
-            where:(this.type == 'code');
+            where:(this.cast == 'code');
             yield:{pre:(this.src)}
          },
          {
-            where:(this.type == null);
+            where:(this.cast == null);
             yield:{div:(this.src)}
          },
       ])

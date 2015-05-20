@@ -1,108 +1,197 @@
 
    ([
-      {tpe:'text':
       {
-         node:{input:'text'};
+         cast:'text';
+         node:'input';
+         type:'text';
          icon:'type';
          hold:'type here';
+         curb:60;
+         must:true;
          expr:null;
-         info:'Type your text here.';
          exec:null;
-      }},
+         bubl:
+         {
+            spec:'Type your text here.',
+            data:'Letters, numbers, spaces and punctuation accepted.',
+            xmpl:'@Nobody123: great post!',
+         };
+      },
 
-      {tpe:'name':
       {
-         node:{input:'text'};
+         cast:'name';
+         node:'input';
+         type:'text';
          icon:'user-8';
          hold:'first name';
-         expr:'[a-zA-Z0-9-]';
-         info:'Type your first name here.';
-         exec:'auto';
-      }},
+         curb:30;
+         must:true;
+         expr:['[A-Za-z0-9\\-]', null];
+         exec:null;
+         bubl:
+         {
+            spec:'Type your first name here.',
+            data:'Alphabet letters and dashes accepted.',
+            xmpl:'Mary-Anne',
+         };
+      },
 
-      {tpe:'dial':
       {
-         node:{input:'text'};
-         icon:'mobile-3';
+         cast:'dial';
+         node:'input';
+         type:'text';
+         icon:'phone-5';
          hold:'phone number';
-         expr:'[\\+]\\d{2}[\\(]\\d{2}[\\)]\\d{4}[\\-]\\d{4}';
-         info:'Type your mobile number here.';
+         curb:15;
+         must:true;
+         expr:['^0(6|7|8){1}[0-9]{1}[0-9]{7}$', null];
          exec:
          {
-            onBlur:'alert("check mobile number")';
+            onBlur:"alert('validate mobile number')";
          };
-      }}
 
-      {tpe:'mail':
+         bubl:
+         {
+            spec:'Type your mobile number here.',
+            data:'The "Plus" character, numbers and spaces are accepted.',
+            xmpl:'+27 12 345 6789',
+         }
+      },
+
       {
-         node:{input:'email'};
+         cast:'mail';
+         node:'input';
+         type:'email';
          icon:'envelop-3';
          hold:'email address';
-         expr:'auto';
-         info:'Type your email address here.';
+         curb:60;
+         must:true;
+         expr:['^([\\w-]+(?:\\.[\\w-]+)*)@((?:[\\w-]+\\.)*\\w[\\w-]{0,66})\\.([a-z]{2,6}(?:\\.[a-z]{2})?)$/', 'i'];
          exec:
          {
-            onBlur:'alert("check email address")';
+            onBlur:'alert("validate email address")';
          };
-      }},
 
-      {tpe:'date':
-      {
-         node:{input:'date'};
-         icon:'calendar';
-         hold:'choose a date';
-         expr:null;
-         info:'Select a date from the calendar.';
-         exec:null;
-      }},
+         bubl:
+         {
+            spec:'Type your email address here.',
+            data:'No spaces or "special" characters.',
+            xmpl:'john.doe@domain.tv.uk',
+         }
+      },
 
-      {tpe:'pass':
       {
-         node:{input:'text'};
+         cast:'pass';
+         node:'input';
+         type:'password';
          icon:'key-5';
          hold:'password';
-         expr:'(?=^.{8,}$)((?=.*\\d)|(?=.*\\W+))(?![.\\n])(?=.*[A-Z])(?=.*[a-z]).*$';
-         info:'Type your password here';
+         curb:16;
+         must:true;
+         expr:'^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{6,16}$';
          exec:'auto';
-      }},
 
-      {tpe:'area':
-      {
-         node:{textarea:1};
-         icon:'file-2';
-         hold:'type here';
-         expr:null;
-         info:'Type your message here.';
-         exec:null;
-      }},
+         bubl:
+         {
+            spec:'Type your password here.',
+            data:'Must contain at least one:<br>uppercase letter, lowercase letter, number,<br>and must be at least 6 characers long.',
+            xmpl:'gr3atPW!',
+         }
+      },
 
-      {tpe:'menu':
       {
-         node:{input:'hidden'};
-         icon:'menu-5';
-         hold:'choose...';
-         expr:null;
-         info:{icon:'arrow-down-16'};
-         exec:null;
-      }},
-
-      {tpe:'cmbo':
-      {
-         node:{input:'text'};
-         icon:'menu-5';
-         hold:'type or choose...';
-         expr:null;
-         info:{icon:'arrow-down-16'};
-         exec:null;
-      }},
-
-      {tpe:'find':
-      {
-         node:{input:'text'};
+         cast:'find';
+         node:'input';
+         type:'text';
          icon:'binoculars';
          hold:'search...';
+         curb:60;
+         must:false;
          expr:null;
-         info:{icon:'search'};
          exec:null;
-      }},
+
+         bubl:
+         {
+            spec:'Type what you want to search for,<br>then click on the "search icon" on the right.',
+            data:'Letters, numbers, spaces and punctuation accepted.',
+            xmpl:'top 5 competitors',
+         }
+      },
+
+      {
+         cast:'area';
+         node:'textarea';
+         type:'text';
+         rows:3;
+         icon:'file-2';
+         hold:'message';
+         curb:1600;
+         must:false;
+         expr:null;
+         exec:null;
+
+         bubl:
+         {
+            spec:'Type your message here.',
+            data:'Any characters are accepted,<br>must be at least 60 characters long.',
+            xmpl:null,
+         }
+      },
+
+      {
+         cast:'date';
+         node:'input';
+         type:'date';
+         icon:'calendar';
+         must:false;
+         hold:'choose a date';
+         curb:10;
+         expr:null;
+         exec:null;
+
+         bubl:
+         {
+            spec:'Select a date from the calendar.',
+            data:null,
+            xmpl:null,
+         }
+      },
+
+      {
+         cast:'menu';
+         node:'input';
+         type:'hidden';
+         icon:'menu-5';
+         hold:'choose...';
+         curb:60;
+         must:false;
+         expr:null;
+         exec:null;
+
+         bubl:
+         {
+            spec:'Click on the "drop-down arrow" on the right.',
+            data:null,
+            xmpl:null,
+         }
+      },
+
+      {
+         cast:'cmbo';
+         node:'input';
+         type:'text';
+         icon:'menu-5';
+         hold:'type or choose...';
+         curb:60;
+         must:false;
+         expr:null;
+         exec:null;
+
+         bubl:
+         {
+            spec:'Click on the "drop-down arrow" on the right or,<br>start typing for a shorter list to choose from.',
+            data:null,
+            xmpl:null,
+         }
+      },
    ])

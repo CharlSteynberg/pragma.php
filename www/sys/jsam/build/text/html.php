@@ -31,6 +31,7 @@
    // -----------------------------------------------------------------------------------
       foreach($dfn as $key => $nde)
       {
+
       // validate
       // --------------------------------------------------------------------------------
          if (!is_int($key) || (typeOf($nde) !== 'object'))
@@ -48,11 +49,29 @@
 
       // tag :: name
       // --------------------------------------------------------------------------------
+         reset($nde);
+
          $tag = key($nde);
          $cnl = map::get($cfg, 'cstNodes');
          $cst = map::get($cnl, $tag);
          $cns = 'pub/obj/'.$tag.'.jsam';
          $ctv = null;
+
+         if (typeOf($nde->$tag) !== str)
+         {
+            if (($nde->$tag === null) && isset($nde->src))
+            { $nde->$tag = ''; }
+            else
+            {
+               if (!isset($nde->src))
+               {
+                  $nde->src = $nde->$tag;
+                  $nde->$tag = '';
+               }
+               else
+               { throw new Exception('invalid node structure'); }
+            }
+         }
       // --------------------------------------------------------------------------------
 
 
@@ -65,12 +84,6 @@
             $pre = map::get($cst, 'tpe');
             $ntg = $nde->$tag;
 
-            if (!is::str($ntg) && !isset($nde->src))
-            {
-               $nde->src = $ntg;
-               $ntg = '';
-            }
-
             $ntg = trim($ntg);
             $frc = (((strlen($ntg) > 1) && (($ntg[0] === '#') || ($ntg[0] === '.'))) ? true : false);
          // -----------------------------------------------------------------------------
@@ -81,7 +94,7 @@
             { $ntg = trim('.'.$tag.' '.$ntg); }
             else
             {
-               $nde->type = explode(' ', $ntg)[0];
+               $nde->cast = explode(' ', $ntg)[0];
                $ntg = '.'.$tag.' .'.$tag.'-'.$ntg;
             }
 
@@ -92,21 +105,20 @@
          // -----------------------------------------------------------------------------
             $vrs->{'this'} = null;
             $vrs->{'this'} = new obj();
+
             // if (!isset($vrs->{'this'}))
             // { $vrs->{'this'} = new obj(); }
             //
+            // $vrs->{'this'}->src = null;
             // foreach ($vrs->{'this'} as $vn => $vv)
             // { $vrs->{'this'}->$vn = null; }
 
             foreach ($nde as $atr => $pty)
             {
-               if (($atr === $tag) || (($atr === 'src') && !file_exists($cns)))
+               if ($atr === $tag)
                { continue; }
 
                $vrs->{'this'}->$atr = $pty;
-
-               if ($atr === 'src')
-               { unset($nde->src); }
             }
          // -----------------------------------------------------------------------------
 
@@ -116,24 +128,6 @@
             {
                $cns = parse::file($cns, $vrs)->{'text/html'};
                $cns = (!is::arr($cns) ? [$cns] : $cns);
-
-               if (isset($nde->src))
-               {
-                  $src = $nde->src;
-
-                  if (is::str($src))
-                  {
-                     if (is::pth($src) && (path::info($src)->extn === 'jsam'))
-                     { $src = parse::file($src, $vrs)->{'text/html'}; }
-                     else
-                     { $src = [new obj(['span'=>$src])]; }
-                  }
-
-                  if (typeOf($src) === obj){ $src = [$src]; }
-
-                  foreach ($src as $ens)
-                  { $cns[] = $ens; }
-               }
 
                $nde->src = $cns;
             }
@@ -174,7 +168,10 @@
                }
             }
             else
-            { $nde->src = $v; }
+            {
+               $nde->src = $v;
+               $nde->$tag = null;
+            }
          }
          else
          {
@@ -189,7 +186,6 @@
          if (isset($nde->class) && (typeOf($nde->class) === arr))
          { $nde->class = implode($nde->class, ' '); }
       // --------------------------------------------------------------------------------
-
 
 
       // atr :: src == file
@@ -254,7 +250,6 @@
             }
          }
       // --------------------------------------------------------------------------------
-
 
 
       // auto atr

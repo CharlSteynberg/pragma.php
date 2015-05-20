@@ -14,7 +14,11 @@
             {block:'text', $title:'Info', src:
             `
                Fields are used to capture data from the user.<br>
-               These fields have different types and are also styled accordingly.
+               These fields have different types (casts) and are also styled accordingly.<br>
+               The field casts should be configured in the "/cfg/fields.jsam" file.
+               <br><br>
+               Configuring field casts provide structure and uniformity to any project
+               and makes it expremely easy to use for rapid development.
             `},
          // -----------------------------------------------------------------------------
 
@@ -30,7 +34,16 @@
          // -----------------------------------------------------------------------------
             {block:'', $title:'Examples', src:
             [
-               {field:"dial .span-hrz-12", hold:"phone number", size:1; info:"Please type your phone number here."},
+               {field:"text"},
+               {field:"name"},
+               {field:"dial"},
+               {field:"mail"},
+               {field:"pass"},
+               {field:"find"},
+               {field:"area"},
+               {field:"date"},
+               {field:"menu"},
+               {field:"cmbo"},
                // {field:"mail", form:"profile", icon:"phone-4", info:"phone number" expr:"[0-9]"},
                // {field:"pass", form:"profile", icon:"key-5", info:"password" expr:"[a-zA-Z0-9]"},
                // {field:"menu", form:"profile", icon:"office", info:"city" src:""},

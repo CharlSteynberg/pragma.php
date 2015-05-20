@@ -150,7 +150,6 @@
          // -----------------------------------------------------------------------------
             if (isset($dfn->where))
             {
-               $whr = jsam::{'parse.sepExpSeq'}($dfn->where, $vrs);
                $tmp = [];
 
                foreach ($dat as $row)
@@ -160,9 +159,12 @@
 
                   $apn = true;
 
-                  foreach ($whr as $sum)
+                  $whr = jsam::parse($dfn->where, $vrs);
+                  $whr = ((typeOf($whr) !== arr) ? [$whr] : $whr);
+
+                  foreach ($whr as $add)
                   {
-                     if (jsam::calc($sum, $vrs) === false)
+                     if ($add !== true)
                      { $apn = false; break; }
                   }
 

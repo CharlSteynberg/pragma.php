@@ -9,7 +9,7 @@
             ([
                {
                   where:(this.icon != null);
-                  adapt:{icn:((this.icon == 'auto') ? ('tpe-'+this.type) : this.icon)};
+                  adapt:{icn:((this.icon == 'auto') ? ('tpe-'+this.cast) : this.icon)};
                   yield:
                   [
                      {col:'.text-cnt .text-mdl .size-hrz-1 .padn-hrz-05', src:[{icon:(icn)}]},

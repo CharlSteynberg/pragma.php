@@ -1,21 +1,62 @@
 
    ({'text/html':
    [
-      {row:('.size-fnt-'+ (this.size : 1)), src:
-      [
-         {col:'.field-icon .text-cnt .text-mdl', src:
-         [
-            {icon:'skull-3'}
-         ]},
+      with
+      ({
+         basis:'/cfg/fields.jsam';
+         where:(cast == (this.cast : 'text'));
 
-         {col:'.text-cnt .text-mdl', src:
-         [
-            {input:'.field-text .size-fnt-1'}
-         ]},
+         adapt:
+         {
+            node:(this.node : node),
+            type:(this.type : type),
+            icon:(this.icon : icon),
+            hold:(this.hold : hold),
+            curb:(this.curb : curb),
+            rows:(this.rows : rows),
+            must:(this.must : must),
+            expr:(this.expr : expr),
+            exec:(this.exec : exec),
+            bubl:(this.bubl : bubl),
+         };
 
-         {col:'.field-info .text-cnt .text-mdl', src:
+         yield:
          [
-            {icon:'info-2'}
-         ]},
-      ]}
+            {row:('.size-fnt-'+ (this.size : 1)), src:
+            [
+               {col:'.field-cast-icon .text-cnt .text-mdl .click', onClick:'bits.field.tglInf(this)', src:
+               [
+                  {icon:(icon)},
+               ]},
+
+               {col:'.text-cnt .text-mdl', src:
+               [
+                  {(node):'.field-cast-text', type:(type), rows:(rows : 1), placeholder:(hold), maxlength:(curb : 60), onFocus:"hide('.bubl')";}
+               ]},
+
+               {col:'.field-cast-info .text-cnt .text-mdl .click', onClick:'bits.field.tglInf(this)', src:
+               [
+                  {icon:('info-2'+ (must ? ' .color-warn' : ' .color-info'))}
+               ]},
+            ]},
+
+            {row:
+            [
+               {col:'', colspan:3, src:
+               [
+                  {bubl:'info .hide', aim:'top', pos:1, src:
+                  [
+                     {icon:(bubl.icon : icon)}, {span:'&nbsp;'}, {b:(hold : '(undefined)')},
+                     {ul:
+                     [
+                        {li:(bubl.spec : '(undefined)')},
+                        {li:(must ? ' .color-warn' : ''), src:(must ? '<b>required</b>' : '<i>optional</i>')},
+                        {li:(bubl.data : '(undefined)')},
+                     ]},
+                     {icon:'point-right'}, {b:'example:&nbsp;&nbsp;'}, {span:(bubl.xmpl : '(undefined)')}
+                  ]}
+               ]},
+            ]}
+         ]
+      })
    ]})

@@ -20,7 +20,12 @@
          { tpe = 'float'; }
       }
       else
-      { tpe = ({}).toString.call(dfn).match(/\s([a-zA-Z]+)/)[1].toLowerCase(); }
+      {
+         tpe = ({}).toString.call(dfn).match(/\s([a-zA-Z]+)/)[1].toLowerCase();
+
+         if (tpe.indexOf('element') > -1)
+         { tpe = 'element'; }
+      }
 
       return tpe;
    };
@@ -200,6 +205,59 @@
          }
 
          return rsl;
+      }
+   });
+// --------------------------------------------------------------------------------------
+
+
+
+// toggle show / hide
+// --------------------------------------------------------------------------------------
+   global.add
+   ({
+      togl:function(dfn)
+      {
+         dfn = ((typeOf(dfn) == 'string') ? get(dfn) : dfn);
+
+         var fnc = ((dfn.className.indexOf('hide') < 0) ? 'hide' : 'show');
+
+         global[fnc](dfn);
+      },
+
+      show:function(dfn)
+      {
+         dfn = ((typeOf(dfn) == 'string') ? get(dfn) : dfn);
+         dfn = ((typeOf(dfn) != 'array') ? [dfn] : dfn);
+
+         dfn.forEach
+         (
+            function(i,k,a)
+            {
+               var c = i.className;
+                   c = ((c.indexOf('hide') < 0) ? c+' hide' : c);
+                   c = c.split('hide').join('show');
+
+               i.className = c;
+            }
+         );
+      },
+
+      hide:function(dfn)
+      {
+         dfn = ((typeOf(dfn) == 'string') ? get(dfn) : dfn);
+         dfn = ((typeOf(dfn) != 'array') ? [dfn] : dfn);
+
+         dfn.forEach
+         (
+            function(i,k,a)
+            {
+               var c = i.className;
+                   c = ((c.indexOf('show') < 0) ? c+' show' : c);
+                   c = c.split('show').join('hide');
+
+               i.className = c;
+            }
+         );
       }
    });
 // --------------------------------------------------------------------------------------

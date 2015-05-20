@@ -43,6 +43,7 @@
       $dlm = (isset($ctd->$flc->dlm) ? $ctd->$flc->dlm : '');
       $rsl = (isset($ctd->$flc->rsl) ? $ctd->$flc->rsl : '');
 
+
       $dfn = (($ctx === 'str') ? $dfn : substr($dfn, 1, -1));
       $len = strlen($dfn);
 
@@ -235,15 +236,22 @@
                               if (($rcs == '""') || ($rcs == "''") || ($rcs == "``"))
                               { $rgt = $qsb.substr($rgt, 1, -1).$qse; }
 
-                              if ($lcs === '()')
+                              if ((strlen($lcs) > 1) && ($lcs[1] === ')'))
                               {
+                                 if (strpos($lft, 'isNaN') !== false)
+                                 {
+                                    $lft = jsam::parse($lft, $vrs);
+                                    echo $lft;
+                                    exit;
+                                 }
+
                                  $lft = jsam::parse($lft, $vrs);
 
                                  if (typeOf($lft) === str)
                                  { $lft = $qsb.$lft.$qse; }
                               }
 
-                              if ($rcs === '()')
+                              if ((strlen($rcs) > 1) && ($rcs[1] === ')'))
                               {
                                  $rgt = jsam::parse($rgt, $vrs);
 
@@ -391,6 +399,7 @@
          $pos = strpos($dfn, '(');
          $flc = $dfn[0].substr($dfn,-1,1);
 
+
          for ($o=0; $o<$opl; $o++)
          {
             if (strpos($dfn, $opr[$o]) !== false)
@@ -400,23 +409,95 @@
             }
          }
 
-         if ($ref === true)
-         {
-            $omv = map::get($vrs, $dfn);
-            return (($omv !== null) ? $omv : $dfn);
-         }
 
          if (($pos !== false) && ($flc[1] === ')'))
          {
             $fnc = substr($dfn, 0, $pos);
             $arg = substr($dfn, ($pos +1), -1);
             $flc = $arg[0].substr($arg,-1,1);
-//            $arg = jsam::parse($arg, $vrs);
 
             return run::{'jsam.parse.'.$fnc}($arg, $vrs);
          }
 
+
+         if ($ref === true)
+         {
+            $omv = map::get($vrs, $dfn);
+            return (($omv !== null) ? $omv : $dfn);
+         }
+
          return $dfn;
+      }
+   );
+// --------------------------------------------------------------------------------------
+
+
+
+// isNaN :: check if dfn is Not a Number
+// --------------------------------------------------------------------------------------
+   set::{'jsam.parse.isNaN'}
+   (
+      function($d,$v)
+      {
+         $d = jsam::parse($d,$v);
+         $t = typeOf($d);
+
+         if (($t === int) || ($t === flt))
+         { return false; }
+
+         return true;
+      }
+   );
+// --------------------------------------------------------------------------------------
+
+
+// isStr :: check if dfn is string
+// --------------------------------------------------------------------------------------
+   set::{'jsam.parse.isStr'}
+   (
+      function($d,$v)
+      {
+         $d = jsam::parse($d,$v);
+         $t = typeOf($d);
+
+         if ($t === str)
+         { return true; }
+
+         return false;
+      }
+   );
+// --------------------------------------------------------------------------------------
+
+
+// isNum :: check if dfn is number
+// --------------------------------------------------------------------------------------
+   set::{'jsam.parse.isNum'}
+   (
+      function($d,$v)
+      {
+         $d = jsam::parse($d,$v);
+         $t = typeOf($d);
+
+         if (($t === int) || ($t === flt))
+         { return true; }
+
+         return false;
+      }
+   );
+// --------------------------------------------------------------------------------------
+
+
+
+// typeOf :: returns identifier type
+// --------------------------------------------------------------------------------------
+   set::{'jsam.parse.typeOf'}
+   (
+      function($d,$v)
+      {
+         $d = jsam::parse($d,$v);
+         $t = typeOf($d);
+
+         return $t;
       }
    );
 // --------------------------------------------------------------------------------------
