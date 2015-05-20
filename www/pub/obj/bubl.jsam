@@ -1,0 +1,88 @@
+
+   ({'text/html':
+   [
+      switch
+      ({
+         where:((this.cast == null) || (this.cast != null));
+
+         adapt:
+         {
+            type:(this.cast ? (' .bubl-'+this.cast) : '');
+            show:(this.aim : 'top');
+            algn:(this.pos ? (isStr(this.pos) ? (' .text-'+this.pos) : '') : '');
+            posi:(this.pos ? (isNum(this.pos) ? (this.pos+'em') : '0em') : '0em');
+         };
+
+         yield:
+         [
+            {div:('.bubl-box'+ (this.cast ? (' .bubl-'+this.cast) : '')), src:[{box:'', style:'font-size:0.9em; opacity:0', src:(this.src)}]},
+
+            {grid:'.drift', src:
+            [
+               {row:
+               [
+                  {col:[{div:'.bubl-pnt-dim'}]},
+
+                  {col:
+                  [
+                     {div:('.bubl-pnt-box-hrz' + ((show != 'top') ? ' .hide' : '')), style:('margin-left:'+posi), src:
+                     [
+                        {div:('.bubl-pnt .bubl-pnt-top'+ type + algn)}
+                     ]}
+                  ]},
+
+                  {col:
+                  [
+                     {div:'.bubl-pnt-dim'},
+                     {div:'.bubl-close', src:
+                     [
+                        {div:'.close-x', onclick:'hide(this.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode)', src:
+                        [
+                           {icon:'close-4 .size-fnt-2'}
+                        ]}
+                     ]},
+                  ]},
+               ]},
+
+               {row:
+               [
+                  {col:
+                  [
+                     {div:('.bubl-pnt-box-vrt' + ((show != 'lft') ? ' .hide' : '')), style:('margin-top:'+posi), src:
+                     [
+                        {div:('.bubl-pnt .bubl-pnt-lft'+ type + algn)}
+                     ]}
+                  ]},
+
+                  {col:
+                  [
+                     {div:'.bubl-txt', src:[{box:'', style:'font-size:0.9em', src:(this.src)}]},
+                  ]},
+
+                  {col:
+                  [
+                     {div:('.bubl-pnt-box-vrt' + ((show != 'rgt') ? ' .hide' : '')), style:('margin-top:'+posi), src:
+                     [
+                        {div:('.bubl-pnt .bubl-pnt-rgt'+ type + algn)}
+                     ]}
+                  ]},
+               ]},
+
+               {row:
+               [
+                  {col:[{div:'.bubl-pnt-dim'}]},
+
+                  {col:
+                  [
+                     {div:('.bubl-pnt-box-hrz' + ((show != 'btm') ? ' .hide' : '')), style:('margin-left:'+posi), src:
+                     [
+                        {div:('.bubl-pnt .bubl-pnt-btm'+ type + algn)}
+                     ]}
+                  ]},
+
+                  {col:[{div:'.bubl-pnt-dim'}]},
+               ]},
+            ]},
+         ]
+      })
+   ]})
