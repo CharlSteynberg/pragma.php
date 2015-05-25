@@ -15,7 +15,7 @@
 
          yield:
          [
-            {div:('.bubl-box'+ (this.cast ? (' .bubl-'+this.cast) : '')), src:[{box:'', style:'font-size:0.9em; opacity:0', src:(this.src)}]},
+            {div:('.bubl-box'+ (this.cast ? type : '')), src:[{box:'', style:'font-size:0.9em; opacity:0', src:(this.src)}]},
 
             {grid:'.drift', src:
             [
@@ -38,7 +38,7 @@
                      [
                         {div:'.close-x', onclick:'hide(this.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode)', src:
                         [
-                           {icon:'close-4 .size-fnt-2'}
+                           {icon:'times'}
                         ]}
                      ]},
                   ]},

@@ -13,7 +13,15 @@
       if (($dt === str) && !function_exists($d))
       { return null; }
 
-      return call_user_func_array($d, to::arr($a));
+      if ($at !== arr)
+      {
+         if ($at === obj)
+         { $a = to::arr($a); }
+         else
+         { $a = [$a]; }
+      }
+
+      return call_user_func_array($d, $a);
    }
 // --------------------------------------------------------------------------------------
 

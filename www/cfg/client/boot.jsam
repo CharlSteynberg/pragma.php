@@ -80,7 +80,7 @@
                               {div:'.size-hrz-12 .size-vrt-6 .mrgn-all-0 .flow .text-cnt', src:
                               [
                                  {icon:(key+' .size-fnt-2')},
-                                 {text:'.size-fnt-1 .wrap', src:(key)},
+                                 {text:'.wrap', style:'font-size:0.7em', src:(key)},
                               ]}
                            ];
                         })

@@ -87,21 +87,38 @@
          }
          else
          {
-            $sub = true;
+            $sub = false;         // continue with expression ?
             $edl = strlen($dlm);
+            $qsp = [strpos($nmd, $qsb), strpos($nmd, $qse)];
+            $tst = $nmd;
+            $rsq = false;
 
-            for ($o=0; $o<$dlm; $o++)
+            if ($qsp[0] !== false)
             {
-               if (strpos($dfn, $opr[$o]) !== false)
-               { $sub = false; break; }
+               $rsq = true;
+               $ets = substr($nmd, $qsp[0], (($qsp[1] - $qsp[0]) +1));
+               $tst = str_replace($ets, '', $tst);
+               $tst = explode($qsb, $tst)[0];
             }
 
-            if (($sub === false) && ($qct === 'str'))
+            for ($o=0; $o<$edl; $o++)
             {
-               $nmd = parse($nmd);
+               if (strpos($tst, $dlm[$o]) !== false)
+               { $sub = true; break; }
+            }
 
-               if (typeOf($nmd) === str)
-               { $nmd = jsam::{'parse.subExp'}($nmd, $vrs); }
+            if ($sub === false)
+            {
+               if (strpos($nmd, '(') !== false)
+               { return jsam::{'parse.subExp'}($nmd, $vrs); }
+
+               if ($rsq === true)
+               { $nmd = str_replace([$qsb, $qse], '', $nmd); }
+
+               $tst = map::get($vrs, $nmd);
+
+               if ($tst !== null)
+               { return $tst; }
 
                return $nmd;
             }
@@ -227,36 +244,36 @@
                               $lft = $rsl;
                               $rgt = $itm;
 
-                              $lcs = str::in($lft)->get('<>');
-                              $rcs = str::in($rgt)->get('<>');
-
-                              if (($lcs == '""') || ($lcs == "''") || ($lcs == "``"))
-                              { $lft = $qsb.substr($lft, 1, -1).$qse; }
-
-                              if (($rcs == '""') || ($rcs == "''") || ($rcs == "``"))
-                              { $rgt = $qsb.substr($rgt, 1, -1).$qse; }
-
-                              if ((strlen($lcs) > 1) && ($lcs[1] === ')'))
+                              if (is::str($lft))
                               {
-                                 if (strpos($lft, 'isNaN') !== false)
+                                 $lcs = str::in($lft)->get('<>');
+
+                                 if (($lcs == '""') || ($lcs == "''") || ($lcs == "``"))
+                                 { $lft = $qsb.substr($lft, 1, -1).$qse; }
+
+                                 if ((strlen($lcs) > 1) && ($lcs[1] === ')'))
                                  {
                                     $lft = jsam::parse($lft, $vrs);
-                                    echo $lft;
-                                    exit;
+
+                                    if (typeOf($lft) === str)
+                                    { $lft = $qsb.$lft.$qse; }
                                  }
-
-                                 $lft = jsam::parse($lft, $vrs);
-
-                                 if (typeOf($lft) === str)
-                                 { $lft = $qsb.$lft.$qse; }
                               }
 
-                              if ((strlen($rcs) > 1) && ($rcs[1] === ')'))
+                              if (is::str($rgt))
                               {
-                                 $rgt = jsam::parse($rgt, $vrs);
+                                 $rcs = str::in($rgt)->get('<>');
 
-                                 if (typeOf($rgt) === str)
-                                 { $rgt = $qsb.$rgt.$qse; }
+                                 if (($rcs == '""') || ($rcs == "''") || ($rcs == "``"))
+                                 { $rgt = $qsb.substr($rgt, 1, -1).$qse; }
+
+                                 if ((strlen($rcs) > 1) && ($rcs[1] === ')'))
+                                 {
+                                    $rgt = jsam::parse($rgt, $vrs);
+
+                                    if (typeOf($rgt) === str)
+                                    { $rgt = $qsb.$rgt.$qse; }
+                                 }
                               }
 
                               $rsl = Jsam::calc([$lft, $opr, $rgt], $vrs);
@@ -504,6 +521,38 @@
 
 
 
+// import :: import external context
+// --------------------------------------------------------------------------------------
+   set::{'jsam.parse.import'}
+   (
+      function($d,$v)
+      {
+         $d = jsam::parse($d);
+         $t = str::typeOf($d);
+
+         if ($t === str)
+         {
+            $d = (map::get($v,$d));
+            $t = str::typeOf($d);
+         }
+
+         if ($t !== pth)
+         { throw new Exception('string path expected'); }
+
+         $d = parse::file($d,$v);
+         $k = key($d);
+
+         if (is::str($k) && str::in($k)->has('/'))
+         { $d = $d->$k; }
+
+         return $d;
+      }
+   );
+// --------------------------------------------------------------------------------------
+
+
+
+/*
 // sepExpSec :: separate expression sequences
 // --------------------------------------------------------------------------------------
    set::{'jsam.parse.sepExpSeq'}
@@ -558,5 +607,5 @@
       }
    );
 // --------------------------------------------------------------------------------------
-
+*/
 ?>

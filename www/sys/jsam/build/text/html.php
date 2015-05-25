@@ -47,64 +47,100 @@
       // --------------------------------------------------------------------------------
 
 
-      // tag :: name
+      // tag :: name & first key value
       // --------------------------------------------------------------------------------
          reset($nde);
-
          $tag = key($nde);
-         $cnl = map::get($cfg, 'cstNodes');
-         $cst = map::get($cnl, $tag);
-         $cns = 'pub/obj/'.$tag.'.jsam';
-         $ctv = null;
+         $fkv = ((($nde->$tag === null) && isset($nde->src)) ? '' : $nde->$tag);
 
-         if (typeOf($nde->$tag) !== str)
+         if (!is::str($fkv))
          {
-            if (($nde->$tag === null) && isset($nde->src))
-            { $nde->$tag = ''; }
-            else
+            if (isset($nde->src))
+            { throw new Exception('invalid node structure'); }
+
+            $nde->src = $fkv;
+            $fkv = '';
+         }
+
+         $fkv = trim($fkv);
+         $nde->$tag = $fkv;
+      // --------------------------------------------------------------------------------
+
+
+      // cst :: custom nodes
+      // --------------------------------------------------------------------------------
+         $cst = false;
+
+         if (strpos('head title meta style script body', $tag) === false)
+         {
+         // custom locals
+         // -----------------------------------------------------------------------------
+            $cns = 'pub/obj/'.$tag.'.jsam';
+            $ico = (file_exists($cns) ? true : false);
+            $cst = ($ico ? 'div' : (isset($cfg->ndeAlias->$tag) ? $cfg->ndeAlias->$tag : false));
+         // -----------------------------------------------------------------------------
+
+         // set cast
+         // -----------------------------------------------------------------------------
+            if ($cst && !isset($nde->cast))
             {
-               if (!isset($nde->src))
+               if ($ico)
+               { $nde->cast = 'auto'; }
+
+               $fca = (((strlen($fkv) > 1) && (($fkv[0] === '#') || ($fkv[0] === '.'))) ? true : false);
+
+               if ((strlen($fkv) < 1) || ($fca === true))
                {
-                  $nde->src = $nde->$tag;
-                  $nde->$tag = '';
+                  $fkv = trim(".$tag .$tag-auto $fkv");
                }
                else
-               { throw new Exception('invalid node structure'); }
+               {
+                  $hqa = (((strpos($fkv, ' #') !== false) || (strpos($fkv, ' .') !== false)) ? true : false);
+
+                  if (($hqa === false) && (strpos($fkv, ' ') === false) && isset($vrs->{'$CSS'}->$tag))
+                  {
+                     if ($ico)
+                     { $nde->cast = $fkv; }
+
+                     $fkv = ".$tag .$tag-$fkv";
+                  }
+                  else
+                  {
+                     if ($hqa === true)
+                     {
+                        $pts = explode(' ', $fkv);
+                        $ocn = array_shift($pts);
+
+                        if ($ico)
+                        { $nde->cast = $ocn; }
+
+                        $fkv = ".$tag .$tag-$ocn ".implode($pts, ' ');
+                     }
+                     else
+                     {
+                        $nde->src = $fkv;
+                        $fkv = ".$tag .$tag-auto";
+                     }
+                  }
+               }
+
+               // if ($tag == 'note')
+               // {
+               //
+               // }
+
+               // if (!$ico)
+               // { unset($nde->cast); }
             }
-         }
-      // --------------------------------------------------------------------------------
-
-
-      // custom tag src & vars
-      // --------------------------------------------------------------------------------
-         if ($cst !== null)
-         {
-         // locals
-         // -----------------------------------------------------------------------------
-            $pre = map::get($cst, 'tpe');
-            $ntg = $nde->$tag;
-
-            $ntg = trim($ntg);
-            $frc = (((strlen($ntg) > 1) && (($ntg[0] === '#') || ($ntg[0] === '.'))) ? true : false);
-         // -----------------------------------------------------------------------------
-
-         // pre :: type || class
-         // -----------------------------------------------------------------------------
-            if (($pre === null) || (strlen($ntg) < 1) || ($frc === true))
-            { $ntg = trim('.'.$tag.' '.$ntg); }
-            else
-            {
-               $nde->cast = explode(' ', $ntg)[0];
-               $ntg = '.'.$tag.' .'.$tag.'-'.$ntg;
-            }
-
-            $nde->$tag = $ntg;
          // -----------------------------------------------------------------------------
 
          // set variables
          // -----------------------------------------------------------------------------
             $vrs->{'this'} = null;
             $vrs->{'this'} = new obj();
+
+            if (isset($vrs->{'$form'}))
+            { $vrs->{'this'}->form = $vrs->{'$form'}; }
 
             // if (!isset($vrs->{'this'}))
             // { $vrs->{'this'} = new obj(); }
@@ -124,16 +160,17 @@
 
          // handle source
          // -----------------------------------------------------------------------------
-            if (file_exists($cns))
+            if ($ico)
             {
-               $cns = parse::file($cns, $vrs)->{'text/html'};
-               $cns = (!is::arr($cns) ? [$cns] : $cns);
-
-               $nde->src = $cns;
+               $nde->src = parse::file($cns, $vrs)->{'text/html'};
             }
          // -----------------------------------------------------------------------------
+
+            $nde->$tag = $fkv;
+
          }
       // --------------------------------------------------------------------------------
+
 
 
       // atr :: quick
@@ -155,7 +192,13 @@
                   $v = substr($a, 1, length($a));
 
                   if ($a[0] === '#')
-                  { $nde->id = $v; }
+                  {
+                     $nde->id = $v;
+                     $nde->name = $v;
+
+                     if ($tag === 'form')
+                     { $vrs->{'$form'} = $v; }
+                  }
                   elseif ($a[0] === '.')
                   {
                      if (!isset($nde->class))
@@ -266,8 +309,11 @@
 
       // node :: bgn
       // --------------------------------------------------------------------------------
-         $otn  = $tag;
-         $tag  = (($cst === null) ? $tag : $cst->tag);
+         $otn = $tag;
+
+         $tag = (($cst !== false) ? $cst : $tag);
+         $tag = (isset($cfg->ndeAlias->$tag) ? $cfg->ndeAlias->$tag : $tag);
+
          $rsl .= $nlc.$ind.'<'.$tag;
 
          foreach($nde as $k => $v)
@@ -299,7 +345,7 @@
                }
                else
                {
-                  if (($cst !== null) && ($k === $otn))
+                  if ($k === $otn)
                   { continue; }
 
                   $rsl .= ' '.$k.'="'.$v.'"';
@@ -364,6 +410,33 @@
 
 
 
+   // post processing
+   // -----------------------------------------------------------------------------------
+      if (strpos($rsl, '</pre>') !== false)
+      {
+         $bgn = (strpos($rsl, '<pre>') + 5);
+         $end = strpos($rsl, '</pre>');
+         $len = ($end - $bgn);
+         $txt = substr($rsl, $bgn, $len);
+
+         $lns = str_replace("\t", ' ', trim($txt));
+         $lns = explode("\n", $lns);
+         $str = '';
+
+         foreach ($lns as $l)
+         { $str .= trim($l)."\n"; }
+
+         $str = highlight_string('<?'.$str.'?>', true);
+         $str = str_replace(['&lt;?', '?&gt;', '<code>', '</code>'], '', $str);
+         $str = str_replace('#FF8000', '#AAA', $str);
+         $str = '<div class="code">'.$str.'</div>';
+
+         $rsl = substr_replace($rsl, $str, ($bgn -5), ($len + 11));
+      }
+   // -----------------------------------------------------------------------------------
+
+
+
    // return result
    // -----------------------------------------------------------------------------------
       return $rsl;
@@ -400,31 +473,6 @@
       $rsl  = $pfx;
       $rsl .= _build_text_html($dfn, 1, $cfg, $vrs);
       $rsl .= $sfx;
-   // -----------------------------------------------------------------------------------
-
-
-   // post processing
-   // -----------------------------------------------------------------------------------
-      if (strpos($rsl, '</pre>') !== false)
-      {
-         $bgn = (strpos($rsl, '<pre>') + 5);
-         $end = strpos($rsl, '</pre>');
-         $len = ($end - $bgn);
-         $txt = substr($rsl, $bgn, $len);
-         $lns = str_replace("\t", ' ', trim($txt));
-         $lns = explode("\n", $lns);
-         $str = '';
-
-         foreach ($lns as $l)
-         { $str .= trim($l)."\n"; }
-
-         $str = highlight_string('<?'.$str.'?>', true);
-         $str = str_replace(['&lt;?', '?&gt;', '<code>', '</code>'], '', $str);
-         $str = str_replace('#FF8000', '#AAA', $str);
-         $str = '<div class="code">'.$str.'</div>';
-
-         $rsl = substr_replace($rsl, $str, ($bgn -5), ($len + 11));
-      }
    // -----------------------------------------------------------------------------------
 
 

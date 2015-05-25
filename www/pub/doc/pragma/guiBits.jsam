@@ -3,7 +3,7 @@
    [
    // Styled Elements
    // -----------------------------------------------------------------------------------
-      {page:'', $title:'Styled Elements', leafTtl:'pragma gui', leafSub:'documentation', src:
+      {sheet:'', $title:'Styled Elements', leafTtl:'pragma gui', leafSub:'documentation', src:
       [
       // Fields
       // --------------------------------------------------------------------------------
@@ -11,7 +11,7 @@
          [
          // info
          // -----------------------------------------------------------------------------
-            {block:'text', $title:'Info', src:
+            {pane:'text', $title:'Info', src:
             `
                Fields are used to capture data from the user.<br>
                These fields have different types (casts) and are also styled accordingly.<br>
@@ -21,18 +21,29 @@
                and makes it expremely easy to use for rapid development.
             `},
          // -----------------------------------------------------------------------------
-
+// extends
+// ({
+//    basis:
+// })
          // code
          // -----------------------------------------------------------------------------
-            {block:'text', $title:'Code', src:
+            {pane:'code', $title:'Code', src:
             `
-               // TODO
+               {field:"text"},
+
+               // {field:"name"},
+               // {field:"dial"},
+               // {field:"mail"},
+               // {field:"pass"},
+               // {field:"find"},
+               // {field:"area"},
+               // {field:"date"},
             `},
          // -----------------------------------------------------------------------------
 
          // examples
          // -----------------------------------------------------------------------------
-            {block:'', $title:'Examples', src:
+            {pane:'', $title:'Examples', src:
             [
                {field:"text"},
                {field:"name"},
@@ -42,12 +53,7 @@
                {field:"find"},
                {field:"area"},
                {field:"date"},
-               {field:"menu"},
                {field:"cmbo"},
-               // {field:"mail", form:"profile", icon:"phone-4", info:"phone number" expr:"[0-9]"},
-               // {field:"pass", form:"profile", icon:"key-5", info:"password" expr:"[a-zA-Z0-9]"},
-               // {field:"menu", form:"profile", icon:"office", info:"city" src:""},
-               // {field:"date", form:"profile", icon:"office", info:"city" src:""},
             ]},
          // -----------------------------------------------------------------------------
          ]},
@@ -61,7 +67,7 @@
          [
          // info
          // -----------------------------------------------------------------------------
-            {block:'text', $title:'Info', src:
+            {pane:'text', $title:'Info', src:
             `
                Notes are used to inform users about events.<br>
                They are color-coded and have accociated icons to better represent
@@ -74,27 +80,30 @@
 
          // code
          // -----------------------------------------------------------------------------
-            {block:'code', $title:'Code', src:
+            {pane:'code', $title:'Code', src:
             `
-               {note:"good", src:"Well Done!"}
+               {note:"good", src:"Well Done!"},
 
                // {note:"info", src:"For your peace of mind."},
-               // {note:"need", src:"Remember to email the boss."},
+               // {note:"mind", src:"Remember to email the boss."},
+               // {note:"need", src:"Your <b>phone number</b> is required."},
+               // {note:"fail", src:"Aww dang, now look what you did."},
                // {note:"warn", src:"Drinking and coding is a bad idea!"},
-               // {note:"risk", src:"Aww dang, now look what you did."},
             `},
          // -----------------------------------------------------------------------------
 
 
          // examples
          // -----------------------------------------------------------------------------
-            {block:'', $title:'Examples', src:
+            {pane:'', $title:'Examples', src:
             [
+               {note:"auto", src:"Take a deep breath."},
                {note:"good", src:"Well Done!"},
                {note:"info", src:"For your peace of mind."},
-               {note:"need", src:"Remember to email the boss."},
+               {note:"mind", src:"Remember to email the boss."},
+               {note:"need", src:"Your <b>phone number</b> is required."},
+               {note:"fail", src:"Aww dang, now look what you did."},
                {note:"warn", src:"Drinking and coding is a bad idea!"},
-               {note:"risk", src:"Aww dang, now look what you did."},
             ]},
          // -----------------------------------------------------------------------------
          ]},
@@ -108,7 +117,7 @@
          [
          // info
          // -----------------------------------------------------------------------------
-            {block:'text', $title:'Info', src:
+            {pane:'text', $title:'Info', src:
             `
                Buttons are styled to be functional and attractive.<br>
             `},
@@ -117,29 +126,31 @@
 
          // code
          // -----------------------------------------------------------------------------
-            {block:'code', $title:'Code', src:
+            {pane:'code', $title:'Code', src:
             `
-               {butn:"", icon:"feed-4", src:"submit"},
-               {butn:"info", icon:"auto", src:"continue"},
-               {butn:"good .span-hrz-5", icon:"skull", size:2, src:"agree"},
+               {butn:"auto", icon:"floppy-o", src:"submit", size:1},
 
-               // {butn:"need", src:"enquire"},
+               // {butn:"good .span-hrz-5", size:2, src:"agree"},
+               // {butn:"info", icon:"auto", src:"find"},
+               // {butn:"mind", src:"okay"},
+               // {butn:"need", src:"agree"},
+               // {butn:"fail", src:"cancel"},
                // {butn:"warn", src:"careful"},
-               // {butn:"risk", src:"danger"},
             `},
          // -----------------------------------------------------------------------------
 
 
          // examples
          // -----------------------------------------------------------------------------
-            {block:'', $title:'Examples', src:
+            {pane:'', $title:'Examples', src:
             [
-               {butn:"", icon:"feed-4", src:"submit", size:1},
-               {butn:"info", icon:"auto", src:"continue"},
-               {butn:"good .span-hrz-5", icon:"skull", size:2, src:"agree"},
-               {butn:"need", src:"enquire"},
+               {butn:"auto", icon:"floppy-o", src:"submit", size:1},
+               {butn:"good .span-hrz-5", size:2, src:"download"},
+               {butn:"info", icon:"auto", src:"find"},
+               {butn:"mind", src:"okay"},
+               {butn:"need", src:"agree"},
+               {butn:"fail", src:"cancel"},
                {butn:"warn", src:"careful"},
-               {butn:"risk", src:"danger"},
             ]},
          // -----------------------------------------------------------------------------
          ]},

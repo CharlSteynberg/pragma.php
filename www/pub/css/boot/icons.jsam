@@ -3,7 +3,7 @@
    [
    // icon class properties
    // -----------------------------------------------------------------------------------
-      {'[class^="icon-"], [class*=" icon-"], [class^="ico-"], [class*=" ico-"]':
+      {'.icon':
       {
          speak:none;
          display:inline-block;
@@ -13,7 +13,9 @@
          font-weight: normal;
          font-style: normal;
          text-decoration: inherit;
+         text-rendering: auto;
          -webkit-font-smoothing: antialiased;
+         -moz-osx-font-smoothing: grayscale;
       }},
    // -----------------------------------------------------------------------------------
 

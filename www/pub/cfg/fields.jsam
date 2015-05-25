@@ -4,12 +4,18 @@
          cast:'text';
          node:'input';
          type:'text';
-         icon:'type';
+         icon:'font';
          hold:'type here';
          curb:60;
          must:true;
          expr:null;
-         exec:null;
+
+         evnt:
+         {
+            onFocus:"hide('.bubl')",
+            onBlur:"bits.field.test(this)",
+         };
+
          bubl:
          {
             spec:'Type your text here.',
@@ -22,12 +28,18 @@
          cast:'name';
          node:'input';
          type:'text';
-         icon:'user-8';
+         icon:'user';
          hold:'first name';
          curb:30;
          must:true;
-         expr:['[A-Za-z0-9\\-]', null];
-         exec:null;
+         expr:"^[A-Za-z\\-]+$";
+
+         evnt:
+         {
+            onFocus:"hide('.bubl')",
+            onBlur:"bits.field.test(this)",
+         };
+
          bubl:
          {
             spec:'Type your first name here.',
@@ -40,14 +52,16 @@
          cast:'dial';
          node:'input';
          type:'text';
-         icon:'phone-5';
+         icon:'phone';
          hold:'phone number';
          curb:15;
          must:true;
-         expr:['^0(6|7|8){1}[0-9]{1}[0-9]{7}$', null];
-         exec:
+         expr:"^0(6|7|8){1}[0-9]{1}[0-9]{7}$";
+
+         evnt:
          {
-            onBlur:"alert('validate mobile number')";
+            onFocus:"hide('.bubl')",
+            onBlur:"bits.field.test(this)",
          };
 
          bubl:
@@ -62,14 +76,16 @@
          cast:'mail';
          node:'input';
          type:'email';
-         icon:'envelop-3';
+         icon:'envelope-o';
          hold:'email address';
          curb:60;
          must:true;
-         expr:['^([\\w-]+(?:\\.[\\w-]+)*)@((?:[\\w-]+\\.)*\\w[\\w-]{0,66})\\.([a-z]{2,6}(?:\\.[a-z]{2})?)$/', 'i'];
-         exec:
+         expr:"^([\\w-]+(?:\\.[\\w-]+)*)@((?:[\\w-]+\\.)*\\w[\\w-]{0,66})\\.([a-z]{2,6}(?:\\.[a-z]{2})?)$/";
+
+         evnt:
          {
-            onBlur:'alert("validate email address")';
+            onFocus:"hide('.bubl')",
+            onBlur:"bits.field.test(this)",
          };
 
          bubl:
@@ -84,12 +100,17 @@
          cast:'pass';
          node:'input';
          type:'password';
-         icon:'key-5';
+         icon:'key';
          hold:'password';
          curb:16;
          must:true;
-         expr:'^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{6,16}$';
-         exec:'auto';
+         expr:"^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{6,16}$";
+
+         evnt:
+         {
+            onFocus:"hide('.bubl')",
+            onBlur:"bits.field.test(this)",
+         };
 
          bubl:
          {
@@ -108,11 +129,16 @@
          curb:60;
          must:false;
          expr:null;
-         exec:null;
+
+         evnt:
+         {
+            onFocus:"hide('.bubl')",
+            onBlur:"bits.field.test(this)",
+         };
 
          bubl:
          {
-            spec:'Type what you want to search for,<br>then click on the "search icon" on the right.',
+            spec:'Type your search here and look for results below.',
             data:'Letters, numbers, spaces and punctuation accepted.',
             xmpl:'top 5 competitors',
          }
@@ -123,12 +149,17 @@
          node:'textarea';
          type:'text';
          rows:3;
-         icon:'file-2';
+         icon:'file-text-o';
          hold:'message';
          curb:1600;
          must:false;
          expr:null;
-         exec:null;
+
+         evnt:
+         {
+            onFocus:"hide('.bubl')",
+            onBlur:"bits.field.test(this)",
+         };
 
          bubl:
          {
@@ -147,7 +178,12 @@
          hold:'choose a date';
          curb:10;
          expr:null;
-         exec:null;
+
+         evnt:
+         {
+            onFocus:"hide('.bubl')",
+            onBlur:"bits.field.test(this)",
+         };
 
          bubl:
          {
@@ -161,35 +197,21 @@
          cast:'menu';
          node:'input';
          type:'hidden';
-         icon:'menu-5';
+         icon:'list-alt';
          hold:'choose...';
          curb:60;
          must:false;
          expr:null;
-         exec:null;
+
+         evnt:
+         {
+            onFocus:"hide('.bubl')",
+            onBlur:"bits.field.test(this)",
+         };
 
          bubl:
          {
             spec:'Click on the "drop-down arrow" on the right.',
-            data:null,
-            xmpl:null,
-         }
-      },
-
-      {
-         cast:'cmbo';
-         node:'input';
-         type:'text';
-         icon:'menu-5';
-         hold:'type or choose...';
-         curb:60;
-         must:false;
-         expr:null;
-         exec:null;
-
-         bubl:
-         {
-            spec:'Click on the "drop-down arrow" on the right or,<br>start typing for a shorter list to choose from.',
             data:null,
             xmpl:null,
          }

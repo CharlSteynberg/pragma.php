@@ -1,9 +1,9 @@
 
    ({'text/html':
    [
-      {grid:'.span-hrz-24', src:
+      {grid:'.span-vrt-24 .span-hrz-24', src:
       [
-         {row:('.size-fnt-' + (this.size : 1)), src:
+         {row:('.span-vrt-24 .size-fnt-' + (this.size : 1)), src:
          [
             switch
             ([
@@ -13,7 +13,7 @@
                   yield:
                   [
                      {col:'.text-cnt .text-mdl .size-hrz-1 .padn-hrz-05', src:[{icon:(icn)}]},
-                     {col:[{sepr:''}]},
+                     {col:'.span-vrt-24', src:[{line:'vrt'}]},
                   ];
                },
             ]),

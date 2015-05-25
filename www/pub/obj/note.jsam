@@ -7,7 +7,7 @@
          [
             {col:'.size-fnt-2 .size-all-1 .padn-lft-1 .text-mdl', src:
             [
-               {icon:('tpe-'+this.cast+' .text-press')}
+               {icon:('tpe-'+this.cast)}
             ]},
 
             {col:'.text-left .padn-top-2 .padn-btm-2 .padn-lft-1 .padn-rgt-2 .text-midl', src:(this.src)},
@@ -16,7 +16,7 @@
             [
                {div:'.close-x', onclick:'this.parentNode.parentNode.parentNode.parentNode.parentNode.style.display = \'none\'', src:
                [
-                  {icon:'close-4 .size-fnt-2'}
+                  {icon:'times'}
                ]}
             ]},
          ]}

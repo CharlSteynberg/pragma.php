@@ -75,18 +75,18 @@
 
 // keys :: object.keys[0]
 // --------------------------------------------------------------------------------------
-   extend(Object.prototype).pty('key', function()
-   {
-      var dfn = this;
-      var rsl = [];
-
-      for (var i=0; i < Object.keys(dfn).length; i++)
-      {
-         rsl[i] = Object.keys(dfn)[i];
-      }
-
-      return rsl;
-   });
+   // extend(Object.prototype).pty('key', function()
+   // {
+   //    var dfn = this;
+   //    var rsl = [];
+   //
+   //    for (var i=0; i < Object.keys(dfn).length; i++)
+   //    {
+   //       rsl[i] = Object.keys(dfn)[i];
+   //    }
+   //
+   //    return rsl;
+   // });
 // --------------------------------------------------------------------------------------
 
 
@@ -233,11 +233,11 @@
          (
             function(i,k,a)
             {
-               var c = i.className;
-                   c = ((c.indexOf('hide') < 0) ? c+' hide' : c);
-                   c = c.split('hide').join('show');
+               var c = i.className.split(' hide').join('');
+                   c = c.split('hide ').join('');
+                   c = c.split('hide').join('');
 
-               i.className = c;
+               i.className = c + ' show';
             }
          );
       },
@@ -251,11 +251,11 @@
          (
             function(i,k,a)
             {
-               var c = i.className;
-                   c = ((c.indexOf('show') < 0) ? c+' show' : c);
-                   c = c.split('show').join('hide');
+               var c = i.className.split(' show').join('');
+                   c = c.split('show ').join('');
+                   c = c.split('show').join('');
 
-               i.className = c;
+               i.className = c + ' hide';
             }
          );
       }

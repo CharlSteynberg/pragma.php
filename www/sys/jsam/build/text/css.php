@@ -58,24 +58,21 @@
          (
             ($lvl < 2) && ($sel[0] == '.') &&
             (strpos($sel, ',') === false) &&
-            (strpos($sel, ' ') === false) &&
-            (typeOf($atr) === obj)
+            (strpos($sel, ' ') === false)
          )
          {
-            $ref = trim($sel, '.');
-            $ref = str_replace(':before', '', $ref);
-            $ref = str_replace(':after', '', $ref);
+            $svr = (($sel[0] === '.') ? substr($sel, 1, strlen($sel)) : $sel);
+            $avr = ((is::str($atr) && ($atr[0] === '.')) ? substr($atr, 1, strlen($atr)) : $atr);
 
-            $vrs->{'$CSS'}->$ref = $atr;
-         }
+            $svr = str_replace([':before', ':after'], '', $svr);
+            $avr = (is::str($avr) ? str_replace([':before', ':after'], '', $avr) : null);
 
-         if (typeOf($atr) === str)
-         {
-            $ref = trim($atr, '.');
-            $atr = map::get($vrs->{'$CSS'}, $ref);
+            if (is::str($atr) && !$avr)
+            { throw new Exception('css class "'.$atr.'" is undefined'); }
 
-            if (!$atr)
-            { throw new Exception('css class "'.$ref.'" is undefined'); }
+            $atr = (is::nul($avr) ? $atr : map::get($vrs->{'$CSS'}, $avr));
+
+            $vrs->{'$CSS'}->$svr = $atr;
          }
       // --------------------------------------------------------------------------------
 

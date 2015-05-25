@@ -14,7 +14,7 @@
             yield:{pre:(this.src)}
          },
          {
-            where:(this.cast == null);
+            where:(this.cast == 'auto');
             yield:{div:(this.src)}
          },
       ])

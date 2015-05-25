@@ -142,6 +142,9 @@
                $v = $o->value;
                $l = strlen($v);
 
+               if ($l < 1)
+               { return null; }
+
                if ($t === str)
                {
                   if ($d == '<>')

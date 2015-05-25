@@ -45,6 +45,15 @@
    // -----------------------------------------------------------------------------------
       if ($opr == '+')
       {
+      // nul cases
+      // --------------------------------------------------------------------------------
+         if (($lft === null) || ($lft === ''))
+         { return $rgt; }
+
+         if (($rgt === null) || ($rgt === ''))
+         { return $lft; }
+      // --------------------------------------------------------------------------------
+
       // quick cases
       // --------------------------------------------------------------------------------
          switch ($dtp)
@@ -58,6 +67,17 @@
             case 'strint' : return ($lft.$rgt);
             case 'strflo' : return ($lft.$rgt);
             case 'strstr' : return ($lft.$rgt);
+         }
+      // --------------------------------------------------------------------------------
+
+      // obj + obj
+      // --------------------------------------------------------------------------------
+         if ($dtp === 'objobj')
+         {
+            foreach ($rgt as $k => $v)
+            { $lft->$k = $v; }
+
+            return $lft;
          }
       // --------------------------------------------------------------------------------
       }
@@ -234,40 +254,46 @@
 
          // asterisk (substr)
          // -----------------------------------------------------------------------------
-            $lap = explode('*', $lft);
-            $lac = count($lap);
-            $lsp = strpos($lft, '*');
-            $lsl = strlen($lft);
-
-            $rap = explode('*', $rgt);
-            $rac = count($rap);
-            $rsp = strpos($rgt, '*');
-            $rsl = strlen($rgt);
-
-            if ($lac > 1)
+            if (is::str($lft))
             {
-               if ($lac === 2)
-               { $lft = ((strlen($lap[0]) > 0) ? $lap[0] : $lap[1]); }
-               elseif ($lac === 3)
-               { $lft = $lap[1]; }
+               $lap = explode('*', $lft);
+               $lac = count($lap);
+               $lsp = strpos($lft, '*');
+               $lsl = strlen($lft);
 
-               if ($lac === 2)
-               { $rgt = (($lsp > 0) ? substr($rgt, 0, strlen($lft)) : substr($rgt, strpos($rgt, $lft), $rsl)); }
-               elseif (($lac === 3) && (strpos($rgt, $lft) !== false))
-               { $rgt = $lft; }
+               if ($lac > 1)
+               {
+                  if ($lac === 2)
+                  { $lft = ((strlen($lap[0]) > 0) ? $lap[0] : $lap[1]); }
+                  elseif ($lac === 3)
+                  { $lft = $lap[1]; }
+
+                  if ($lac === 2)
+                  { $rgt = (($lsp > 0) ? substr($rgt, 0, strlen($lft)) : substr($rgt, strpos($rgt, $lft), $rsl)); }
+                  elseif (($lac === 3) && (strpos($rgt, $lft) !== false))
+                  { $rgt = $lft; }
+               }
             }
 
-            if ($rac > 1)
+            if (is::str($rgt))
             {
-               if ($rac === 2)
-               { $rgt = ((strlen($rap[0]) > 0) ? $rap[0] : $rap[1]); }
-               elseif ($rac === 3)
-               { $rgt = $rap[1]; }
+               $rap = explode('*', $rgt);
+               $rac = count($rap);
+               $rsp = strpos($rgt, '*');
+               $rsl = strlen($rgt);
 
-               if ($rac === 2)
-               { $lft = (($rsp > 0) ? substr($lft, 0, strlen($rgt)) : substr($lft, strpos($lft, $rgt), $lsl)); }
-               elseif (($rac === 3) && (strpos($lft, $rgt) !== false))
-               { $lft = $rgt; }
+               if ($rac > 1)
+               {
+                  if ($rac === 2)
+                  { $rgt = ((strlen($rap[0]) > 0) ? $rap[0] : $rap[1]); }
+                  elseif ($rac === 3)
+                  { $rgt = $rap[1]; }
+
+                  if ($rac === 2)
+                  { $lft = (($rsp > 0) ? substr($lft, 0, strlen($rgt)) : substr($lft, strpos($lft, $rgt), $lsl)); }
+                  elseif (($rac === 3) && (strpos($lft, $rgt) !== false))
+                  { $lft = $rgt; }
+               }
             }
          // -----------------------------------------------------------------------------
 

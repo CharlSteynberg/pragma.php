@@ -1,8 +1,10 @@
 
    ([
-      {tpe:risk, h:0,   s:60, ico:'notification-2'},
-      {tpe:warn, h:35,  s:90, ico:'warning-2'},
-      {tpe:good, h:130, s:40, ico:'checkmark-circle-2'},
-      {tpe:info, h:205, s:50, ico:'info-2'},
-      {tpe:need, h:255, s:30, ico:'question-3'},
+      {tpe:auto, hsl:[0  ,0 ,92], ico:'magic'},
+      {tpe:fail, hsl:[0  ,75,90], ico:'thumbs-o-down'},
+      {tpe:warn, hsl:[35 ,99,90], ico:'exclamation'},
+      {tpe:good, hsl:[120,60,92], ico:'thumbs-o-up'},
+      {tpe:info, hsl:[205,70,92], ico:'info'},
+      {tpe:mind, hsl:[255,60,92], ico:'pencil-square-o'},
+      {tpe:need, hsl:[320,65,92], ico:'hand-o-right'},
    ])
