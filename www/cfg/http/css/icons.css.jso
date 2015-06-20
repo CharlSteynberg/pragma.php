@@ -1,0 +1,31 @@
+
+   ({'text/css':
+   [
+   // icon class properties
+   // -----------------------------------------------------------------------------------
+      {'.icon':
+      {
+         speak:none;
+         display:inline-block;
+         width:1em;
+         height:1em;
+         font-family:icons;
+         font-weight: normal;
+         font-style: normal;
+         text-decoration: inherit;
+         text-rendering: auto;
+         -webkit-font-smoothing: antialiased;
+         -moz-osx-font-smoothing: grayscale;
+      }},
+   // -----------------------------------------------------------------------------------
+
+
+   // build larger css data from json (works faster)
+   // -----------------------------------------------------------------------------------
+      while
+      ({
+         in: import ('cfg/site/src/icon.src.jso'),
+         do: yield ({('.icon-'+item.key+':before'):{ content:('"\\'+item.value+'"')}})
+      }),
+   // -----------------------------------------------------------------------------------
+   ]})

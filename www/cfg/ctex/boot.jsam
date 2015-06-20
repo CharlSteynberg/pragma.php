@@ -1,7 +1,0 @@
-
-   ({
-      head:
-      [
-         {script:'sys/ctex/_init.js'}
-      ];
-   })

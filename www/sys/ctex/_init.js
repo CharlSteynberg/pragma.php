@@ -1,2 +1,0 @@
-
-//   alert('ello from ctex');

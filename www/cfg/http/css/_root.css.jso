@@ -1,0 +1,158 @@
+
+   ({'text/css':
+   {
+      html:
+      { height:100%; },
+
+      body:
+      {
+         height:100%;
+         margin:0;
+         font-family:'Arial, Helvitica, Sans';
+         font-size:10px;
+         background:'url(cfg/site/img/tex/wdenim.jpg)';
+         color:#777;
+      },
+
+
+   // scrolling
+   // -----------------------------------------------------
+      '.scrl':
+      {
+         overflow:auto;
+      },
+
+      '::-webkit-scrollbar':
+      {
+         width:9px;
+         height:9px;
+      },
+
+      '::-webkit-scrollbar-track':
+      {
+         background:'hsla(0,0%,20%,0.95)';
+      },
+
+      '::-webkit-scrollbar-thumb':
+      {
+         border-radius: 5px;
+         background:'hsla(0,0%,60%,0.95)';
+      },
+   // -----------------------------------------------------
+
+
+      h1:
+      {
+         font-family:'prosto';
+         font-size:2.2em;
+         font-weight: normal;
+         font-style: normal;
+         margin:0;
+         margin-bottom:0.5em;
+         color:#AAA;
+      },
+
+      h2:
+      {
+         font-family:'gotham';
+         font-size:1.5em;
+         font-weight: normal;
+         font-style: normal;
+         margin:0;
+         margin-bottom:0.3em;
+      },
+
+      h3:
+      {
+         font-family:'gotham';
+         font-size:1.5em;
+         font-weight: normal;
+         font-style: normal;
+         margin:0;
+         margin-bottom:0.2em;
+      },
+
+      h4:
+      {
+         font-family:'gotham';
+         font-weight: normal;
+         font-style: normal;
+         font-size:1.1em;
+         color:#777;
+         margin-top:0.2em;
+         margin-bottom:0.5em;
+      },
+
+      h5:
+      {
+         font-family:'android';
+         font-size:1em;
+         font-weight:bold;
+         margin-top:0.2em;
+         margin-bottom:0.2em;
+      },
+
+      p:
+      {
+         font-family:'android';
+         font-size:1em;
+         font-weight:normal;
+         margin-top:0.3em;
+         margin-bottom:0.5em;
+      },
+
+      pre:
+      {
+         font-family:'monos';
+         font-size:0.9em;
+         font-weight:normal;
+         line-height:1.3em;
+         margin:0.5em;
+      // overflow:auto;
+      },
+
+      hr:
+      {
+         border: 0;
+         height: 1px;
+         border-bottom:'1px solid #dedede';
+         width:50%;
+         margin:0px;
+         margin-top:0.3em;
+         margin-bottom:0.4em;
+      },
+
+      table:
+      {
+         border-style:none;
+         border-width:0px;
+      },
+
+      input:
+      {
+         font-family:'android';
+         font-size:1.2em;
+         line-height:1.2em;
+         padding:0.3em;
+         background:#fff;
+         border:'0.1em solid #aaa';
+         border-radius:0.2em;
+         width:100%;
+         min-width:50px;
+         margin:0.5em;
+      },
+
+      button:
+      {
+         font-family:'android';
+         font-size:1.2em;
+         line-height:1.2em;
+         padding:0.3em;
+         width:50%;
+         max-width:200px;
+         min-width:50px;
+         margin:0.5em;
+         margin-right:'-1.2em';
+         box-shadow:'0px 0px 0.2em rgba(0,0,0,0.2)';
+      },
+   }})

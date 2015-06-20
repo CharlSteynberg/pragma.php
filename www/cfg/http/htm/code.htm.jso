@@ -1,0 +1,22 @@
+
+   ({'text/html\\tpl/sys/page.tpl.jso':
+   [
+      {'head':
+      [
+         {title:(titl)},
+      ]},
+
+      {'bodys':
+      [
+         {div:'.page', src:
+         [
+            {h1:(titl)},
+
+            {h2:(code+' - '+desc)},
+            {hr:'', align:left},
+            {p:(mesg)},
+            {p:'Please contact support.'},
+            {hr:'', align:left},
+         ]}
+      ]}
+   ]})

@@ -1,0 +1,254 @@
+
+   ({'text/html':
+   [
+   // head :: settings area
+   // -----------------------------------------------------------------------------------
+      {head:
+      [
+      // docs - specific styles
+      // --------------------------------------------------------------------------------
+         {style:'', 'text/css':
+         [
+         // pages
+         // -----------------------------------------------------------------------------
+            {'.page-base':
+            {
+               width:100%;
+               height:100%;
+               min-width:480px;
+               min-height:320px;
+               margin:auto;
+               background:#EFEFEF;
+               border:'1px solid #FFF';
+               border-radius:0.4em;
+               border-top-right-radius:5.7em;
+               box-shadow:'0em 0em 0.4em rgba(0,0,0,0.3)';
+            }},
+
+            {'.page-ttl-box':
+            {
+               width:100%;
+               height:4em;
+               border-bottom:'1px solid rgba(255,255,255,0.8)';
+               border-top-right-radius:3.8em;
+               border-bottom-left-radius:4em;
+               background:#333;
+               margin-left:1px;
+               margin-top:-4.3em;
+               overflow:hidden;
+            }},
+
+            {'.page-ttl-lne':
+            {
+               width:100%;
+               height:4em;
+               border-top-right-radius:4.1em;
+               border-bottom-left-radius:4.1em;
+               background:'rgba(0,0,0,0.06)';
+               margin-top:-1px;
+               margin-left:-2px;
+               padding-top:0.3em;
+               padding-left:0.1em;
+            }},
+
+            {'.page-ttl-clr':
+            {
+               width:100%;
+               height:4em;
+               border:'1px solid hsla(232,69%,70%,1)';
+               border-top-right-radius:4em;
+               border-bottom-left-radius:4em;
+               background:#ff9300;
+               background-image:'radial-gradient(ellipse at 50% 50% , #47579b 0%, #891e6e 100%)';
+               background-size:'140% 200%';
+               background-position:'40% 10%';
+               margin-left:-1px;
+               margin-top:0.3em;
+               overflow:hidden;
+            }},
+
+            {'.page-ttl-shd':
+            {
+               height:5em;
+               width:100%;
+               padding-left:1em;
+               border-top-right-radius:4em;
+               border-bottom-left-radius:4em;
+               margin-left:0em;
+               margin-top:-1.2em;
+               overflow:hidden;
+               box-shadow:'inset 0em 0em 0.5em rgba(0,0,0,1)';
+            }},
+
+            {'.page-ttl-wrd':
+            {
+               position:relative;
+               min-width:4em;
+               margin-top:-1.9em;
+               margin-right:1.5em;
+               padding-left:1.5em;
+               font-family:venero;
+               font-size:1.3em;
+               line-height:1.3em;
+               white-space:nowrap;
+               word-spacing:0.3em;
+               overflow:hidden;
+               color:#FFF;
+               text-align:right;
+               text-shadow:'0em 0em 0.2em rgba(255,255,255,0.6)';
+            }},
+
+            {'.page-ttl-cat':
+            {
+               position:relative;
+               min-width:4em;
+               margin-top:-0.3em;
+               margin-right:4em;
+               font-family:venero;
+               font-size:0.5em;
+               text-align:right;
+               letter-spacing:0.3em;
+               color:'rgba(255,255,255,0.6)';
+            }},
+         // -----------------------------------------------------
+
+
+         // menu
+         // -----------------------------------------------------
+            {'.docs-mnu-col':
+            {
+               height:100%;
+               min-width:20em;
+               background:#222;
+               box-shadow:'0em 0em 0.5em #000';
+            }},
+
+            {'.docs-mnu-bgr':
+            {
+               width:100%;
+               height:100%;
+               overflow:hidden;
+               background-image:'url(/img/etc/xacra.png)';
+               background-size:cover;
+               background-position:center;
+            }},
+
+            {'.docs-mnu-box':
+            {
+               width:100%;
+               height:100%;
+               overflow:hidden;
+               background-color:'hsla(0,0%,13%,0.8)';
+            }},
+
+            {'.docs-mnu-btn':
+            {
+               width:100%;
+               color:#AAA;
+               overflow:hidden;
+               background-color:'hsla(0,0%,13%,0.5)';
+               border-top:'1px solid hsla(0,0%,100%,0.1)';
+               border-bottom:'1px solid hsla(0,0%,0%,0.5)';
+            }},
+
+            {'.docs-mnu-btn:hover':
+            {
+               color:#DDD;
+               text-shadow:'0em 0em 0.1em rgba(255,255,255,0.5)';
+               background-color:'hsla(0,0%,16%,0.5)';
+               box-shadow:'inset 0em 0em 0.2em rgba(0,0,0,0.3)';
+               border-top:'1px solid hsla(0,0%,0%,0.5)';
+               border-bottom:'1px solid hsla(0,0%,100%,0.03)';
+            }},
+
+            {'.docs-mnu-sub':
+            {
+               width:100%;
+               padding:0.3em;
+               font-size:0.9em;
+               color:#AAA;
+               overflow:hidden;
+               background-color:'hsla(0,0%,17%,0.5)';
+            }},
+
+            {'.docs-mnu-sub:hover':
+            {
+               color:#DDD;
+               text-shadow:'0em 0em 0.1em rgba(255,255,255,0.5)';
+               background-color:'hsla(0,0%,20%,0.5)';
+            }},
+         // -----------------------------------------------------
+         ]},
+      // --------------------------------------------------------------------------------
+
+
+      // docs specific script
+      // --------------------------------------------------------------------------------
+         {script:'/lib/docs/ui.js'}
+      // --------------------------------------------------------------------------------
+      ]},
+   // -----------------------------------------------------------------------------------
+
+
+
+   // body :: visible area
+   // -----------------------------------------------------------------------------------
+      {body:
+      [
+      // layout
+      // --------------------------------------------------------------------------------
+         {grid:'.span-vrt-24', src:
+         [
+            {row:
+            [
+               {col:'.span-hrz-5 .docs-mnu-col', src:
+               [
+                  {box:'.docs-mnu-bgr', src:
+                  [
+                     {box:'.docs-mnu-box', src:
+                     [
+                        {h4:'.font-venero .text-cnt .padn-all-05 .mrgn-all-0 .soft', src:'Navigation'},
+
+                        with
+                        ({
+                           basis:'/doc/pragma/';
+                           fetch:{key:file};
+                           yield:
+                           {
+                              box:'.docs-mnu-btn', onMouseOver:'docs.menu.hover(this)', src:
+                              [
+                                 {box:'.span-hrz-24 .padn-vrt-05 .padn-lft-1 .click', src:
+                                 [
+                                    {icon:'file-code-o .soft'},
+                                    {span:(file - '.jsam')},
+                                 ]},
+
+                                 {box:'.span-hrz-24 .docs-mnu-sub .padn-lft-5 .click', src:
+                                 [
+                                    with
+                                    ({
+                                       basis:('/doc/pragma/'+file);
+                                       fetch:{'1.body.0.src.0.row.1.src':bdy};
+                                       adapt:{sect:(bdy.0.src.0.$title)};
+                                       yield:
+                                       [
+                                          {span:'.soft', style:'font-size:1.2em', src:'<b>#</b> '},
+                                          {span:(sect)},
+                                       ]
+                                    })
+                                 ]},
+                              ]
+                           }
+                        })
+                     ]}
+                  ]},
+               ]},
+
+               {col:'.span-hrz-19 .span-vrt-24 .padn-all-2', src:[]},
+            ]},
+         // -----------------------------------------------------------------------------
+         ]}
+      // --------------------------------------------------------------------------------
+      ]}
+   // -----------------------------------------------------------------------------------
+   ]})

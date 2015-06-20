@@ -1,0 +1,72 @@
+
+   ({'text/html':
+   [
+      {head:
+      [
+         {title:(page : 'Contacts')},
+
+         {style:'', 'text/css':
+         {
+            body:
+            {
+               font-family:'Arial, Helvitica, Sans';
+               font-size:11px;
+               background:'rgb(29,30,31)';
+               color:#777;
+            },
+
+            h2:
+            {
+               margin-top:1.3em;
+               margin-bottom:0.3em;
+            },
+
+            .page:
+            {
+               display:block;
+               width:65%;
+               min-width:400px;
+               padding:1.5em;
+               padding-top:2em;
+               background:#EFEFEF;
+               text-align:left;
+               border:'0.1em solid #ddd';
+               border-radius:0.4em;
+               margin:auto;
+               margin-top:2em;
+               margin-bottom:2em;
+            },
+         }},
+      ]},
+
+      {body:
+      [
+         {div:'.page', src:
+         [
+            {h1:(page : 'Contacts')},
+
+            import
+            ({
+               basis: '/htm/site/robots.txt.jso';
+               fetch: {Disallow:'link'};
+               where: (link != '*(page)*');
+               order: RND;
+               limit: random(3,6);
+               yield:
+               [
+                  {h2:[{a:'', href:(link), src:(link - '/' - '.php')}]},
+
+                  import
+                  ({
+                     basis: fakeDB;
+                     fetch: {names_frst:[{val:nme}], names_last.val:'snm', spamr_doms.val:'dom'};
+                     order: RND;
+                     limit: random(4,8);
+                     adapt: {dlm:random(['', '.', '-']), email:(nme + dlm + snm +'@'+ dom)};
+                     yield: [{a:'', href:('mailto:'+email), src:(email)}, {br:''}];
+                  })
+               ]
+            })
+         ]}
+      ]}
+   ]})

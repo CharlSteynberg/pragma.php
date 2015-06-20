@@ -1,31 +1,32 @@
 
-# hide server info
+# hide Apache info :: better security
 # ---------------------------------------------------------------------------------------
    Options All -Indexes
    ServerSignature Off
-   php_value expose_php Off
 # ---------------------------------------------------------------------------------------
 
 
 # set default charset & language
 # ---------------------------------------------------------------------------------------
    AddDefaultCharset UTF-8
-   DefaultLanguage en-US
+   DefaultLanguage   en-US
 # ---------------------------------------------------------------------------------------
 
 
 # force php_ini values :: "RewriteEngine" runs before "php_value", but outputs after
 # ---------------------------------------------------------------------------------------
+   php_value default_charset     UTF-8
+   php_value include_path        ../../
    php_value short_open_tag      On
    php_value display_errors      On
-   php_value auto_prepend_file   sys/core/_init.php
+   php_value auto_prepend_file   sys/core/_auto.run.php
+   php_value expose_php Off
 # ---------------------------------------------------------------------------------------
 
 
-# redirect all requests to http handler & fix include path
+# redirect all requests to default index :: for if PHP or Apache config does not comply
 # ---------------------------------------------------------------------------------------
-   RewriteEngine on
-   RewriteCond %{REQUEST_URI} !sys/server/_init.php$
-   RewriteRule (.*) sys/server/_init.php
-   php_value include_path ../../
+   RewriteEngine On
+   RewriteCond %{REQUEST_URI} !index.php$
+   RewriteRule (.*) index.php
 # ---------------------------------------------------------------------------------------

@@ -1,0 +1,24 @@
+
+   ([
+      switch
+      ({
+         if: (this.$title || this.title);
+         do: yield ({h4:(this.$title || this.title)})
+      }),
+
+      switch
+      ([
+         {
+            if: (this.cast == 'text');
+            do: yield ({p:(this.src)})
+         },
+         {
+            if: (this.cast == 'code');
+            do: yield ({pre:(this.src)})
+         },
+         {
+            if: (this.cast == 'auto');
+            do: yield ({div:(this.src)})
+         },
+      ])
+   ])

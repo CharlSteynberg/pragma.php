@@ -1,0 +1,101 @@
+
+   {
+      "coreMode": "devl",
+      "modeList": ["live","test","devl","none"],
+
+      "encoding": "UTF-8",
+      "language": "en-US",
+      "timeZone": "Africa/Johannesburg",
+      "autoExec": "sys/core/_auto.run.php",
+
+      "constant":
+      {
+         "DLM": "\u1392",
+         "LTB": "\u02d3",
+         "LTE": "\u02d2",
+         "QSB": "\u07f5",
+         "QSE": "\u07f4",
+         "CRB": "\u00ab",
+         "CRE": "\u00bb",
+         "SDL": "\u00ab\u1392\u00bb",
+
+         "Udf": "Undefined",
+         "Nul": "Null",
+         "Str": "String",
+         "Int": "Integer",
+         "Flt": "Float",
+         "Bln": "Boolean",
+         "Obj": "Object",
+         "Arr": "Array",
+         "Fnc": "Function",
+
+         "All": "All",
+         "Any": "Any",
+         "Map": "Mapped-Attribute-Path",
+         "Key": "Key",
+         "Val": "Value",
+
+         "Keys": "Keys",
+         "Vals": "Values",
+
+         "auto": "auto",
+
+         "bias": "bias",
+         "lock": "lock",
+         "once": "once",
+
+         "Mty": "Empty",
+         "Ref": "Reference",
+         "Src": "Resource",
+         "Tpe": "Type",
+         "Unc": "Uncallable",
+
+         "udf": "\u02d3undefined\u02d2",
+         "nul": "\u02d3null\u02d2",
+         "str": "\u02d3string\u02d2",
+         "int": "\u02d3integer\u02d2",
+         "flt": "\u02d3float\u02d2",
+         "bln": "\u02d3boolean\u02d2",
+         "obj": "\u02d3object\u02d2",
+         "arr": "\u02d3array\u02d2",
+         "fnc": "\u02d3function\u02d2",
+         "ref": "\u02d3reference\u02d2",
+
+         "EXP": "\u07f5expression\u07f4",
+         "OBJ": "\u07f5object\u07f4",
+         "ARR": "\u07f5array\u07f4",
+         "QOT": "\u07f5quote\u07f4",
+         "MAP": "\u07f5object-map\u07f4",
+         "UDF": "\u07f5undefined\u07f4",
+         "NUL": "\u07f5null\u07f4",
+         "BLN": "\u07f5boolean\u07f4",
+         "INT": "\u07f5integer\u07f4",
+         "FLT": "\u07f5float\u07f4",
+         "HEX": "\u07f5hexadecimal\u07f4",
+         "CRS": "\u07f5clsRefStr\u07f4",
+         "CRM": "\u07f5clsRefMap\u07f4",
+         "PTH": "\u07f5path\u07f4",
+         "FNC": "\u07f5function\u07f4"
+      },
+
+      "globlVrs": "_SERVER _GET _POST _FILES _COOKIE _SESSION _REQUEST _ENV",
+
+      "stackMax": 1024,
+      "logMaxKb": 128,
+
+      "atrScope":
+      {
+         "bias":{},
+         "lock":{"scope":1},
+         "temp":{}
+      },
+
+      "failConf":
+      {
+         "stackSho": 16,
+
+         "lftLimit": 40,
+         "mdlLimit": 80,
+         "rgtLimit": 40
+      }
+   }

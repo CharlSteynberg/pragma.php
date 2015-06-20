@@ -1,0 +1,20 @@
+
+   ({'text/css':while
+   ({
+      in: import ('cfg/site/fnt/'),
+      do: yield
+      ([
+         {'@font-face':
+         {
+            font-family: (item.name);
+            src: ('url(cfg/site/fnt/'+ item.base +')');
+            font-weight: normal;
+            font-style: normal;
+         }},
+
+         {('.font-'+item.name):
+         {
+            font-family: (item.name+' !important');
+         }}
+      ])
+   })})

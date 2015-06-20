@@ -1,0 +1,7 @@
+
+   {
+      "/"            :  "pub/doc/index.htm.jso",
+      "/man/*"       :  "man/*",
+      "/robots.txt"  :  "cfg/site/sys/robots.txt.jso",
+      "/favicon.ico" :  "pub/img/ico/favicon.ico"
+   }

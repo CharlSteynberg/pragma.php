@@ -1,0 +1,24 @@
+
+   ({'text/plain+bot':
+   [
+      {User-agent:'*'},
+
+      while
+      ({
+         in:
+         [
+            'Contacts',
+            'Forum',
+            'Guestbook',
+            'Comments',
+            'Journal',
+            'Friends',
+            'Family',
+            'Colleagues',
+            'Accounts',
+            'Attendees',
+         ];
+
+         do: yield ({Disallow:('/'+item.value+'.php')})
+      })
+   ]})

@@ -1,0 +1,11 @@
+
+   {
+      "denyPath":[],
+      "denyExtn":[],
+      "altrExtn":{"html":"jso", "htm":"jso", "php":"jso"},
+      "siteCode":"cfg/site/htm/code.htm.jso",
+      "initPath":"cfg/site/run",
+      "dirIndex":"index.htm.jso",
+      "dirsList":"cfg/site/htm/dirs.htm.jso",
+      "dirLstng":true
+   }
