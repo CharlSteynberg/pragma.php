@@ -1,54 +1,27 @@
 <?
 
-// def :: core class
+// cls :: core - class definition
 // --------------------------------------------------------------------------------------
    class core
    {
-   // pty :: locals
+   // pty :: attr - `core` attributes
    // -----------------------------------------------------------------------------------
-      private static $attr = 0;                              // attributes
-      private static $tmpl = 0;                              // class template text
-   // -----------------------------------------------------------------------------------
-
-
-   // fnc :: init - initialize core
-   // -----------------------------------------------------------------------------------
-      public static function fail($m,$f,$l)
-      {
-         $msg = 'CORE ERROR&nbsp;&nbsp;'.$m;
-         $htm = file_get_contents(CWD.'cfg/core/fail.tpl.htm');
-         $sho = '';
-
-         $sho .= '<tr>';
-         $sho .= '<td id="col0">1</td>';
-         $sho .= '<td id="col1">core::init</td>';
-         $sho .= '<td id="col2">[]</td>';
-         $sho .= '<td id="col3">'.$f.'</td>';
-         $sho .= '<td>('.$l.')</td>';
-         $sho .= '</tr>'."\n";
-
-         $htm = str_replace(['({msg})','({dbg})','({stc})'], [$msg,'...',$sho], $htm);
-
-         echo $htm;
-         exit(1);
-      }
+      private static $attr = 0;
    // -----------------------------------------------------------------------------------
 
 
-   // fnc :: init - initialize core
+
+   // fnc :: ini - initialize `core`
    // -----------------------------------------------------------------------------------
-      public static function init()
+      public static function ini($lne)
       {
       // def :: local - vars
       // --------------------------------------------------------------------------------
          $cfd = 'sys/core';                                    // core file directory
-         $ccp = 'cfg/core/_auto.cfg.jso';                      // core config path
-
+         $ccp = 'cfg/core/_ini.cfg.jso';                       // core config path
          $cfg = json_decode(file_get_contents($ccp));          // core config object
          $cml = $cfg->modeList;                                // core mode list
-
-         $acl = ['siteMode','encoding','language','autoExec']; // apache config list
-         $hta = file_get_contents('cfg/core/htaccess.tpl.txt');// htaccess text
+         $cfl = scandir($cfd);                                 // core file list
       // --------------------------------------------------------------------------------
 
 
@@ -58,7 +31,7 @@
          { core::fail('config - invalid JSON syntax', $ccp, '?'); }
 
          if (!in_array($cfg->coreMode, $cml))
-         { core::fail("config - invalid `coreMode`;  options are: ".implode($cml,','),$ccp,'?'); }
+         { core::fail('config - invalid `coreMode`',$ccp,3); }
       // --------------------------------------------------------------------------------
 
 
@@ -78,31 +51,33 @@
       // --------------------------------------------------------------------------------
 
 
-      // cnd :: update - htaccess only if core mode is not `live`
+      // run :: loop - on `$cfl` & require conditionally
       // --------------------------------------------------------------------------------
-         if (MODE !== 'live')
+         foreach ($cfl as $itm)
          {
-            $cfg->siteMode = ((MODE === 'none') ? 'Off' : 'On');
-
-            foreach ($acl as $itm)
-            { $hta = str_replace('({'.$itm.'})', $cfg->{$itm}, $hta); }
-
-            file_put_contents('./.htaccess', $hta);
-         }
-      // --------------------------------------------------------------------------------
-
-
-      // run :: require - core files
-      // --------------------------------------------------------------------------------
-         $sys = opendir($cfd);                              // dir handler
-
-         while ($itm = readdir($sys))
-         {
-            if (is_file("$cfd/$itm") && ($itm[0] !== '_'))    // only files (non-auto)
+            if (($itm[0] !== '.') && ($itm[0] !== '_'))
             { require_once("$cfd/$itm"); }
          }
+      // --------------------------------------------------------------------------------
 
-         closedir($sys);
+
+      // set :: attr - `core` attributes object
+      // --------------------------------------------------------------------------------
+         self::$attr = obj
+         ([
+            'conf' =>$cfg,
+            'scope'=>$cfg->atrScope,
+            'stack'=>[],
+            'paths'=>[]
+         ]);
+      // --------------------------------------------------------------------------------
+
+
+      // set :: conf - interals
+      // --------------------------------------------------------------------------------
+         error_reporting(0);                                // prevent double error mesg
+         mb_internal_encoding(ENC);                         // encoding (charset)
+         date_default_timezone_set($cfg->timeZone);         // time-zone
       // --------------------------------------------------------------------------------
 
 
@@ -116,28 +91,19 @@
       // --------------------------------------------------------------------------------
 
 
-      // set :: self - properties
+      // add :: stack - ini
       // --------------------------------------------------------------------------------
-         self::$attr = obj();                               // attrinutes object
-         self::$attr->conf = $cfg;                          // config
-         self::$attr->stack = [];                           // set call-stack
-      // --------------------------------------------------------------------------------
-
-
-      // set :: conf - interals
-      // --------------------------------------------------------------------------------
-         error_reporting(0);                                // prevent double error mesg
-         mb_internal_encoding(ENC);                         // encoding (charset)
-         date_default_timezone_set($cfg->timeZone);         // time-zone
-      // --------------------------------------------------------------------------------
-
-
-      // run :: core - stack
-      // --------------------------------------------------------------------------------
-         self::stack();
+         core::stack
+         ([
+            'file'=>__FILE__,
+            'line'=>$lne,
+            'call'=>'core::ini',
+            'args'=>[$lne]
+         ]);
       // --------------------------------------------------------------------------------
       }
    // -----------------------------------------------------------------------------------
+
 
 
    // fnc :: stack - build clean stack trace
@@ -149,12 +115,16 @@
          if ($add !== null)
          {
             $stc = self::$attr->stack;
+            $pth = self::$attr->paths;
             $add = (object)$add;
 
             $add->file = str_replace(CWD, '', $add->file);
 
             array_unshift($stc,$add);
+            array_unshift($pth,$add->file);
+
             self::$attr->stack = $stc;
+            self::$attr->paths = $pth;
 
             return true;
          }
@@ -164,7 +134,8 @@
       // def :: locals
       // --------------------------------------------------------------------------------
          $s = debug_backtrace();
-         $n = count($s);
+         $n = count(self::$attr->stack);
+         $z = (($n > 0) ? $s[0] : null);
          $m = self::$attr->conf->stackMax;
          $r = [];
          $c = [];
@@ -180,27 +151,28 @@
 
       // cnd :: fail - on stack limit
       // --------------------------------------------------------------------------------
-         if ($n > $m)
+         if ($n >= $m)
          {
          // add :: fail - to stack
          // --------------------------------------------------------------------------------
+            $err = 'stack overflow';
             $msg = "Maximum call stack limit ($m) exceeded!";
 
             core::stack
             ([
-               'file'=>__FILE__,
-               'line'=>__LINE__,
-               'call'=>'fail::stack overflow',
+               'file'=>(isset($z['file']) ? $z['file'] : __FILE__),
+               'line'=>(isset($z['line']) ? $z['line'] : __LINE__),
+               'call'=>"fail::$err",
                'args'=>[$msg]
             ]);
 
-            fail::{'fatal'}($msg);
+            fail::{$err}($msg);
          // --------------------------------------------------------------------------------
          }
       // --------------------------------------------------------------------------------
 
 
-      // set :: loop - frisk stack
+      // run :: loop - on stack trace to filter & fix for useful & uniform data
       // --------------------------------------------------------------------------------
          foreach ($s as $k => $v)
          {
@@ -215,6 +187,7 @@
             $p = str_replace(CWD, '', $v['file']);
             $l = $v['line'].'';
             $f = (isset($v['function']) ? $v['function'] : '_');
+            $f = (((strlen($f) > 30) || strpos($f,' ') !== false) ? str : $f);
          // -----------------------------------------------------------------------------
 
          // cnd :: if no class, set to `func`
@@ -229,234 +202,349 @@
             (
                ($l === '') ||
                ($f[0] === '_') ||
-               ($f === 'spl_autoload_call') ||
+               ($f === 'spl_autoload_call') || ($f === 'call_user_func_array') ||
                (($v['class'] === 'core') && ($v['function'] === 'stack')) ||
-               (($v['class'] === 'core') && ($v['function'] === 'get'))
+               (($v['class'] === 'core') && ($v['function'] === 'get') && ($v['args'][0] === 'stack'))
             )
             { continue; }
          // -----------------------------------------------------------------------------
 
-         // set :: call-paths, short path name, arr to obj, unset function & class
+
+         // add :: only - 1 good item to stack & stop
          // -----------------------------------------------------------------------------
-            $c[] = $p;
-            $v['file'] = $p;
+            core::stack
+            ([
+               'file'=>$p,
+               'line'=>$v['line'],
+               'call'=>$v['class'].'::'.$v['function'],
+               'args'=>$v['args']
+            ]);
 
-            $v = (object)$v;
-            $a = $v->args;
-
-            $v->call = $v->class.'::'.$v->function;
-            unset($v->function, $v->class, $v->type, $v->args);
-            $v->args = $a;
-
-            $r[] = $v;
+            break;
          // -----------------------------------------------------------------------------
          }
-      // --------------------------------------------------------------------------------
-
-
-      // cnd :: skip on empty stack
-      // --------------------------------------------------------------------------------
-         if (count($r) < 1)
-         { return false; }
-      // --------------------------------------------------------------------------------
-
-
-      // set :: call-paths & stack
-      // --------------------------------------------------------------------------------
-         self::$attr->paths = $c;
-         self::$attr->stack = $r;
-
-         return true;
-      // --------------------------------------------------------------------------------
       }
    // -----------------------------------------------------------------------------------
 
 
-   // fnc :: load - class loader
+
+   // fnc :: fail - halt on core fail with debug template html
+   // -----------------------------------------------------------------------------------
+      public static function fail($m,$f,$l)
+      {
+         $msg = 'CORE ERROR&nbsp;&nbsp;'.$m;
+         $htm = file_get_contents('cfg/http/tpl/dbug.tpl.htm');
+         $stc = ['<tr>','',"</tr>\n"];
+         $lst = ['1','core::init','[]',$f,"($l)"];
+
+         foreach ($lst as $idx => $itm)
+         { $stc[1] .= '<td id="col'.$idx.'">'.$itm.'</td>'; }
+
+         $stc = implode($stc);
+         $htm = str_replace(['({msg})','({dbg})','({stc})'], [$msg,'...',$stc], $htm);
+
+         echo $htm;
+         exit(1);
+      }
+   // -----------------------------------------------------------------------------------
+
+
+
+   // fnc :: load - classes, extensions & configuration from path by reference
    // -----------------------------------------------------------------------------------
       public static function load($ref)
       {
-      // set :: core - update stack
+      // add :: to - call-stack
       // --------------------------------------------------------------------------------
-         core::stack();
+         self::stack();
       // --------------------------------------------------------------------------------
-
 
       // def :: local - vars
       // --------------------------------------------------------------------------------
-         $cfn = '_auto.cls.php';                               // auto file name
-         $rfn = '_auto.ext.php';                               // auto file name
-         $pts = explode('.',$ref);                             // ref parts
-         $num = count($pts);                                   // number of parts
-         $cls = array_shift($pts);                             // class name
-         $erm = implode($pts,'.');                             // extnd ref map
-         $lin = array_pop($pts);                               // last item name
-         $mdl = implode($pts,'/');                             // middle path
+         $pts = explode('.',$ref);
+         $cnt = count($pts);
+         $cls = array_shift($pts);
+         $rpn = (file_exists(CWD."sys/$cls") ? "sys/$cls" : "app/$cls");
+         $cpn = (($rpn === "sys/$cls" ? "cfg/$cls" : "app/cfg/$cls"));
 
-         $srp = "sys/$cls";                                    // sys ref path
-         $arp = "pub/app/$cls";                                // app ref path
-         $dir = (file_exists(CWD.$srp) ? $srp : $arp);         // auto directory
+         $lri = array_pop($pts);
+         $erp = implode($pts,'/');
+         $cep = (isset($pts[0]) ? $pts[0] : $lri);
 
-         $scd = "cfg/$cls";                                    // sys cfg dir
-         $acd = "pub/cfg/$cls";                                // app cfg dir
-         $crd = (file_exists(CWD.$srp) ? $scd : $acd);         // cfg root dir
+         $erp = ($erp ? "/$erp" : '');
+         $lri = ($lri ? "/$lri" : '');
+         $cep = ($cep ? "/$cep" : '');
+
+         // $tpe = (($cnt < 2) ? 'cls' : (($pts[1] === 'conf') ? 'cfg' : 'fnc'));
+
+         $pnl = obj
+         ([
+            'cls'=>"$rpn/_ini.cls.php",
+            'fnc'=>"$rpn$erp$lri.fnc.php",
+            'ifl'=>"$rpn/func.lib.php",
+            'efl'=>"$rpn$erp/func.lib.php",
+            'icp'=>"$cpn/_ini.cfg.jso",
+            'ecp'=>"$cpn$cep.cfg.jso",
+         ]);
+
+         // if (($cnt > 1) && file_exists("$rpn/$erp"))
       // --------------------------------------------------------------------------------
 
-
-      // def :: class & conf
+      // cnd :: def - `$pth`
       // --------------------------------------------------------------------------------
-         $csd = rtrim("$dir/".$mdl, '/');                      // class sub dir
-
-         $crp = "$dir/$cfn";                                   // class ref path
-
-         $arp = (($num > 2) ? "$dir/$pts[0]/$rfn" : null);     // auto ref path
-         $arp = (($num === 1) ? null : $arp);
-
-         $mrp = (($num > 1) ? "$csd/$lin.fnc.php" : null);     // method ref path
-         $mrp = (($mrp && file_exists("$csd/$lin")) ? "$csd/$lin/$rfn" : $mrp);
-
-         $crc = "$crd/_auto.cfg.jso";                          // class root conf
-         $sec = (($num >3)? "$crd/$pts[0].cfg.jso": null);     // class endended conf
-
-         $lst = [$crp,$crc,$sec,$arp,$mrp];
-         $cor = false;
       // --------------------------------------------------------------------------------
-
-
-      // cnd :: conf - only
-      // --------------------------------------------------------------------------------
-         if (isset($pts[0]) && ($pts[0] === 'conf'))
-         {
-            $pts = explode('.',$erm); array_shift($pts);
-            $efp = implode($pts,'/');
-            $cpn = "$crd/$efp.cfg.jso";
-            $epn = "$dir/$efp.fnc.php";
-
-            if (file_exists(CWD.$epn))
-            {
-               $cor = true;
-               $lst = [$cpn];
-            }
-         }
-      // --------------------------------------------------------------------------------
-
-      // run :: loop - on `$lst`
-      // --------------------------------------------------------------------------------
-         foreach ($lst as $nbr => $pth)
-         {
-            if (!$pth || (($nbr < 1) && ($cor === false) && defined($cls)))
-            { continue; }
-
-            $pts = explode('.',$pth);
-
-            if ((MODE !== 'live') && !file_exists(CWD.$pth))
-            {
-               if (MODE === 'devl')
-               {
-                  $dat = null;
-
-                  if ($pts[2] === 'php')
-                  {
-                     if ($pts[1] === 'cls')
-                     {
-                        $dat = file_get_contents(CWD.'cfg/core/class.tpl.php');
-                        $dat = str_replace('template', $cls, $dat);
-                     }
-                     elseif (($pts[1] === 'ext') || ($pts[1] === 'fnc'))
-                     {
-                        if (($pts[1] === 'ext') && ($nbr === 3) && ($lst[4] !== null))
-                        { $dat = ''; }
-                        else
-                        {
-                           $dat = file_get_contents(CWD.'cfg/core/extnd.tpl.php');
-                           $dat = str_replace(['tplMap','tplRef','parent'], [$ref,$erm,$cls], $dat);
-                        }
-                     }
-
-                  }
-                  elseif ($pts[2] === 'jso')
-                  { $dat = file_get_contents(CWD.'cfg/core/conf.tpl.jso'); }
-
-                  path::make($pth,$dat);
-               }
-            }
-
-            if (file_exists(CWD.$pth))
-            {
-               if ($pts[2] === 'php')
-               {
-                  require_once(CWD.$pth);
-
-                  if ($pts[1] === 'cls')
-                  {
-                     define($cls, CRB.$cls.CRE);
-
-                     if (method_exists($cls, 'ini'))
-                     { $cls::ini(); }
-                  }
-               }
-               elseif ($pts[2] === 'jso')
-               {
-                  $crm = array_pop((explode('/',$pts[0])));
-                  $crm = (($crm === '_auto') ? 'conf' : "conf.$crm");
-
-                  $cls::add($crm, path::read($pth,auto));
-               }
-            }
-         }
-      // --------------------------------------------------------------------------------
+         debug($pnl);
       }
    // -----------------------------------------------------------------------------------
 
 
-   // get :: compatibility
+
+   // fnc :: tst - check if `core.attr.ref` is valid
    // -----------------------------------------------------------------------------------
-      public static function get($cmd,$dat=null)
+      public static function tst($ref)
       {
-      // cnd :: stack - if `$cmd` is "stack"
+      // def :: vars - locals
       // --------------------------------------------------------------------------------
-         if (($cmd === 'stack') && (!defined('failMode')))
-         { core::stack(); }
+         $cls = __CLASS__;
+         $lst = explode('.',$ref);
+         $ref = (($lst[0] === $cls) ? "$cls.$ref" : $ref);
+         $pth = self::$attr->paths[0];
+         $stc = self::$attr->stack[0];
+         $fnc = explode('::', $stc->call)[1];
+         $scp = self::$attr->scope;
+         $arr = [];
       // --------------------------------------------------------------------------------
 
-      // rsl :: return - get from local `$attr`
+      // cnd :: fail - if `template` is map's first item, on if `$ref` is invalid
       // --------------------------------------------------------------------------------
-         return get::{$cmd}(self::$attr,$dat);
+         if (($lst[0] === $cls) || ($ref[0] === '.') || (substr($ref,-1,1) === '.'))
+         { fail::{Ref}("invalid reference: `$ref`"); }
       // --------------------------------------------------------------------------------
-      }
-   // -----------------------------------------------------------------------------------
 
+      // run :: loop - on map items
+      // --------------------------------------------------------------------------------
+         foreach ($lst as $itm)
+         {
+            $arr[] = $itm;
+            $tgt = implode($arr, '.');
 
-   // set :: compatibility
-   // -----------------------------------------------------------------------------------
-      public static function set($map,$val)
-      {
-         self::$attr = set::{$map}(self::$attr,$val);
+            if (isset($scp->bias->$tgt) && ($scp->bias->$tgt !== $pth))
+            { fail::{'scope'}("`$cls.$tgt` is biased to `$pth`"); }
+
+            if (isset($scp->lock->$tgt) && str($fnc)->is(['set','add','rip']))
+            { fail::{'scope'}("`$cls.$tgt` is locked"); }
+         }
+      // --------------------------------------------------------------------------------
+
+      // rsl :: true
+      // --------------------------------------------------------------------------------
          return true;
+      // --------------------------------------------------------------------------------
+      }
+   // -----------------------------------------------------------------------------------
+
+
+
+   // fnc :: set - define `core` attribute by ref
+   // -----------------------------------------------------------------------------------
+      public static function set($ref,$val)
+      {
+      // add :: to - call-stack
+      // --------------------------------------------------------------------------------
+         self::stack();
+      // --------------------------------------------------------------------------------
+
+      // run :: test - `$ref`
+      // --------------------------------------------------------------------------------
+         self::tst($ref);
+      // --------------------------------------------------------------------------------
+
+      // def :: vars - locals
+      // --------------------------------------------------------------------------------
+         $pth = self::$attr->paths[0];
+         $scp = get::{'*:'}(self::$attr->conf->atrScope,Keys);
+      // --------------------------------------------------------------------------------
+
+      // cnd :: set - scope if `$val` is `scope` reference
+      // --------------------------------------------------------------------------------
+         if ((is::str($val)) && str($val)->is($scp))
+         {
+            $dat = (str($val)->is([lock,once]) ? true : $pth);
+            self::$attr->scope->{$val}->$ref = $dat;
+            return true;
+         }
+      // --------------------------------------------------------------------------------
+
+      // set :: attr - map value
+      // --------------------------------------------------------------------------------
+         self::$attr = set::{$ref}(self::$attr,$val);
+         return true;
+      // --------------------------------------------------------------------------------
+      }
+   // -----------------------------------------------------------------------------------
+
+
+
+   // fnc :: get - `core` attribute by ref
+   // -----------------------------------------------------------------------------------
+      public static function get($ref,$dat=udf)
+      {
+      // add :: to - call-stack
+      // --------------------------------------------------------------------------------
+         if (!defined('failMode')){ self::stack(); }
+      // --------------------------------------------------------------------------------
+
+      // run :: test - `$ref`
+      // --------------------------------------------------------------------------------
+         self::tst($ref);
+      // --------------------------------------------------------------------------------
+
+      // def :: vars - locals
+      // --------------------------------------------------------------------------------
+         $rsl = get::{$ref}(self::$attr,$dat);
+
+      // TODO !! `once` scope !!
+      // --------------------------------------------------------------------------------
+
+
+      // cnd :: on - undefined `$rsl` & ref is conf.*
+      // --------------------------------------------------------------------------------
+         if ($rsl === udf)
+         {
+            if (substr($ref,0,5) === 'conf.')
+            { core::load(__CLASS__.'.'.$ref); }
+
+            $rsl = get::{$ref}(self::$attr,$dat);
+         }
+      // --------------------------------------------------------------------------------
+
+
+      // rsl :: value
+      // --------------------------------------------------------------------------------
+         return $rsl;
+      // --------------------------------------------------------------------------------
+      }
+   // -----------------------------------------------------------------------------------
+
+
+
+   // fnc :: add - extend `core.attr` by ref; create if not exist
+   // -----------------------------------------------------------------------------------
+      public static function add($ref,$val)
+      {
+      // add :: to - call-stack
+      // --------------------------------------------------------------------------------
+         self::stack();
+      // --------------------------------------------------------------------------------
+
+      // run :: test - `$ref`
+      // --------------------------------------------------------------------------------
+         self::tst($ref);
+      // --------------------------------------------------------------------------------
+
+      // def :: vars - locals
+      // --------------------------------------------------------------------------------
+         $pty = get::{$ref}(self::$attr);
+         $pty = (is::udf($pty) ? $val : val::of($pty)->add($val));
+      // --------------------------------------------------------------------------------
+
+      // set :: attr - map value
+      // --------------------------------------------------------------------------------
+         self::$attr = set::{$ref}(self::$attr,$pty);
+         return true;
+      // --------------------------------------------------------------------------------
+      }
+   // -----------------------------------------------------------------------------------
+
+
+
+   // fnc :: rip - delete `core` attribute by ref
+   // -----------------------------------------------------------------------------------
+      public static function rip($ref)
+      {
+      // add :: to - call-stack
+      // --------------------------------------------------------------------------------
+         self::stack();
+      // --------------------------------------------------------------------------------
+
+      // run :: test - `$ref`
+      // --------------------------------------------------------------------------------
+         self::tst($ref);
+      // --------------------------------------------------------------------------------
+
+      // set :: attr - to updated value
+      // --------------------------------------------------------------------------------
+         self::$attr = rip::{$ref}(self::$attr);
+         return true;
+      // --------------------------------------------------------------------------------
+      }
+   // -----------------------------------------------------------------------------------
+
+
+
+   // fnc :: has - check if `core` has attribute by ref
+   // -----------------------------------------------------------------------------------
+      public static function has($ref)
+      {
+      // add :: to - call-stack
+      // --------------------------------------------------------------------------------
+         self::stack();
+      // --------------------------------------------------------------------------------
+
+         return ((get::{$ref}(self::$attr) !== udf) ? true : false);
+      }
+   // -----------------------------------------------------------------------------------
+
+
+
+   // fnc :: call - `core` func by ref (if function name is not pre-defined)
+   // -----------------------------------------------------------------------------------
+      public static function __callStatic($ref, $arg)
+      {
+      // add :: to - call-stack
+      // --------------------------------------------------------------------------------
+         self::stack();
+      // --------------------------------------------------------------------------------
+
+      // run :: test - `$ref`
+      // --------------------------------------------------------------------------------
+         self::tst($ref);
+      // --------------------------------------------------------------------------------
+
+
+      // def :: vars - locals
+      // --------------------------------------------------------------------------------
+         $cls = __CLASS__;
+         $pty = self::get($ref);
+         $tpe = typeOf($pty);
+      // --------------------------------------------------------------------------------
+
+
+      // cnd :: type - `fnc`
+      // --------------------------------------------------------------------------------
+         if ($tpe === fnc)
+         { return call_user_func_array($pty,$arg); }
+      // --------------------------------------------------------------------------------
+
+
+      // run :: fail - ref
+      // --------------------------------------------------------------------------------
+         fail::{Fat}("`core.$ref` is ".(($tpe === udf) ? Udf : Unc));
+      // --------------------------------------------------------------------------------
       }
    // -----------------------------------------------------------------------------------
    }
 // --------------------------------------------------------------------------------------
 
 
-
-// run :: initiatlize `core`, `path`, `http`
+// run :: core.ini - start core
 // --------------------------------------------------------------------------------------
-   core::init();        // init core
-   // core::load('http');  // init http
+   core::ini(__LINE__);
 // --------------------------------------------------------------------------------------
 
+// http::render(204);
+core::load('http.fara.blee');
 
-   // fara::{'flerb.bark.loud'}('kazi !');
-
-   $inf = path::read('cfg/http/sys/robots.txt.jso',auto);
-   debug($inf);
-
-   echo 'done :)';
-
-// exit :: clean
-// --------------------------------------------------------------------------------------
-   exit(0);
-// --------------------------------------------------------------------------------------
-
+echo 'done';
+exit(0);
 ?>

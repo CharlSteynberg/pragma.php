@@ -6,20 +6,20 @@
       "encoding": "UTF-8",
       "language": "en-US",
       "timeZone": "Africa/Johannesburg",
-      "autoExec": "sys/core/_auto.run.php",
 
       "constant":
       {
          "DLM": "\u1392",
-         "LTB": "\u02d3",
-         "LTE": "\u02d2",
+         "LTB": "\u2039",
+         "LTE": "\u203a",
          "QSB": "\u07f5",
          "QSE": "\u07f4",
          "CRB": "\u00ab",
          "CRE": "\u00bb",
-         "SDL": "\u00ab\u1392\u00bb",
+         "SRB": "\u25c2",
+         "SRE": "\u25b8",
+         "SDL": "\u2605",
 
-         "Udf": "Undefined",
          "Nul": "Null",
          "Str": "String",
          "Int": "Integer",
@@ -28,38 +28,37 @@
          "Obj": "Object",
          "Arr": "Array",
          "Fnc": "Function",
-
          "All": "All",
          "Any": "Any",
          "Map": "Mapped-Attribute-Path",
          "Key": "Key",
          "Val": "Value",
-
-         "Keys": "Keys",
-         "Vals": "Values",
-
-         "auto": "auto",
-
-         "bias": "bias",
-         "lock": "lock",
-         "once": "once",
-
          "Mty": "Empty",
          "Ref": "Reference",
          "Src": "Resource",
          "Tpe": "Type",
+         "Udf": "Undefined",
          "Unc": "Uncallable",
+         "Fat": "Fatal",
 
-         "udf": "\u02d3undefined\u02d2",
-         "nul": "\u02d3null\u02d2",
-         "str": "\u02d3string\u02d2",
-         "int": "\u02d3integer\u02d2",
-         "flt": "\u02d3float\u02d2",
-         "bln": "\u02d3boolean\u02d2",
-         "obj": "\u02d3object\u02d2",
-         "arr": "\u02d3array\u02d2",
-         "fnc": "\u02d3function\u02d2",
-         "ref": "\u02d3reference\u02d2",
+         "Keys": "Keys",
+         "Vals": "Values",
+
+         "auto": "\u25c2auto\u25b8",
+         "bias": "\u25c2bias\u25b8",
+         "lock": "\u25c2lock\u25b8",
+         "once": "\u25c2once\u25b8",
+
+         "udf": "\u2039undefined\u203a",
+         "nul": "\u2039null\u203a",
+         "str": "\u2039string\u203a",
+         "int": "\u2039integer\u203a",
+         "flt": "\u2039float\u203a",
+         "bln": "\u2039boolean\u203a",
+         "obj": "\u2039object\u203a",
+         "arr": "\u2039array\u203a",
+         "fnc": "\u2039function\u203a",
+         "ref": "\u2039reference\u203a",
 
          "EXP": "\u07f5expression\u07f4",
          "OBJ": "\u07f5object\u07f4",
@@ -90,8 +89,10 @@
          "temp":{}
       },
 
-      "failConf":
+      "dbugConf":
       {
+         "dbugTmpl": "cfg/http/tpl/dbug.tpl.htm",
+         "dbugFont": "cfg/http/fnt/c0d3.woff",
          "stackSho": 16,
 
          "lftLimit": 40,

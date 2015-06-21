@@ -8,25 +8,25 @@
 
 # set default charset & language
 # ---------------------------------------------------------------------------------------
-   AddDefaultCharset UTF-8
-   DefaultLanguage   en-US
+   AddDefaultCharset ({encoding})
+   DefaultLanguage   ({language})
 # ---------------------------------------------------------------------------------------
 
 
 # force php_ini values :: "RewriteEngine" runs before "php_value", but outputs after
 # ---------------------------------------------------------------------------------------
-   php_value default_charset     UTF-8
+   php_value default_charset     ({encoding})
    php_value include_path        ../../
    php_value short_open_tag      On
    php_value display_errors      On
-   php_value auto_prepend_file   sys/core/_ini.cls.php
+   php_value auto_prepend_file   ({corePath})
    php_value expose_php Off
 # ---------------------------------------------------------------------------------------
 
 
 # redirect all requests to default index :: for if PHP or Apache config does not comply
 # ---------------------------------------------------------------------------------------
-   RewriteEngine On
+   RewriteEngine ({siteMode})
    RewriteCond %{REQUEST_URI} !index.php$
    RewriteRule (.*) index.php
 # ---------------------------------------------------------------------------------------

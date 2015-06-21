@@ -37,18 +37,20 @@
          { define('failMode',true); }
       // --------------------------------------------------------------------------------
 
+
       // locals
       // --------------------------------------------------------------------------------
          $err = (isset($atr[1]) ? $nme : "$nme ERROR");
          $nme = strtoupper((strlen($err) > 0) ? $err : Und);         // error name
          $msg = $nme.'&nbsp;&nbsp;'.(isset($atr[0]) ? $atr[0] : Und);// error message
          $dbg = (isset($atr[1]) ? $atr[1]."...\n\n" : '...');        // to string
-         $dbg = str($dbg)->swop(['\n'], ["\n"]);
+         $dbg = str_replace('\n',"\n", $dbg);
          $stc = core::get('stack');                                  // stack trace
-         $cfg = core::get('conf.failConf');                          // stack trace
-         $htm = file_get_contents(CWD.'cfg/core/fail.tpl.htm');      // debug template
+         $cfg = core::get('conf.dbugConf');                          // fail config
+         $htm = file_get_contents(CWD.$cfg->dbugTmpl);               // debug template
          $sho = '';                                                  // stack htm output
          $cns = core::get('conf.constant');
+         $fnt = path::read('cfg/http/fnt/c0d3.woff',str);
          $mbc = [];
          $cnt = count($stc);
 
@@ -80,7 +82,7 @@
             $itm->args = str(trim(to::str($itm->args)))->trim('<<', (0 - $cfg->mdlLimit));
             $itm->args = str($itm->args)->swop($jul,$mbc);
             $itm->args = str($itm->args)->swop(["\n",'\n','  ',CWD], '');
-
+            $itm->args = htmlentities($itm->args);
             $nbr = ($cnt - $num);
 
             $sho .= '<tr>';
@@ -96,7 +98,7 @@
       // prep html
       // --------------------------------------------------------------------------------
          $dbg = str($dbg)->swop($jul,$mbc);
-         $htm = str($htm)->swop(['({msg})','({dbg})','({stc})'], [$msg,$dbg,$sho]);
+         $htm = str($htm)->swop(['({fnt})','({msg})','({dbg})','({stc})'], [$fnt,$msg,$dbg,$sho]);
       // --------------------------------------------------------------------------------
 
       // show error
