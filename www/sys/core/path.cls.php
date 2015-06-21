@@ -53,7 +53,7 @@
       {
       // cnd :: fail - on invalid path
       // --------------------------------------------------------------------------------
-         $pth = dbug::path($pth);
+         $pth = self::norm($pth);
       // --------------------------------------------------------------------------------
 
 
@@ -69,9 +69,10 @@
          $sts = ((!is_readable($apn) ? (!file_exists($apn) ? 404 : 403) : 200));
          $tpe = 'none';
          $sze = 0;
-         $mme = null;
-         $enc = null;
-         $bnr = null;
+         $mme = path::get('conf.mime');
+         $mme = (isset($mme->$ext) ? $mme->$ext : "undefined/$enc+".$ext);
+         $enc = udf;
+         $bnr = udf;
       // --------------------------------------------------------------------------------
 
 
@@ -89,8 +90,6 @@
                $str = fread($flh, 512);
                $flh = fclose($flh); clearstatcache();
                $enc = strtolower(mb_detect_encoding($str, mb_list_encodings(), true));
-               $mme = path::get('conf.mime');
-               $mme = (isset($mme->$ext) ? $mme->$ext : "undefined/$enc+".$ext);
                $bnr = ((($enc === 'ascii') || ($enc === 'utf-8')) ? false : true);
             }
             elseif ($tpe === 'dir')
@@ -110,7 +109,7 @@
       // --------------------------------------------------------------------------------
          return obj
          ([
-            'stat'=>(($sze > 0) ? $sts : 204),
+            'stat'=>(($sts > 300) ? $sts : (($sze > 0) ? 200 : 204)),
             'type'=>$tpe,
             'path'=>$pth,
             'root'=>$pts[0],
@@ -118,8 +117,8 @@
             'base'=>$bse,
             'name'=>$fnm,
             'extn'=>$ext,
-            'size'=>$sze,
             'mime'=>$mme,
+            'size'=>(($sts === 404) ? udf : $sze),
             'char'=>$enc,
             'bnry'=>$bnr,
          ]);
@@ -222,6 +221,12 @@
       // --------------------------------------------------------------------------------
          umask($msk);
       // --------------------------------------------------------------------------------
+
+
+      // rsl :: return - true
+      // --------------------------------------------------------------------------------
+         return true;
+      // --------------------------------------------------------------------------------
       }
    // -----------------------------------------------------------------------------------
 
@@ -311,16 +316,54 @@
 
 
 
+   // fnc :: find - locate a substring in a file
+   // -----------------------------------------------------------------------------------
+      public static function find($ndl,$hay)
+      {
+         $ndl = (!is::arr($ndl) ? [$ndl] : $ndl);
+         $hay = (!is::arr($hay) ? [$hay] : $hay);
+
+         $nbr = 0;
+         $pos = 0;
+
+         foreach ($hay as $bal)
+         {
+            $bal = path::norm($bal);
+
+            if (!file_exists(CWD.$bal))
+            { continue; }
+
+            $lns = explode("\n", file_get_contents(CWD.$bal));
+
+            foreach ($lns as $nbr => $lne)
+            {
+               foreach ($ndl as $fnd)
+               {
+                  dbug::type($fnd, str);
+
+                  $pos = strpos($lne,$fnd);
+
+                  if ($pos !== false)
+                  {
+                     $nbr += 1;
+                     $pos += 1;
+
+                     return [$bal,$nbr,$pos];
+                  }
+               }
+            }
+         }
+
+         return null;
+      }
+   // -----------------------------------------------------------------------------------
+
+
+
    // get :: compatibility
    // -----------------------------------------------------------------------------------
       public static function get($cmd,$dat=null)
       {
-      // cnd :: stack - if `$cmd` is "stack"
-      // --------------------------------------------------------------------------------
-         if (($cmd === 'stack') && (!defined('failMode')))
-         { core::stack(); }
-      // --------------------------------------------------------------------------------
-
       // rsl :: return - get from local `$attr`
       // --------------------------------------------------------------------------------
          return get::{$cmd}(self::$attr,$dat);

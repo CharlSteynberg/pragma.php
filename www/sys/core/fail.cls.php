@@ -40,7 +40,7 @@
 
       // locals
       // --------------------------------------------------------------------------------
-         $err = (isset($atr[1]) ? $nme : "$nme ERROR");
+         $err = ((isset($atr[1]) || (strpos($nme, ' ') !== false)) ? $nme : "$nme ERROR");
          $nme = strtoupper((strlen($err) > 0) ? $err : Und);         // error name
          $msg = $nme.'&nbsp;&nbsp;'.(isset($atr[0]) ? $atr[0] : Und);// error message
          $dbg = (isset($atr[1]) ? $atr[1]."...\n\n" : '...');        // to string
@@ -79,7 +79,12 @@
             if ($num > $cfg->stackSho)
             { break; }
 
-            $itm->args = str(trim(to::str($itm->args)))->trim('<<', (0 - $cfg->mdlLimit));
+            $itm->args = get::{'><'}(trim(to::str($itm->args)));
+
+            $len = mb_strlen($itm->args);
+            $apn = ($len > $cfg->mdlLimit ? '...' : '');
+
+            $itm->args = str($itm->args)->trim('<<', (0 - $cfg->mdlLimit));
             $itm->args = str($itm->args)->swop($jul,$mbc);
             $itm->args = str($itm->args)->swop(["\n",'\n','  ',CWD], '');
             $itm->args = htmlentities($itm->args);
@@ -88,9 +93,9 @@
             $sho .= '<tr>';
             $sho .= '<td id="col0">'.$nbr.'</td>';
             $sho .= '<td id="col1">'.str($itm->call)->trim('<<', (0 - $cfg->lftLimit)).'</td>';
-            $sho .= '<td id="col2">'.$itm->args.'</td>';
+            $sho .= '<td id="col2">('.$itm->args.$apn.')</td>';
             $sho .= '<td id="col3">'.str($itm->file)->trim('<<', (0 - $cfg->rgtLimit)).'</td>';
-            $sho .= '<td>('.$itm->line.')</td>';
+            $sho .= '<td>&nbsp;&nbsp;'.$itm->line.'</td>';
             $sho .= '</tr>'."\n";
          }
       // --------------------------------------------------------------------------------

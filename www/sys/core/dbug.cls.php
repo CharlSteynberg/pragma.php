@@ -8,9 +8,11 @@
    // -----------------------------------------------------------------------------------
       public static function type($gvn, $exp)
       {
+         $gvn = (!is::type($gvn) ? typeOf($gvn) : $gvn);
+
          if ($gvn !== $exp)
          {
-            fail::{'type mismatch'}("`$exp` expected, but `$gvn` was given");
+            fail::{'type mismatch'}("$exp expected, but $gvn was given");
          }
 
          return true;

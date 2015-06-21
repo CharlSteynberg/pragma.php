@@ -93,7 +93,7 @@
       {
          "dbugTmpl": "cfg/http/tpl/dbug.tpl.htm",
          "dbugFont": "cfg/http/fnt/c0d3.woff",
-         "stackSho": 16,
+         "stackSho": 32,
 
          "lftLimit": 40,
          "mdlLimit": 80,

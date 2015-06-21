@@ -31,6 +31,7 @@
          { fail::{Ref}("`$pty` is $err"); }
       // --------------------------------------------------------------------------------
 
+
       // add :: stack - called item
       // --------------------------------------------------------------------------------
          core::stack
@@ -63,12 +64,26 @@
 // --------------------------------------------------------------------------------------
    class is
    {
+      public static function type($dfn)
+      {
+         $tpe = strtolower(gettype($dfn));
+         $rsl = false;
+
+         if ($tpe === 'string')
+         {
+            $flc = mb_substr($dfn,0,1).mb_substr($dfn,-1,1);
+            $rsl = (($flc === LTB.LTE) ? true : false);
+         }
+
+         return $rsl;
+      }
+
       public static function __callStatic($k,$v)
       {
          if (mb_strpos($k,LTB) === false)
          {
 
-            $c = get::{'conf.constant'}(core);
+            $c = core::get('conf.constant');
 
             if (!isset($c->$k))
             { return false; }
