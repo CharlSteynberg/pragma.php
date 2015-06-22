@@ -65,12 +65,12 @@
          $pts = ((count($pts) < 1) ? [SHD] : $pts);
          $inf = (object)pathinfo($pth);
          $fnm = (isset($inf->filename) ? $inf->filename : $bse);
-         $ext = (isset($inf->extension) ? $inf->extension : null);
+         $ext = (isset($inf->extension) ? $inf->extension : udf);
          $sts = ((!is_readable($apn) ? (!file_exists($apn) ? 404 : 403) : 200));
          $tpe = 'none';
          $sze = 0;
          $mme = path::get('conf.mime');
-         $mme = (isset($mme->$ext) ? $mme->$ext : "undefined/$enc+".$ext);
+         $mme = (isset($mme->$ext) ? $mme->$ext : udf);
          $enc = udf;
          $bnr = udf;
       // --------------------------------------------------------------------------------
@@ -132,6 +132,12 @@
    // -----------------------------------------------------------------------------------
       public static function make($pth, $dat='')
       {
+      // add :: to - call-stack
+      // --------------------------------------------------------------------------------
+         core::stack();
+      // --------------------------------------------------------------------------------
+
+
       // def :: vars - locals
       // --------------------------------------------------------------------------------
          $pth = path::norm($pth);
@@ -236,6 +242,12 @@
    // -----------------------------------------------------------------------------------
       public static function read($pth, $vrs=udf)
       {
+      // add :: to - call-stack
+      // --------------------------------------------------------------------------------
+         core::stack();
+      // --------------------------------------------------------------------------------
+
+
       // def :: vars - locals
       // --------------------------------------------------------------------------------
          $pth = dbug::path($pth);
@@ -293,7 +305,7 @@
 
                $vrs->{'$path'} = $pth;
 
-               return parse($rsl,$vrs);
+               return cast($rsl,$vrs);
             }
 
             return $rsl;

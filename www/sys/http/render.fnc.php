@@ -1,18 +1,16 @@
 <?
 
-// def :: make.cls - extends: `devl`
+// def :: render - extends: `http`
 // --------------------------------------------------------------------------------------
-   set::{'devl.make.cls'}
+   set::{'http.render'}
    (
-   // fnc :: cls - implements: `devl::make.cls()`
+   // fnc :: render - implements: `http::render()`
    // -----------------------------------------------------------------------------------
-      function($src,$inf)
+      function()
       {
-      // rsl :: write - updated `$src`
+      // run :: test - debug
       // --------------------------------------------------------------------------------
-         $src = str($src)->swop('template', $inf->make->cls);
-
-         path::make($inf->path,$src);
+         dbug::{"testing: `http::render()`"}(func_get_args());
       // --------------------------------------------------------------------------------
       }
    // -----------------------------------------------------------------------------------

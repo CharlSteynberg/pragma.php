@@ -362,9 +362,9 @@
 
 
 
-// fnc :: parse - string to value
+// fnc :: cast - string to value
 // --------------------------------------------------------------------------------------
-   function parse($dfn,$vrs=null)
+   function cast($dfn,$vrs=null)
    {
    // cnd :: return - non-string value
    // -----------------------------------------------------------------------------------
@@ -411,7 +411,7 @@
             $pth = (isset($vrs->{'$path'}) ? $vrs->{'$path'} : null);
             $dfn = (($tpe !== EXP) ? "($dfn)" : $dfn);
 
-            return jsam::parse(jsam::frisk($dfn, $pth), $vrs);
+            return jsam::cast(jsam::prep($dfn, $pth), $vrs);
          }
       }
    // -----------------------------------------------------------------------------------

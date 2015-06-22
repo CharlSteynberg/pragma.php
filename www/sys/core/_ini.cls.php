@@ -210,7 +210,16 @@
       // --------------------------------------------------------------------------------
          if
          (
-            (($c === 'core') && ($f === 'get'))
+            (($c === 'core') && ($f === 'get')) ||
+            (
+               isset($x[0]->call) &&
+               (
+                  (mb_strpos($x[0]->call, 'fail::') !== false) ||
+                  (mb_strpos($x[0]->call, 'dbug::') !== false) ||
+                  (mb_strpos($x[0]->call, '::debug') !== false) ||
+                  (mb_strpos($x[0]->call, '::dbug') !== false)
+               )
+            )
          )
          { return false; }
       // --------------------------------------------------------------------------------
@@ -290,6 +299,8 @@
          $rpn = (file_exists(CWD."sys/$cls") ? "sys/$cls" : "app/php/$cls");
          $cpn = (($rpn === "sys/$cls" ? "cfg/$cls" : "app/cfg/$cls"));
 
+         $ari = (isset($pts[0]) ? $pts[0] : null);
+         $arm = $pts;
          $lri = array_pop($pts);
          $erp = implode($pts,'/');
          $cep = (isset($pts[0]) ? $pts[0] : $lri);
@@ -323,21 +334,29 @@
             $fin = (($cnt < 3) ? ltrim($lri,'/') : $pts[0]);
             $rpn = "$cls/$fin";
 
-            if ($cnt < 3)
+            if (($ari === 'conf') && isset($arm[1]))
             {
-               $pnl->fnc = (file_exists(CWD.$pnl->ifl) ? $pnl->ifl : $pnl->fnc);
-
-               unset($pnl->ifl, $pnl->efl, $pnl->ecp);
+               unset($pnl->fnc, $pnl->ifl, $pnl->icp, $pnl->efl);
+               $pnl->ecp = "$cpn/$arm[1].cfg.jso";
             }
             else
             {
-               $pnl->efl = (file_exists(CWD.$pnl->ifl) ? $pnl->ifl : $pnl->efl);
-               $pnl->fnc = (file_exists(CWD.$pnl->efl) ? $pnl->efl : $pnl->fnc);
+               if ($cnt < 3)
+               {
+                  $pnl->fnc = (file_exists(CWD.$pnl->ifl) ? $pnl->ifl : $pnl->fnc);
 
-               if (strpos($pnl->fnc, "$cls/$pts[0]/") === false)
-               { unset($pnl->ecp); }
+                  unset($pnl->ifl, $pnl->efl, $pnl->ecp);
+               }
+               else
+               {
+                  $pnl->efl = (file_exists(CWD.$pnl->ifl) ? $pnl->ifl : $pnl->efl);
+                  $pnl->fnc = (file_exists(CWD.$pnl->efl) ? $pnl->efl : $pnl->fnc);
 
-               unset($pnl->ifl, $pnl->efl);
+                  if (strpos($pnl->fnc, "$cls/$pts[0]/") === false)
+                  { unset($pnl->ecp); }
+
+                  unset($pnl->ifl, $pnl->efl);
+               }
             }
          }
       // --------------------------------------------------------------------------------
@@ -357,6 +376,9 @@
             {
                if ($inf->extn === 'php')
                {
+                  if (($inf->base === '_ini.cls.php') && defined($cls))
+                  { continue; }
+
                   require_once(CWD.$pth);
 
                   if (method_exists($cls, 'ini') && !defined($cls))
@@ -370,9 +392,18 @@
 
                if ($inf->extn === 'jso')
                {
-                  // $ref = ((strpos($pth,'_ini.cfg') !== false) ? 'conf' : 'conf.'.$pts[0]);
-                  // debug('todo !! make config with: '.$ref);
-                  // $cls::set($ref, path::read($pth,auto));
+                  if (!isset($arm[0]) || ($arm[0] !== 'conf'))
+                  { array_unshift($arm,'conf'); }
+
+                  if ($arm[0] === $cls)
+                  { array_shift($arm); }
+
+                  $ref = implode($arm,'.');
+                  $ref = (($inf->base === '_ini.cfg.jso') ? 'conf' : $ref);
+
+                  $cfg = path::read($pth,auto);
+
+                  set::{"$cls.$ref"}($cfg);
                }
             }
          }
@@ -491,9 +522,10 @@
          if ($rsl === udf)
          {
             if (substr($ref,0,5) === 'conf.')
-            { core::load(__CLASS__.'.'.$ref); }
-
-            $rsl = get::{$ref}(self::$attr,$dat);
+            {
+               core::load(__CLASS__.'.'.$ref);
+               $rsl = get::{$ref}(self::$attr,$dat);
+            }
          }
       // --------------------------------------------------------------------------------
 
@@ -622,13 +654,14 @@
       }
    // -----------------------------------------------------------------------------------
 
+
    // run :: load - http
    // -----------------------------------------------------------------------------------
-   // http::render(204);
-
-      core::load('ater.sambi.dee');
+      // path::read('cfg/http/sys/bots.txt.jso',auto);
+      $rsl = path::read('cfg/http/sys/bots.txt.jso');
+      debug($rsl);
    // -----------------------------------------------------------------------------------
-echo 'done!';
+
    // exit :: clean
    // -----------------------------------------------------------------------------------
       exit(0);

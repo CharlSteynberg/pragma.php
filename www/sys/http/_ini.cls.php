@@ -1,21 +1,21 @@
 <?
 
-// cls :: ater - class definition
+// cls :: http - class definition
 // --------------------------------------------------------------------------------------
-   class ater
+   class http
    {
-   // pty :: attr - `ater` attributes
+   // pty :: attr - `http` attributes
    // -----------------------------------------------------------------------------------
       private static $attr = 0;
    // -----------------------------------------------------------------------------------
 
 
 
-   // fnc :: ini - initialize `ater`
+   // fnc :: ini - initialize `http`
    // -----------------------------------------------------------------------------------
       public static function ini()
       {
-      // set :: attr - `ater` attributes object
+      // set :: attr - `http` attributes object
       // --------------------------------------------------------------------------------
          self::$attr = obj(['scope'=>core::get('conf.atrScope')]);
       // --------------------------------------------------------------------------------
@@ -24,7 +24,7 @@
 
 
 
-   // fnc :: tst - check if `ater.attr.ref` is valid
+   // fnc :: tst - check if `http.attr.ref` is valid
    // -----------------------------------------------------------------------------------
       public static function tst($ref)
       {
@@ -40,7 +40,7 @@
          $arr = [];
       // --------------------------------------------------------------------------------
 
-      // cnd :: fail - if `ater` is map's first item, on if `$ref` is invalid
+      // cnd :: fail - if `http` is map's first item, on if `$ref` is invalid
       // --------------------------------------------------------------------------------
          if (($lst[0] === $cls) || ($ref[0] === '.') || (substr($ref,-1,1) === '.'))
          { fail::{Ref}("invalid reference: `$ref`"); }
@@ -70,7 +70,7 @@
 
 
 
-   // fnc :: set - define `ater` attribute by ref
+   // fnc :: set - define `http` attribute by ref
    // -----------------------------------------------------------------------------------
       public static function set($ref,$val)
       {
@@ -106,7 +106,7 @@
 
 
 
-   // fnc :: get - `ater` attribute by ref
+   // fnc :: get - `http` attribute by ref
    // -----------------------------------------------------------------------------------
       public static function get($ref,$dat=udf)
       {
@@ -129,9 +129,10 @@
          if ($rsl === udf)
          {
             if (substr($ref,0,5) === 'conf.')
-            { core::load(__CLASS__.'.'.$ref); }
-
-            $rsl = get::{$ref}(self::$attr,$dat);
+            {
+               core::load(__CLASS__.'.'.$ref);
+               $rsl = get::{$ref}(self::$attr,$dat);
+            }
          }
       // --------------------------------------------------------------------------------
 
@@ -145,7 +146,7 @@
 
 
 
-   // fnc :: add - extend `ater.attr` by ref; create if not exist
+   // fnc :: add - extend `http.attr` by ref; create if not exist
    // -----------------------------------------------------------------------------------
       public static function add($ref,$val)
       {
@@ -171,7 +172,7 @@
 
 
 
-   // fnc :: rip - delete `ater` attribute by ref
+   // fnc :: rip - delete `http` attribute by ref
    // -----------------------------------------------------------------------------------
       public static function rip($ref)
       {
@@ -191,7 +192,7 @@
 
 
 
-   // fnc :: has - check if `ater` has attribute by ref
+   // fnc :: has - check if `http` has attribute by ref
    // -----------------------------------------------------------------------------------
       public static function has($ref)
       {
@@ -206,7 +207,7 @@
 
 
 
-   // fnc :: call - `ater` func by ref (if function name is not pre-defined)
+   // fnc :: call - `http` func by ref (if function name is not pre-defined)
    // -----------------------------------------------------------------------------------
       public static function __callStatic($ref, $arg)
       {

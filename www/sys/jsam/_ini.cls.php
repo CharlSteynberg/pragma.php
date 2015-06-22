@@ -1,130 +1,30 @@
 <?
 
-// cls :: devl - class definition
+// cls :: jsam - class definition
 // --------------------------------------------------------------------------------------
-   class devl
+   class jsam
    {
-   // pty :: attr - `devl` attributes
+   // pty :: attr - `jsam` attributes
    // -----------------------------------------------------------------------------------
       private static $attr = 0;
    // -----------------------------------------------------------------------------------
 
 
 
-   // fnc :: ini - initialize `devl`
+   // fnc :: ini - initialize `jsam`
    // -----------------------------------------------------------------------------------
       public static function ini()
       {
-      // add :: to - call-stack
-      // --------------------------------------------------------------------------------
-         core::stack();
-      // --------------------------------------------------------------------------------
-
-      // set :: attr - `devl` attributes object
+      // set :: attr - `jsam` attributes object
       // --------------------------------------------------------------------------------
          self::$attr = obj(['scope'=>core::get('conf.atrScope')]);
       // --------------------------------------------------------------------------------
-
-      // def :: local - vars
-      // --------------------------------------------------------------------------------
-         $tdn = 'cfg/devl/tpl';
-         $fdn = 'sys/devl/make';
-
-         $tnl = scandir($tdn);
-         $fnl = scandir($fdn);
-
-         self::$attr->tmpl = obj();
-      // --------------------------------------------------------------------------------
-
-      // set :: attr - `tmpl` object
-      // --------------------------------------------------------------------------------
-         foreach ($tnl as $itm)
-         {
-            if ($itm[0] === '.'){ continue; }
-
-            $nme = explode('.', $itm)[0];
-            self::$attr->tmpl->$nme = file_get_contents(CWD."$tdn/$itm");
-         }
-      // --------------------------------------------------------------------------------
-
-      // set :: make - functions
-      // --------------------------------------------------------------------------------
-         foreach ($fnl as $itm)
-         {
-            if ($itm[0] === '.'){ continue; }
-
-            require_once(CWD."$fdn/$itm");
-         }
-      // --------------------------------------------------------------------------------
       }
    // -----------------------------------------------------------------------------------
 
 
 
-   // fnc :: make - create paths & insert their contents according to relevant templates
-   // -----------------------------------------------------------------------------------
-      public static function make($pth)
-      {
-      // add :: to - call-stack
-      // --------------------------------------------------------------------------------
-         core::stack();
-      // --------------------------------------------------------------------------------
-
-      // def :: local - vars
-      // --------------------------------------------------------------------------------
-         $pth = path::norm($pth);
-         $inf = path::info($pth);
-         $pts = explode('/',$pth);
-         $cdr = (($pts[0] === 'sys') ? 'sys' : $pts[0].'/'.$pts[1]);
-         $crp = explode($cdr,$pth)[1];
-         $pts = explode('.',$crp);
-         $ref = $pts[1];
-         $crp = ltrim(str_replace('/','.', $pts[0]), '.');
-
-         $pts = explode('.',$crp);
-         $cls = array_shift($pts);
-         $erp = implode($pts,'.');
-
-         $src = (isset(self::$attr->tmpl->$ref) ? self::$attr->tmpl->$ref : udf);
-         $fnc = (isset(self::$attr->make->$ref) ? self::$attr->make->$ref : udf);
-      // --------------------------------------------------------------------------------
-
-      // cnd :: debug - tmpl
-      // --------------------------------------------------------------------------------
-         if ($src === udf)
-         { fail::{Src}("template for type: `$ref` is ".Udf); }
-      // --------------------------------------------------------------------------------
-
-      // cnd :: debug - make
-      // --------------------------------------------------------------------------------
-         if ($fnc === udf)
-         { fail::{Src}("function for type: `$ref` is ".Udf); }
-      // --------------------------------------------------------------------------------
-
-      // add :: make - to inf object
-      // --------------------------------------------------------------------------------
-         $inf->make = obj
-         ([
-            'cls'=>$cls,
-            'ref'=>$erp,
-         ]);
-      // --------------------------------------------------------------------------------
-
-      // run :: call - handler with `$src` & `$inf`
-      // --------------------------------------------------------------------------------
-         $rsl = call_user_func_array($fnc,[$src,$inf]);
-      // --------------------------------------------------------------------------------
-
-      // rsl :: return - true
-      // --------------------------------------------------------------------------------
-         return true;
-      // --------------------------------------------------------------------------------
-      }
-   // -----------------------------------------------------------------------------------
-
-
-
-   // fnc :: tst - check if `devl.attr.ref` is valid
+   // fnc :: tst - check if `jsam.attr.ref` is valid
    // -----------------------------------------------------------------------------------
       public static function tst($ref)
       {
@@ -140,7 +40,7 @@
          $arr = [];
       // --------------------------------------------------------------------------------
 
-      // cnd :: fail - if `devl` is map's first item, on if `$ref` is invalid
+      // cnd :: fail - if `jsam` is map's first item, on if `$ref` is invalid
       // --------------------------------------------------------------------------------
          if (($lst[0] === $cls) || ($ref[0] === '.') || (substr($ref,-1,1) === '.'))
          { fail::{Ref}("invalid reference: `$ref`"); }
@@ -170,7 +70,7 @@
 
 
 
-   // fnc :: set - define `devl` attribute by ref
+   // fnc :: set - define `jsam` attribute by ref
    // -----------------------------------------------------------------------------------
       public static function set($ref,$val)
       {
@@ -206,7 +106,7 @@
 
 
 
-   // fnc :: get - `devl` attribute by ref
+   // fnc :: get - `jsam` attribute by ref
    // -----------------------------------------------------------------------------------
       public static function get($ref,$dat=udf)
       {
@@ -229,9 +129,10 @@
          if ($rsl === udf)
          {
             if (substr($ref,0,5) === 'conf.')
-            { core::load(__CLASS__.'.'.$ref); }
-
-            $rsl = get::{$ref}(self::$attr,$dat);
+            {
+               core::load(__CLASS__.'.'.$ref);
+               $rsl = get::{$ref}(self::$attr,$dat);
+            }
          }
       // --------------------------------------------------------------------------------
 
@@ -245,7 +146,7 @@
 
 
 
-   // fnc :: add - extend `devl.attr` by ref; create if not exist
+   // fnc :: add - extend `jsam.attr` by ref; create if not exist
    // -----------------------------------------------------------------------------------
       public static function add($ref,$val)
       {
@@ -271,7 +172,7 @@
 
 
 
-   // fnc :: rip - delete `devl` attribute by ref
+   // fnc :: rip - delete `jsam` attribute by ref
    // -----------------------------------------------------------------------------------
       public static function rip($ref)
       {
@@ -291,7 +192,7 @@
 
 
 
-   // fnc :: has - check if `devl` has attribute by ref
+   // fnc :: has - check if `jsam` has attribute by ref
    // -----------------------------------------------------------------------------------
       public static function has($ref)
       {
@@ -306,7 +207,7 @@
 
 
 
-   // fnc :: call - `devl` func by ref (if function name is not pre-defined)
+   // fnc :: call - `jsam` func by ref (if function name is not pre-defined)
    // -----------------------------------------------------------------------------------
       public static function __callStatic($ref, $arg)
       {
@@ -320,7 +221,7 @@
       // def :: vars - locals
       // --------------------------------------------------------------------------------
          $cls = __CLASS__;
-         $pty = self::get($ref);
+         $pty = get::{$ref}(self::$attr);
          $tpe = typeOf($pty);
       // --------------------------------------------------------------------------------
 
@@ -343,7 +244,7 @@
 
          // def :: vars - locals
          // -----------------------------------------------------------------------------
-            $pty = self::get($ref);
+            $pty = get::{$ref}(self::$attr);
             $tpe = typeOf($pty);
          // -----------------------------------------------------------------------------
          }
@@ -361,7 +262,7 @@
       // --------------------------------------------------------------------------------
          $dir = str_replace(CWD, '', __DIR__);
          $pth = "$dir/".str_replace('.','/',$ref);
-         $pth = (file_exists(CWD.$pth) ? ($pth.'/_auto.run.php') : ($pth.'.fnc.php'));
+         $pth = (file_exists(CWD.$pth) ? ($pth.'/_ini.cls.php') : ($pth.'.fnc.php'));
       // --------------------------------------------------------------------------------
 
 
