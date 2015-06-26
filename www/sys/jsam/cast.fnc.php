@@ -30,18 +30,19 @@
 
       // locals
       // --------------------------------------------------------------------------------
-         $cfg = jsam::get('conf.parse.literals');
+         $cfg = jsam::get('conf.cast.literals');
          $qsb = QSB;
          $qse = QSE;
+         $qsr = QSB.QSE;
          $qsc = false;
          $rco = ['({[',']})'];
 
-         $ctd = new object
+         $ctd = obj
          ([
-            QSB.QSE=>(object)['ctx'=>'qot', 'dlm'=>null, 'rsl'=>''],
-            '()'=>(object)['ctx'=>'exp', 'dlm'=>',+-*/=<>!?:&|%', 'rsl'=>[]],
-            '{}'=>(object)['ctx'=>'obj', 'dlm'=>':,;', 'rsl'=>new object()],
-            '[]'=>(object)['ctx'=>'arr', 'dlm'=>',', 'rsl'=>[]],
+            $qsr=>obj(['ctx'=>'qot', 'dlm'=>null, 'rsl'=>'']),
+            '()'=>obj(['ctx'=>'exp', 'dlm'=>',+-*/=<>!?:&|%', 'rsl'=>[]]),
+            '{}'=>obj(['ctx'=>'obj', 'dlm'=>':,;', 'rsl'=>obj()]),
+            '[]'=>obj(['ctx'=>'arr', 'dlm'=>',', 'rsl'=>[]]),
          ]);
 
          $flc = substr($dfn,0,1).substr($dfn,-1,1);
@@ -70,7 +71,7 @@
 
          if ($ctx === 'str')
          {
-            $dfn = parse($dfn);
+            $dfn = cast($dfn);
 
             if (typeOf($dfn) === str)
             { $dfn = jsam::{'parse.subExp'}($dfn, $vrs); }
@@ -231,7 +232,7 @@
                      // process single item
                      // -----------------------------------------------------------------
                         if (count($seq) < 1)
-                        { return jsam::parse($rsl, $vrs); }
+                        { return jsam::cast($rsl, $vrs); }
                      // -----------------------------------------------------------------
 
                      // process calculation sequence
@@ -260,7 +261,7 @@
 
                                     if ((strlen($lcs) > 1) && ($lcs[1] === ')'))
                                     {
-                                       $lft = jsam::parse($lft, $vrs);
+                                       $lft = jsam::cast($lft, $vrs);
 
                                        if (typeOf($lft) === str)
                                        { $lft = $qsb.$lft.$qse; }
@@ -276,7 +277,7 @@
 
                                     if ((strlen($rcs) > 1) && ($rcs[1] === ')'))
                                     {
-                                       $rgt = jsam::parse($rgt, $vrs);
+                                       $rgt = jsam::cast($rgt, $vrs);
 
                                        if (typeOf($rgt) === str)
                                        { $rgt = $qsb.$rgt.$qse; }
@@ -318,7 +319,7 @@
                      if ($c == ':')
                      {
                         $flc = $val[0].substr($val, -1, 1);
-                        $obk = ((($flc === '()') || ($flc === $qsb.$qse)) ? jsam::parse($val,$vrs) : $val);
+                        $obk = ((($flc === '()') || ($flc === $qsb.$qse)) ? jsam::cast($val,$vrs) : $val);
 
                         if ($obk === null)
                         { fail::{Ref}("invalid object key-name: `$val`"); }
@@ -359,7 +360,7 @@
                               else
                               {
                                  $val = '{'.$qsb.$tpl.$qse.':'.$val.'}';
-                                 $val = jsam::{'parse.extends'}(jsam::parse($val,$vrs),$vrs);
+                                 $val = jsam::{'parse.extends'}(jsam::cast($val,$vrs),$vrs);
                               }
                            }
 
@@ -368,9 +369,9 @@
                               $flc = $val[0].substr($val, -1, 1);
 
                               if (isset($ctd->{$flc}) || ($flc[1] === ')'))
-                              { $val = jsam::parse($val,$vrs); }
+                              { $val = jsam::cast($val,$vrs); }
                               else
-                              { $val = parse($val); }
+                              { $val = cast($val); }
                            }
 
                            $rsl->$obk = $val;
@@ -396,7 +397,7 @@
                   // add item to result
                   // --------------------------------------------------------------------
                      $flc = $val[0].substr($val, -1, 1);
-                     $tmp = jsam::parse($val,$vrs);
+                     $tmp = jsam::cast($val,$vrs);
                      $apn = false;
 
                      if (typeOf($tmp) === arr)
