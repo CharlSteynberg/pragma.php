@@ -45,12 +45,12 @@
          $msg = $nme.'&nbsp;&nbsp;'.(isset($atr[0]) ? $atr[0] : Und);// error message
          $dbg = (isset($atr[1]) ? $atr[1]."...\n\n" : '...');        // to string
          $dbg = str_replace('\n',"\n", $dbg);
+
          $stc = core::get('stack');                                  // stack trace
          $cfg = core::get('conf.dbugConf');                          // fail config
          $htm = file_get_contents(CWD.$cfg->dbugTmpl);               // debug template
          $sho = '';                                                  // stack htm output
          $cns = core::get('conf.constant');
-         $fnt = path::read('cfg/http/fnt/c0d3.woff',str);
          $mbc = [];
          $cnt = count($stc);
 
@@ -84,8 +84,8 @@
             $len = mb_strlen($itm->args);
             $apn = ($len > $cfg->mdlLimit ? '...' : '');
 
-            $itm->args = str($itm->args)->trim('<<', (0 - $cfg->mdlLimit));
             $itm->args = str($itm->args)->swop($jul,$mbc);
+            $itm->args = str($itm->args)->trim('<<', (0 - $cfg->mdlLimit));
             $itm->args = str($itm->args)->swop(["\n",'\n','  ',CWD], '');
             $itm->args = htmlentities($itm->args);
             $nbr = ($cnt - $num);
@@ -102,6 +102,7 @@
 
       // prep html
       // --------------------------------------------------------------------------------
+         $fnt = path::read('cfg/http/fnt/c0d3.woff',str);
          $dbg = str($dbg)->swop($jul,$mbc);
          $htm = str($htm)->swop(['({fnt})','({msg})','({dbg})','({stc})'], [$fnt,$msg,$dbg,$sho]);
       // --------------------------------------------------------------------------------

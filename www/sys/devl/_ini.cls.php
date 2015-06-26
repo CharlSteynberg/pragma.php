@@ -85,8 +85,8 @@
          $cls = array_shift($pts);
          $erp = implode($pts,'.');
 
-         $src = (isset(self::$attr->tmpl->$ref) ? self::$attr->tmpl->$ref : udf);
-         $fnc = (isset(self::$attr->make->$ref) ? self::$attr->make->$ref : udf);
+         $src = get::{"tmpl.$ref"}(self::$attr);
+         $fnc = get::{"make.$ref"}(self::$attr);
       // --------------------------------------------------------------------------------
 
       // cnd :: debug - tmpl

@@ -48,6 +48,14 @@
          define('ENC',$cfg->encoding);                      // system wide charset
          define('core', CRB.'core'.CRE);                    // class reference constant
          define('MODE',$cfg->coreMode);                     // core runtime mode
+
+         foreach ($cfg->modeList as $mde)
+         {
+            if (!$mde){ continue; }
+
+            $cmv = ((MODE === $mde) ? true : false);
+            define($mde.'Mode',$cmv);
+         }
       // --------------------------------------------------------------------------------
 
 
@@ -211,15 +219,7 @@
          if
          (
             (($c === 'core') && ($f === 'get')) ||
-            (
-               isset($x[0]->call) &&
-               (
-                  (mb_strpos($x[0]->call, 'fail::') !== false) ||
-                  (mb_strpos($x[0]->call, 'dbug::') !== false) ||
-                  (mb_strpos($x[0]->call, '::debug') !== false) ||
-                  (mb_strpos($x[0]->call, '::dbug') !== false)
-               )
-            )
+            (defined('failMode'))
          )
          { return false; }
       // --------------------------------------------------------------------------------
@@ -644,13 +644,13 @@
 
 // cnd :: mode - continue ONLY if core-mode is NOT `none`
 // --------------------------------------------------------------------------------------
-   if (MODE !== 'none')
+   if (MODE !== null)
    {
    // cnd :: mode - load `devl` class if core-mode is `devl`
    // -----------------------------------------------------------------------------------
-      if (MODE === 'devl')
+      if (devlMode)
       {
-         core::load(MODE);
+         core::load('devl');
       }
    // -----------------------------------------------------------------------------------
 
@@ -658,8 +658,13 @@
    // run :: load - http
    // -----------------------------------------------------------------------------------
       // path::read('cfg/http/sys/bots.txt.jso',auto);
-      $rsl = path::read('cfg/http/sys/bots.txt.jso');
-      debug($rsl);
+
+      // $rsl = path::read('cfg/http/sys/bots.txt.jso');
+      // $rsl = jsam::prep($rsl);
+      // $rsl = jsam::cast($rsl);
+
+      debug('core is stable');
+
    // -----------------------------------------------------------------------------------
 
    // exit :: clean
